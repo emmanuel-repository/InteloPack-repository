@@ -162,7 +162,7 @@ $(document).ready(function () {
                         {
                             'data': null,
                             'defaultContent': "<a id='btn_quitar_asignacion' class='btn btn-outline-warning btn-sm'" +
-                                " data-toggle='tooltip' data-placement='right' title='Desvincular transporte con el chofer'>" +
+                                " data-toggle='tooltip' data-placement='right' title='Desvincular transporte con el operador'>" +
                                 "<i class='fa fa-user-times'></i></a>"
                         },
                         ],

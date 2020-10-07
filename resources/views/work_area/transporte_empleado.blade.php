@@ -6,9 +6,9 @@
             </div>
             <div class="col-md-6 d-flex justify-content-end">
                 <a type="button" class="btn btn-sm btn-success text-white" id="btn_open_modal_transporte"
-                    data-toggle='tooltip' data-placement='right' title='Asignar Chofer a Transporte'>
+                    data-toggle='tooltip' data-placement='right' title='Asignar Operador a Transporte'>
                     <i class="fas fa-truck"></i>
-                    Asignar Chofer a Transportes
+                    Asignar Operador a Transportes
                 </a>
             </div>
         </div>
@@ -36,7 +36,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Asignar Chofer a Transporte</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Asignar Operador a Transporte</h5>
                 <button class="close btn_cancelar" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times</span>
                 </button>
