@@ -42,6 +42,10 @@ class PaqueteController extends Controller {
     public function store(Request $request) {
         $data          = array();
         $paquete       = new Paquete;
+        $id_socursal   = Auth::user()->socursal_id;
+        $socursal      = Socursal::findOrFail($id_socursal);
+        $no_socursal   = $socursal->no_socursal;
+        $no_socursal_substr = explode('-', $no_socursal);
         $array_paquete = array(
             'estado_destino'        => $request->input('estado_destino'),
             'municipio_destino'     => $request->input('municipio_destino'),
@@ -64,9 +68,13 @@ class PaqueteController extends Controller {
         );
         $insert = $paquete->insert($array_paquete, $array_cross_over);
         if ($insert > 0) {
+            $array_data = array(
+                'id_paquete'  => $insert,
+                'no_sucursal' => $no_socursal_substr[1],
+            );
             $data['response_code'] = 200;
             $data['response_text'] = "Si se guardaran los datos del paquete de cliente registrado";
-            $data['response_data'] = $insert;
+            $data['response_data'] = $array_data;
         } else {
             $data['response_code'] = 200;
             $data['response_text'] = "No se guardaran los datos del paquete de cliente registrado";
@@ -77,6 +85,10 @@ class PaqueteController extends Controller {
     public function create_paquete_eventual(Request $request) {
         $data          = array();
         $paquete       = new Paquete;
+        $id_socursal   = Auth::user()->socursal_id;
+        $socursal      = Socursal::findOrFail($id_socursal);
+        $no_socursal   = $socursal->no_socursal;
+        $no_socursal_substr = explode('-', $no_socursal);
         $array_paquete = array(
             'estado_destino'        => $request->input('estado_destino'),
             'municipio_destino'     => $request->input('municipio_destino'),
@@ -114,9 +126,13 @@ class PaqueteController extends Controller {
         );
         $insert = $paquete->insert_paquete_eventual($array_paquete, $array_eventual, $array_cross_over);
         if ($insert > 0) {
+            $array_data = array(
+                'id_paquete'  => $insert,
+                'no_sucursal' => $no_socursal_substr[1],
+            );
             $data['response_code'] = 200;
             $data['response_text'] = "Si se guardaran los datos del paquete de cliente registrado";
-            $data['response_data'] = $insert;
+            $data['response_data'] =  $array_data;
         } else {
             $data['response_code'] = 200;
             $data['response_text'] = "No se guardaran los datos del paquete de cliente registrado";
@@ -134,11 +150,14 @@ class PaqueteController extends Controller {
     }
 
     public function update(Request $request, $id) {
-        $data                = array();
-        $paquete             = Paquete::findOrFail($id);
+        $data        = array();
+        $id_socursal = Auth::user()->socursal_id;
+        $paquete     = Paquete::findOrFail($id);
         $paquete->no_paquete = $request->input('numero_codigo_barra');
         $nombre_completo     = $request->input('nombre_completo');
         $correo              = $request->input('correo');
+        // print_r($correo);
+        // die();
         $no_rastreo          = $request->input('numero_codigo_barra');
         if ($paquete->save()) {
             $array_email = array(

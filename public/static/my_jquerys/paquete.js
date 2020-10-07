@@ -159,7 +159,6 @@ $(document).ready(function () {
             var text = "Favor de seleccionar la razon social del Cliente"
             infoAlert(mensaje, text)
         }
-
     });
 
     $(document).on('change', '#estado_destino', function () {
@@ -252,11 +251,13 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.response_code == 200) {
+                    var value = data.response_data;
                     localStorage.setItem('correo', correo);
-                    localStorage.setItem('nombre_completo', nombre + ' ' 
+                    localStorage.setItem('nombre_completo', nombre + ' '
                         + apellido_1 + ' ' + apellido_2);
-                    var id_paquete = data.response_data;
-                    generar_codigo_barrar(id_paquete);
+                    var id_paquete = value.id_paquete;
+                    var no_socursal = value.no_sucursal;
+                    generar_codigo_barrar(id_paquete, no_socursal);
                     limpiar_input_destino();
                 } else if (data.response_code == 500) {
                     infoAlert("Verifica", data.response_text);
@@ -293,11 +294,13 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.response_code == 200) {
-                    var id_paquete = data.response_data;
+                    var value = data.response_data;
                     localStorage.setItem('correo', correo);
-                    localStorage.setItem('nombre_completo', nombre + ' ' 
+                    localStorage.setItem('nombre_completo', nombre + ' '
                         + apellido_1 + ' ' + apellido_2);
-                    generar_codigo_barrar(id_paquete);
+                    var id_paquete = value.id_paquete;
+                    var no_socursal = value.no_sucursal;
+                    generar_codigo_barrar(id_paquete, no_socursal);
                     limpiar_input();
                     limpiar_input_destino();
                 } else if (data.response_code == 500) {
@@ -378,10 +381,10 @@ $(document).ready(function () {
         });
     }
 
-    function generar_codigo_barrar(id_paquete) {
+    function generar_codigo_barrar(id_paquete, no_socursal) {
         var hoy = new Date();
         var fecha_convertida = moment(hoy).format('YYYYMMDDhmmss');
-        var numero_codigo_barra = fecha_convertida + id_paquete
+        var numero_codigo_barra = no_socursal + fecha_convertida + id_paquete
         var options = {
             text: '' + numero_codigo_barra,
             bcid: 'code128', // Barcode type
