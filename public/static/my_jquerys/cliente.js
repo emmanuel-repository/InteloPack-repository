@@ -1,8 +1,4 @@
 $(document).ready(function () {
-
-    console.log('');
-
-
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
     cargar_tabla();

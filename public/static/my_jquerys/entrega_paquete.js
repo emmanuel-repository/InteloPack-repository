@@ -102,7 +102,6 @@ $(document).ready(function () {
                     // 'code_93_reader'
                     // format: "code_128_reader",
                     // config: {}
-
                 ]
             },
             locate: true
