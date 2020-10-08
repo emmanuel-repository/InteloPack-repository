@@ -118,7 +118,8 @@ class Paquete extends Model {
         return DB::table('paquetes')->where('no_paquete', $numero_bar_code)->first();
     }
 
-    public function insert_bar_codes_recoleccion($cantidad_bar_code, $fecha, $id_empleado) {
+    public function insert_bar_codes_recoleccion($cantidad_bar_code, $fecha,
+        $id_empleado, $no_socursal) {
         DB::beginTransaction();
         try {
             $data_array = array();
@@ -130,10 +131,11 @@ class Paquete extends Model {
                     'created_at'      => date("Y-m-d H:i:s"),
                     'updated_at'      => date("Y-m-d H:i:s"),
                 ]);
-                $data_array[$i] = $fecha . '' . $id_paquete;
+                $data_array[$i] = $no_socursal . '' . $fecha . '' . $id_paquete;
                 DB::table('paquetes')
                     ->where('id', $id_paquete)
-                    ->update(['no_paquete' => $fecha . '' . $id_paquete]);
+                    ->update(['no_paquete' => $no_socursal . '' . $fecha .
+                        '' . $id_paquete]);
             }
             DB::commit();
             return $data_array;
@@ -324,7 +326,7 @@ class Paquete extends Model {
                 ->first();
 
             $transporte_empleado = DB::table('transporte_empleados')->select('transporte_id')
-                ->where('empleado_id', $array['empleado_id'] )
+                ->where('empleado_id', $array['empleado_id'])
                 ->first();
 
             DB::table('paquetes')->where('no_paquete', $array['bar_code'])

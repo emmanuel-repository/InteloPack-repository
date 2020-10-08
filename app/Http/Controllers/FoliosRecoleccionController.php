@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paquete;
+use App\Models\Socursal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -27,12 +28,16 @@ class FoliosRecoleccionController extends Controller {
             'cantidad_bar_code' => 'required|nullable',
         ]);
         if (!$validator->fails()) {
-            $paquete           = new Paquete;
-            $cantidad_bar_code = $request->input('cantidad_bar_code');
-            $fecha             = $request->input('fecha');
-            $empleado_id       = Auth::user()->id;
-            $array_data        = $paquete->insert_bar_codes_recoleccion($cantidad_bar_code,
-                $fecha, $empleado_id);
+            $paquete            = new Paquete;
+            $id_socursal        = Auth::user()->socursal_id;
+            $socursal           = Socursal::findOrFail($id_socursal);
+            $no_socursal        = $socursal->no_socursal;
+            $no_socursal_substr = explode('-', $no_socursal);
+            $cantidad_bar_code  = $request->input('cantidad_bar_code');
+            $fecha              = $request->input('fecha');
+            $empleado_id        = Auth::user()->id;
+            $array_data         = $paquete->insert_bar_codes_recoleccion($cantidad_bar_code,
+                $fecha, $empleado_id, $no_socursal_substr[1]);
             if (count($array_data) > 0) {
                 $data['response_code'] = 200;
                 $data['response_text'] = 'Se generarón los codigos de Barras';
