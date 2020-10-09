@@ -115,7 +115,7 @@ $(document).ready(function () {
             if (result.value) {
                 var cantidad_imprimir = $('#cantidad_folios').val();
                 var hoy = new Date();
-                var fecha_convertida = moment(hoy).format('YYYYMMDDhmmss');
+                var fecha_convertida = moment(hoy).format('YYYYMMDD');
                 if (cantidad_imprimir <= 20) {
                     insert(cantidad_imprimir, fecha_convertida);
                 } else {

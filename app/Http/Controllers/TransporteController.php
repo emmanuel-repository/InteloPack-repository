@@ -13,7 +13,7 @@ class TransporteController extends Controller {
     public function __construct() {
         $this->middleware('auth:empleado');
     }
-    
+
     public function index() {
         $data                     = array();
         $data['titulo']           = 'Gestion de Transportes | InteloPack';
@@ -46,20 +46,30 @@ class TransporteController extends Controller {
                 'matricula_transporte' => 'unique:transportes',
             ]);
             if (!$exist_matricula_transporte->fails()) {
-                $transporte                       = new Transporte;
-                $transporte->matricula_transporte = $request->input('matricula_transporte');
-                $transporte->socursal_id          = $request->input('sucursal');
-                $transporte->tipo_transporte_id   = $request->input('tipo_transporte');
-                if ($transporte->save()) {
-                    $id_trasnporte                    = $transporte->id;
-                    $trasnporte_update                = Transporte::findOrFail($id_trasnporte);
-                    $trasnporte_update->no_transporte = "T-" . $id_trasnporte;
-                    $trasnporte_update->save();
-                    $data['response_code'] = 200;
-                    $data['response_text'] = 'Se guardarón con exito los datos';
+                $exist_no_eco_transporte = Validator::make($request->all(), [
+                    'no_economico_transporte' => 'unique:transportes',
+                ]);
+                if (!$exist_no_eco_transporte->fails()) {
+                    $transporte                          = new Transporte;
+                    $transporte->matricula_transporte    = $request->input('matricula_transporte');
+                    $transporte->socursal_id             = $request->input('sucursal');
+                    $transporte->tipo_transporte_id      = $request->input('tipo_transporte');
+                    $transporte->no_economico_transporte = $request->input('no_economico_transporte');
+                    if ($transporte->save()) {
+                        $id_trasnporte                    = $transporte->id;
+                        $trasnporte_update                = Transporte::findOrFail($id_trasnporte);
+                        $trasnporte_update->no_transporte = "T-" . $id_trasnporte;
+                        $trasnporte_update->save();
+                        $data['response_code'] = 200;
+                        $data['response_text'] = 'Se guardarón con exito los datos';
+                    } else {
+                        $data['response_code'] = 500;
+                        $data['response_text'] = 'No se guardarón con exito los datos';
+                    }
                 } else {
                     $data['response_code'] = 500;
-                    $data['response_text'] = 'No se guardarón con exito los datos';
+                    $data['response_text'] = "Ya se encuentra registrado ese
+                        transporte con esa Número economico";
                 }
             } else {
                 $data['response_code'] = 500;
@@ -98,17 +108,29 @@ class TransporteController extends Controller {
                 'matricula_transporte_editar' => 'unique:transportes,matricula_transporte,' . $id,
             ]);
             if (!$existe_matricula->fails()) {
-                $transporte                       = Transporte::findOrFail($id);
-                $transporte->matricula_transporte = $request->input('matricula_transporte_editar');
-                $transporte->socursal_id          = $request->input('sucursal_editar');
-                $transporte->tipo_transporte_id  = $request->input('tipo_transporte_editar');
-                if ($transporte->save()) {
-                    $data['response_code'] = 200;
-                    $data['response_text'] = "Se guardaron los cambios con exito de este regisro";
+                $existe_no_economico = Validator::make($request->all(), [
+                    'no_economico_transporte_editar' => 'unique:transportes,no_economico_transporte,'
+                    . $id,
+                ]);
+                if (!$existe_no_economico->fails()) {
+                    $transporte                          = Transporte::findOrFail($id);
+                    $transporte->matricula_transporte    = $request->input('matricula_transporte_editar');
+                    $transporte->socursal_id             = $request->input('sucursal_editar');
+                    $transporte->tipo_transporte_id      = $request->input('tipo_transporte_editar');
+                    $transporte->no_economico_transporte = $request->input('no_economico_transporte_editar');
+                    if ($transporte->save()) {
+                        $data['response_code'] = 200;
+                        $data['response_text'] = "Se guardaron los cambios con exito de este regisro";
+                    } else {
+                        $data['response_code'] = 500;
+                        $data['response_text'] = "No se guardaron los cambios con exito de este regisro";
+                    }
                 } else {
                     $data['response_code'] = 500;
-                    $data['response_text'] = "No se guardaron los cambios con exito de este regisro";
+                    $data['response_text'] = "Ya se encuentra registrado ese
+                    transporte con esa Número economico";
                 }
+
             } else {
                 $data['response_code'] = 500;
                 $data['response_text'] = "Ya se encuentra registrado ese transporte con esa Matricula";

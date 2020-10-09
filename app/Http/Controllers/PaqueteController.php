@@ -124,7 +124,8 @@ class PaqueteController extends Controller {
             'telefono_1_evnetual'    => $request->input('telefono_1_cliente'),
             'telefono_2_eventual'    => $request->input('telefono_2_cliente'),
         );
-        $insert = $paquete->insert_paquete_eventual($array_paquete, $array_eventual, $array_cross_over);
+        $insert = $paquete->insert_paquete_eventual($array_paquete, $array_eventual, 
+            $array_cross_over);
         if ($insert > 0) {
             $array_data = array(
                 'id_paquete'  => $insert,

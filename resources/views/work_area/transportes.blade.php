@@ -14,8 +14,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped rounded table-sm" 
-                id="data_table_transportes" width="100%"
+            <table class="table table-bordered table-striped rounded table-sm" id="data_table_transportes" width="100%"
                 cellspacing="0">
                 <thead class="thead-light">
                     <tr>
@@ -34,8 +33,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_agregar_transporte" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="modal_agregar_transporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
@@ -51,8 +49,13 @@
                         <div class="form-group col-md-6">
                             <label for="recipient-name" class="col-form-label">Matricula*</label>
                             <input type="text" class="form-control" id="matricula_transporte"
-                                name="matricula_transporte" maxlength="50"
-                                onKeyUp="document.getElementById(this.id).value 
+                                name="matricula_transporte" maxlength="20" onKeyUp="document.getElementById(this.id).value 
+                                    = document.getElementById(this.id).value.toUpperCase()">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="recipient-name" class="col-form-label">Número economico*</label>
+                            <input type="text" class="form-control" id="no_economico_transporte"
+                                name="no_economico_transporte" maxlength="20" onKeyUp="document.getElementById(this.id).value 
                                     = document.getElementById(this.id).value.toUpperCase()">
                         </div>
                         <div class="form-group col-md-6">
@@ -65,7 +68,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="recipient-name" class="col-form-label">Tipo de Transporte*</label>
+                            <label for="recipient-name" class="col-form-label">Tipo de transporte*</label>
                             <select class="form-control" id="tipo_transporte" name="tipo_transporte">
                                 <option value="">SELECCIONE UNA OPICIÓN...</option>
                                 @foreach($tipo_transportes as $item)
@@ -76,8 +79,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-light btn_cancelar" data-dismiss="modal"
-                        aria-label="Close">
+                    <a class="btn btn-light btn_cancelar" data-dismiss="modal" aria-label="Close">
                         Cancelar
                     </a>
                     <button class="btn btn-primary" type="submit">Guardar</button>
@@ -87,8 +89,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_editar_transporte" tabindex="-1" 
-    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_editar_transporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -101,11 +103,18 @@
                 @method('put')
                 <div class="modal-body">
                     <div class="form-row">
-                      <input type="text" class="form-control d-none" id="id_transporte_editar" name="id_transporte_editar">
+                        <input type="text" class="form-control d-none" id="id_transporte_editar"
+                            name="id_transporte_editar">
                         <div class="form-group col-md-6">
                             <label for="recipient-name" class="col-form-label">Matricula*</label>
-                            <input type="text" class="form-control" id="matricula_transporte_editar" name="matricula_transporte_editar"
-                                maxlength="50"
+                            <input type="text" class="form-control" id="matricula_transporte_editar"
+                                name="matricula_transporte_editar" maxlength="50"
+                                onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="recipient-name" class="col-form-label">Número economico*</label>
+                            <input type="text" class="form-control" id="no_economico_transporte_editar"
+                                name="no_economico_transporte_editar" maxlength="50"
                                 onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()">
                         </div>
                         <div class="form-group col-md-6">
@@ -119,7 +128,7 @@
                         <div class="form-group col-md-6">
                             <label for="recipient-name" class="col-form-label">Tipo de Transporte*</label>
                             <select class="form-control" id="tipo_transporte_editar" name="tipo_transporte_editar">
-                                 @foreach($tipo_transportes as $item)
+                                @foreach($tipo_transportes as $item)
                                 <option value="{{$item->id}}">{{$item->descripcion_tipo_transporte}}</option>
                                 @endforeach
                             </select>
@@ -137,4 +146,3 @@
         </div>
     </div>
 </div>
-

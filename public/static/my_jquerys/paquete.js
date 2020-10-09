@@ -383,8 +383,8 @@ $(document).ready(function () {
 
     function generar_codigo_barrar(id_paquete, no_socursal) {
         var hoy = new Date();
-        var fecha_convertida = moment(hoy).format('YYYYMMDDhmmss');
-        var numero_codigo_barra = no_socursal + fecha_convertida + id_paquete
+        var fecha_convertida = moment(hoy).format('YYYYMMDD');
+        var numero_codigo_barra = no_socursal + id_paquete + fecha_convertida;
         var options = {
             text: '' + numero_codigo_barra,
             bcid: 'code128', // Barcode type

@@ -15,6 +15,7 @@ class CreateTransportesTable extends Migration {
             $table->bigIncrements('id');
             $table->string('no_transporte', 20);
             $table->string('matricula_transporte', 20);
+            $table->string('no_economico_transporte', 20);
             $table->string('estatus_transporte', 4);
             $table->string('estatus_asignado', 4);
             $table->unsignedBigInteger('socursal_id')->unsigned();

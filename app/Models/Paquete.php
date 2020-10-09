@@ -131,11 +131,11 @@ class Paquete extends Model {
                     'created_at'      => date("Y-m-d H:i:s"),
                     'updated_at'      => date("Y-m-d H:i:s"),
                 ]);
-                $data_array[$i] = $no_socursal . '' . $fecha . '' . $id_paquete;
+                $data_array[$i] = $no_socursal . '' . $id_paquete . '' . $fecha;
                 DB::table('paquetes')
                     ->where('id', $id_paquete)
-                    ->update(['no_paquete' => $no_socursal . '' . $fecha .
-                        '' . $id_paquete]);
+                    ->update(['no_paquete' => $no_socursal . '' . $id_paquete . '' . $fecha,
+                    ]);
             }
             DB::commit();
             return $data_array;
