@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Mail;
  * 5 -> Codigo de no de paquete que no se utilizado este se usa para
  * los codigos que se le generan a los repartiddores y se llevan en el caso de que
  * se quisiera recojer un paquete que un cliente quiera que se envie
+ * 
+ * ALTER TABLE paquetes AUTO_INCREMENT =1000000;
  * */
 
 class PaqueteController extends Controller {

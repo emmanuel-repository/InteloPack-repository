@@ -62,11 +62,8 @@ class TransporteEmpleado extends Model {
     }
 
     public function update_desagsinar_transporte($id) {
-    
         DB::beginTransaction();
         try {
-            
-
             DB::table('empleados')
                 ->where('id', $id_chofer)
                 ->update(['estatus_asignado_transporte' => 1]);
@@ -74,7 +71,6 @@ class TransporteEmpleado extends Model {
             DB::table('transportes')
                 ->where('id', $id_transporte)
                 ->update(['estatus_asignado_empleado' => 1]);
-
             DB::commit();
             return true;
         } catch (\Exception $e) {

@@ -4,13 +4,18 @@
             <div class="col-md-6 d-flex justify-content-start align-items-center">
                 <h5 class="text-secondary">Llenar Datos de Carga de Paquetes</h5>
             </div>
+            <div class="col-md-6 d-flex justify-content-end align-items-center">
+                <label for="recipient-name" class="col-form-label mr-2">Cliente registrado: </label>
+                <input type="checkbox" name="my-checkbox" data-bootstrap-switch data-on-text="SI"
+                    data-off-text="NO" value="true" id="checkbox_cliente_frecuente">
+            </div>
         </div>
     </div>
     <div class="card-body">
         <form id="form_validate_agregar_paquete">
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="recipient-name" class="col-form-label">Socursal</label>
+                <div class="form-group col-md-3">
+                    <label for="recipient-name" class="col-form-label">Socursales</label>
                     <select class="form-control select2" id="socursal" name="socursal">
                         <option value="">Seleccione una opción</option>
                         @foreach($sucursales as $item)
@@ -18,12 +23,17 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="recipient-name" class="col-form-label">Transporte</label>
+                <div class="form-group col-md-3">
+                    <label for="recipient-name" class="col-form-label">Transportes</label>
                     <select class="form-control select2" id="transporte" name="transporte">
                     </select>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
+                    <label for="recipient-name" class="col-form-label">Operadores</label>
+                    <select class="form-control select2" id="operadores" name="operadores">
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
                     <label for="recipient-name" class="col-form-label">Codigo de Barra</label>
                     <input type="text" class="form-control" id="codigo_barra" name="codigo_barra" maxlength="50">
                 </div>
@@ -44,12 +54,12 @@
                 <h5 class="text-secondary">Vista previa de Codigos de barras Generados</h5>
             </div>
             <div class="form-group col-md-6 d-flex justify-content-end m-0">
-                <a class="btn btn-light mr-1" id="btn_limpiar_tabla" 
-                    data-toggle='tooltip' data-placement='right' title='Limpiar tabla'>
+                <a class="btn btn-light mr-1" id="btn_limpiar_tabla" data-toggle='tooltip' data-placement='right'
+                    title='Limpiar tabla'>
                     <i class="fas fa-calendar-times"></i>
                 </a>
-                <a class="btn btn-primary" data-toggle='tooltip' id="btn_guardar_cargamento" 
-                    data-placement='right' title='Guardar paquetes en Transporte'>
+                <a class="btn btn-primary" data-toggle='tooltip' id="btn_guardar_cargamento" data-placement='right'
+                    title='Guardar paquetes en Transporte'>
                     <i class="fas fa-save"></i>
                 </a>
             </div>
@@ -57,7 +67,8 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped rounded table-sm" id="tabla_paquetes" width="100%" cellspacing="0">
+            <table class="table table-bordered table-striped rounded table-sm" id="tabla_paquetes" width="100%"
+                cellspacing="0">
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">Codigo de Barra</th>

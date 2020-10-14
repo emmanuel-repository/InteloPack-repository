@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CrossOver;
+use App\Models\Empleado;
 use App\Models\Paquete;
 use App\Models\Socursal;
 use App\Models\Transporte;
@@ -43,11 +44,13 @@ class CargarPaqueteController extends Controller {
     }
 
     public function show($id) {
-        $data                  = array();
-        $transporte            = new Transporte;
-        $data['response_code'] = 200;
-        $data['response_text'] = 'Datos de transporte';
-        $data['response_data'] = $transporte->select_transporte_socuersal($id);
+        $data                    = array();
+        $transporte              = new Transporte;
+        $operadore               = new Empleado;
+        $data['response_code']   = 200;
+        $data['response_text']   = 'Datos de transporte';
+        $data['response_data']   = $transporte->select_transporte_socuersal($id);
+        $data['response_data_1'] = $operadore->select_empleado_operador($id);
         return response()->json($data);
     }
 

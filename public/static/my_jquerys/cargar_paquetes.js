@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    var array_operador = "";
     $('#tabla_paquetes').DataTable({
         'language': {
             "sProcessing": "Procesando...",
@@ -28,7 +29,10 @@ $(document).ready(function () {
     });
     $('#socursal').select2({ theme: 'bootstrap4' });
     $('#transporte').select2({ theme: 'bootstrap4' });
-
+    $('#operadores').select2({ theme: 'bootstrap4' });
+    $("#checkbox_cliente_frecuente").each(function () {
+        $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
     var form_validate_agregar = $('#form_validate_agregar_paquete').validate({
         rules: {
             transporte: {
@@ -59,18 +63,42 @@ $(document).ready(function () {
         var id_socursal = $(this).val();
         $('#transporte').empty();
         $('#socursal').select2({ disabled: true });
-        cargar_transportes(id_socursal);
+        cargar_transportes_operadores(id_socursal);
     });
 
     $(document).on('change', '#transporte', function () {
+        var value_transporte = $(this).val();
+        var operadores = array_operador;
+        var empleado_id = "";
+        for (var i = 0; i < operadores.length; i++) {
+            if (value_transporte == operadores[i].transporte_id) {
+                empleado_id = operadores[i].id;
+            }
+        }
+        $('#operadores').val(empleado_id); // Select the option with a value of '1'
+        $('#operadores').trigger('change');
         $('#transporte').select2({ disabled: true });
+    });
+
+    $('#checkbox_cliente_frecuente').on('switchChange.bootstrapSwitch', function (event, state) {
+        if (state) {
+            $('#operadores').select2({ disabled: false });
+        } else {
+            $('#operadores').select2({ disabled: true });
+        }
+    });
+    
+    $(document).on('change', '#operadores', function () {
+        $('#operadores').select2({ disabled: true });
     });
 
     $(document).on('click', '#btn_cancelar_paquete', function () {
         $("#socursal option[value='']").prop("selected", "selected");
         $('#socursal').select2({ disabled: false });
         $('#transporte').select2({ disabled: false });
+        $('#operadores').select2({ disabled: false });
         $('#transporte').empty();
+        $('#operadores').empty();
         $('#codigo_barra').val('');
     });
 
@@ -157,7 +185,7 @@ $(document).ready(function () {
         });
     }
 
-    function cargar_transportes(id_sucursal) {
+    function cargar_transportes_operadores(id_sucursal) {
         $.ajax({
             url: '/empleado/cargar_paquetes/' + id_sucursal,
             type: 'get',
@@ -167,16 +195,29 @@ $(document).ready(function () {
             },
             success: function (data) {
                 var transporte = data.response_data;
-                var select_2 = $('#transporte');
-                select_2.append('<option value="">Seleccione una opción</option>');
+                var operadores = data.response_data_1;
+                var select_transporte = $('#transporte');
+                var select_operador = $('#operadores');
+                array_operador = data.response_data_1;
+                select_transporte.append('<option value="">Seleccione una opción</option>');
                 for (var i = 0; i < transporte.length; i++) {
-                    select_2.append('<option value="' + transporte[i].id + '">'
+                    select_transporte.append('<option value="' + transporte[i].id + '">'
                         + "</br> <b>No de transporte:</b> "
                         + transporte[i].no_transporte + ". </br> <b> | Matricula:</b> "
                         + transporte[i].matricula_transporte +
                         '</option>');
                 }
+                select_operador.append('<option value="">Seleccione una opción</option>');
+                for (var i = 0; i < operadores.length; i++) {
+                    select_operador.append('<option value="' + operadores[i].id + '">'
+                        + "</br> <b>No de empleado:</b> "
+                        + operadores[i].no_empleado + ". </br> <b> | Nombre:</b> "
+                        + operadores[i].nombre_empleado + ' ' + operadores[i].apellido_1_empleado
+                        + ' ' + operadores[i].apellido_2_empleado + '</option>');
+                }
+                $('#operadores').select2({ disabled: true });
                 $('#transporte').select2({ theme: 'bootstrap4' });
+                $('#operadores').select2({ theme: 'bootstrap4' });
             },
             error: function (xhr) {
                 infoAlert("Verifica", data.response_text);
