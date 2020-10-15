@@ -4,10 +4,11 @@
             <div class="col-md-6 d-flex justify-content-start align-items-center">
                 <h5 class="text-secondary">Llenar Datos de Carga de Paquetes</h5>
             </div>
-            <div class="col-md-6 d-flex justify-content-end align-items-center">
-                <label for="recipient-name" class="col-form-label mr-2">Cliente registrado: </label>
-                <input type="checkbox" name="my-checkbox" data-bootstrap-switch data-on-text="SI"
-                    data-off-text="NO" value="true" id="checkbox_cliente_frecuente">
+            <div class="col-md-6 d-none" id="col_check">
+                <input type="text" class="form-control d-none" id="id_socursal" value="{{Auth::user()->socursal_id}}">
+                <label for="recipient-name" class="col-form-label mr-2">¿Desea cambiar operador a transporte? </label>
+                <input type="checkbox" name="my-checkbox" data-bootstrap-switch data-on-text="SI" data-off-text="NO"
+                    value="true" id="checkbox_cliente_frecuente">
             </div>
         </div>
     </div>
@@ -72,12 +73,19 @@
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">Codigo de Barra</th>
-                        <th class="text-center">Transporte</th>
+                        {{-- <th class="text-center">Transporte</th> --}}
                         <th class="text-center">Estatus de Paquete</th>
                         <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    {{-- <tr>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                    </tr> --}}
+                </tbody>
             </table>
         </div>
     </div>

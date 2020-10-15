@@ -61,9 +61,17 @@ $(document).ready(function () {
 
     $(document).on('change', '#socursal', function () {
         var id_socursal = $(this).val();
+        var socursal_login = $('#id_socursal').val();
         $('#transporte').empty();
         $('#socursal').select2({ disabled: true });
         cargar_transportes_operadores(id_socursal);
+        if (id_socursal == socursal_login) {
+            $('#col_check').addClass('d-flex justify-content-end align-items-center');
+            $('#col_check').removeClass('d-none');
+        } else {
+            $('#col_check').addClass('d-none');
+            $('#col_check').removeClass('d-flex justify-content-end align-items-center');
+        }
     });
 
     $(document).on('change', '#transporte', function () {
@@ -87,12 +95,14 @@ $(document).ready(function () {
             $('#operadores').select2({ disabled: true });
         }
     });
-    
+
     $(document).on('change', '#operadores', function () {
         $('#operadores').select2({ disabled: true });
     });
 
     $(document).on('click', '#btn_cancelar_paquete', function () {
+        $('#col_check').addClass('d-none');
+        $('#col_check').removeClass('d-flex justify-content-end align-items-center');
         $("#socursal option[value='']").prop("selected", "selected");
         $('#socursal').select2({ disabled: false });
         $('#transporte').select2({ disabled: false });
@@ -146,7 +156,7 @@ $(document).ready(function () {
             success: function (value) {
                 if (value.response_code == 200) {
                     if (data.length == 0) {
-                        tabla.row.add([codigo_barras, transporte, value.response_data,
+                        tabla.row.add([codigo_barras, value.response_data,
                             "<a id='btn_remover_paquete' class='btn btn-outline-danger btn-sm'" +
                             " data-toggle='tooltip' data-placement='right' " +
                             " title='Quitar paquete de este transporte'>" +
@@ -160,7 +170,7 @@ $(document).ready(function () {
                             }
                         }
                         if (!validador) {
-                            tabla.row.add([codigo_barras, transporte, value.response_data,
+                            tabla.row.add([codigo_barras, value.response_data,
                                 "<a id='btn_remover_paquete' class='btn btn-outline-danger btn-sm'" +
                                 " data-toggle='tooltip' data-placement='right' " +
                                 " title='Quitar paquete de este transporte'>" +
@@ -169,7 +179,7 @@ $(document).ready(function () {
                         } else {
                             var mensaje = "Verifica"
                             var texto = "Ya se encuentra cargado en la tabla ese Paquete"
-                            infoAlert(mensaje, texto)
+                            infoAlert(mensaje, texto);
                         }
                     }
                     $('#codigo_barra').val('');
@@ -226,54 +236,71 @@ $(document).ready(function () {
     }
 
     function insert() {
-        var arreglo = [];
-        var json_tabla;
-        var tabla = $("#tabla_paquetes").DataTable();
-        var datos_tabla = tabla.rows().data();
-        var longitud = datos_tabla.length;
-        var hoy = new Date();
-        var fecha = moment(hoy).format('YYYY-MM-DD');
-        var hora = moment(hoy).format('h:mm:ss a')
-        var id_transporte = $('#transporte').val();
-        if (longitud > 0) {
-            for (i = 0; i < datos_tabla.length; i++) {
-                var row = datos_tabla[i];
-                var person = {
-                    no_paquete: row[0],
-                    id_transporte: id_transporte,
-                    fecha: fecha,
-                    hora: hora
-                };
-                arreglo.push(person);
-            }
-            json_tabla = JSON.stringify(arreglo);
-            alertLoader();
-            $.ajax({
-                url: '/empleado/cargar_paquetes',
-                type: 'POST',
-                dataType: 'json',
-                data: { json_tabla: json_tabla, transporte: id_transporte },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (data) {
-                    if (data.response_code == 200) {
-                        successAlert(data.response_text);
-                        tabla.clear().draw(false);
-                        limpiar_inputs();
-                    } else if (data.response_code == 500) {
-                        infoAlert("Verifica", data.response_text);
-                    } else {
+        if (validar_formulario()) {
+            var arreglo = [];
+            var json_tabla;
+            var tabla = $("#tabla_paquetes").DataTable();
+            var datos_tabla = tabla.rows().data();
+            var longitud = datos_tabla.length;
+            var hoy = new Date();
+            var fecha = moment(hoy).format('YYYY-MM-DD');
+            var hora = moment(hoy).format('h:mm:ss a')
+            var id_transporte = $('#transporte').val();
+            if (longitud > 0) {
+                for (i = 0; i < datos_tabla.length; i++) {
+                    var row = datos_tabla[i];
+                    var person = {
+                        no_paquete: row[0],
+                        id_transporte: id_transporte,
+                        fecha: fecha,
+                        hora: hora
+                    };
+                    arreglo.push(person);
+                }
+                json_tabla = JSON.stringify(arreglo);
+                alertLoader();
+                $.ajax({
+                    url: '/empleado/cargar_paquetes',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { json_tabla: json_tabla, transporte: id_transporte },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (data) {
+                        if (data.response_code == 200) {
+                            successAlert(data.response_text);
+                            tabla.clear().draw(false);
+                            limpiar_inputs();
+                        } else if (data.response_code == 500) {
+                            infoAlert("Verifica", data.response_text);
+                        } else {
+                            infoAlert("Verifica", data.response_text);
+                        }
+                    },
+                    error: function (xhre) {
+                        Swal.close();
                         infoAlert("Verifica", data.response_text);
                     }
-                },
-                error: function (xhre) {
-                    Swal.close();
-                    infoAlert("Verifica", data.response_text);
-                }
-            });
+                });
+            } else {
+                infoAlert("Verifica", 'La tabla no contiene paquetes cargados');
+            }
         } else {
-            infoAlert("Verifica", 'La tabla no contiene paquetes cargados');
+            var mensaje = "Verifica"
+            var texto = "Favor de llenar los datos de formulario"
+            infoAlert(mensaje, texto);
+        }
+    }
+
+    function validar_formulario() {
+        var socursal = $('#socursal').val();
+        var transporte = $('#transporte').val();
+        var operador = $('#operadores').val();
+        if (socursal != "" && transporte != "" && operador != "") {
+            return true;
+        } else {
+            return false;
         }
     }
 
