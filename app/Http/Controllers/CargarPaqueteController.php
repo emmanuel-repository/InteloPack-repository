@@ -7,6 +7,7 @@ use App\Models\Empleado;
 use App\Models\Paquete;
 use App\Models\Socursal;
 use App\Models\Transporte;
+use App\Models\TransporteEmpleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,19 +27,54 @@ class CargarPaqueteController extends Controller {
     }
 
     public function store(Request $request) {
-        $data          = array();
-        $cross_over    = new CrossOver;
-        $json_tabla    = json_decode($request->input('json_tabla'));
-        $id_transporte = $request->input('transporte');
-        $id_empleado   = Auth::user()->id;
-        $id_socuersal  = Auth::user()->socursal_id;
-        if ($cross_over->insert_cross_over($json_tabla, $id_empleado, $id_socuersal,
-            $id_transporte)) {
-            $data['response_code'] = 200;
-            $data['response_text'] = 'Se guardarón los datos con exito';
+        $data                       = array();
+        $cross_over                 = new CrossOver;
+        $transporte_empleado        = new TransporteEmpleado;
+        $json_tabla                 = json_decode($request->input('json_tabla'));
+        $id_transporte              = $request->input('transporte');
+        $id_operador                = $request->input('operador');
+        $id_empleado                = Auth::user()->id;
+        $id_socuersal               = Auth::user()->socursal_id;
+        $select_transporte_operador = $transporte_empleado->select_transporte_operador($id_transporte);
+        if ($select_transporte_operador->empleado_id == $id_operador) {
+            if ($cross_over->insert_cross_over($json_tabla, $id_empleado, $id_socuersal,
+                $id_transporte, $id_operador)) {
+                $data['response_code'] = 200;
+                $data['response_text'] = 'Se guardarón los datos con exito';
+            } else {
+                $data['response_code'] = 500;
+                $data['response_text'] = 'No se guardarón los datos';
+            }
         } else {
-            $data['response_code'] = 500;
-            $data['response_text'] = 'No se guardarón los datos';
+            $select_exist_transporte = $transporte_empleado->select_exist_transporte_operador($id_operador);
+            if (!is_null($select_exist_transporte)) {
+                $array = array(
+                    'id_tranporte_empleado'  => $select_exist_transporte->id,
+                    'id_empleado_cambio'     => $select_exist_transporte->empleado_id,
+                    'id_transporte_cambio'   => $select_exist_transporte->transporte_id,
+                    'id_transporte_anterior' => $id_transporte,
+                    'id_operador_anterior'   => $id_operador,
+                );
+                if ($cross_over->update_asignacion_transporte($array)) {
+                    if ($cross_over->insert_cross_over($json_tabla, $id_empleado, $id_socuersal,
+                        $id_transporte, $id_operador)) {
+                        $data['response_code'] = 200;
+                        $data['response_text'] = 'Se guardarón los datos con exito';
+                    } else {
+                        $data['response_code'] = 500;
+                        $data['response_text'] = 'No se guardarón los datos';
+                    }
+                } else {
+                    $data['response_code'] = 500;
+                    $data['response_text'] = 'No se guardarón los datos';
+                }
+            } else {
+                // solo hay que realizar el solo el cambio de estatus;
+                dd($transporte->update_nueva_asignacion_tranporte_empleado());
+                // if($transporte_empleado->){
+
+                // }
+            }
         }
         return response()->json($data);
     }
@@ -82,4 +118,5 @@ class CargarPaqueteController extends Controller {
     public function update(Request $request, $id) {}
 
     public function destroy($id) {}
+
 }

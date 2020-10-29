@@ -97,6 +97,32 @@ $(document).ready(function () {
         $("#modal_agregar_empleado").modal("show");
     });
 
+    $(document).on('click', '#show-password', function () {
+		password1 = document.querySelector('.password1');
+		if (password1.type === "password") {
+			password1.type = "text";
+			$('#eye').removeClass('fa-eye'); 
+			$('#eye').addClass('fa-eye-slash'); 
+		} else {
+			password1.type = "password";
+			$('#eye').removeClass('fa-eye-slash'); 
+			$('#eye').addClass('fa-eye'); 
+		}
+    });
+    
+    $(document).on('click', '#show-password_edit', function () {
+		password1 = document.querySelector('.password2');
+		if (password1.type === "password") {
+			password1.type = "text";
+			$('#eye_edit').removeClass('fa-eye'); 
+			$('#eye_edit').addClass('fa-eye-slash'); 
+		} else {
+			password1.type = "password";
+			$('#eye_edit').removeClass('fa-eye-slash'); 
+			$('#eye_edit').addClass('fa-eye'); 
+		}
+	});
+
     $(document).on('click', '#btn_editar_empleado', function () {
         var tabla = $("#data_table_empleados").DataTable();
         var row = tabla.row($(this).parent().parent());

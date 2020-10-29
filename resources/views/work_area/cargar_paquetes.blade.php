@@ -16,7 +16,7 @@
         <form id="form_validate_agregar_paquete">
             <div class="form-row">
                 <div class="form-group col-md-3">
-                    <label for="recipient-name" class="col-form-label">Socursales</label>
+                    <label for="recipient-name" class="col-form-label">Sucursales</label>
                     <select class="form-control select2" id="socursal" name="socursal">
                         <option value="">Seleccione una opción</option>
                         @foreach($sucursales as $item)

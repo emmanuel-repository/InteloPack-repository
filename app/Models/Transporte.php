@@ -19,7 +19,6 @@ class Transporte extends Model {
         return DB::table('transportes as t')
             ->select('t.id', 't.no_transporte', 't.matricula_transporte')
             ->where('t.estatus_transporte', 1)
-            ->where('t.estatus_asignado_empleado', 1)
             ->where('t.socursal_id', $id_socursal)->get();
     }
 }

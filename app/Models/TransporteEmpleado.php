@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class TransporteEmpleado extends Model {
 
-    public function select_transporte_empleado() {
+    public function select_transporte_empleados() {
         return DB::table('transporte_empleados as te')
             ->join('empleados as e', 'e.id', "=", 'te.empleado_id')
             ->join('transportes as t', 't.id', "=", 'te.transporte_id')
@@ -67,7 +67,6 @@ class TransporteEmpleado extends Model {
             DB::table('empleados')
                 ->where('id', $id_chofer)
                 ->update(['estatus_asignado_transporte' => 1]);
-
             DB::table('transportes')
                 ->where('id', $id_transporte)
                 ->update(['estatus_asignado_empleado' => 1]);
@@ -77,5 +76,26 @@ class TransporteEmpleado extends Model {
             DB::rollback();
             return false;
         }
+    }
+
+    public function update_nueva_asignacion_tranporte_empleado($id_transporte, 
+        $id_operador) {
+        return DB::table('transporte_empleados')
+        ->where('transporte_id', $id_transporte)
+        ->update(['empleado_id' => $id_operador]);
+    }
+
+    public function select_transporte_operador($id_transporte) {
+        return DB::table('empleados as e')
+            ->join('transporte_empleados as te', 'e.id', "=", 'te.empleado_id')
+            ->where('te.transporte_id', $id_transporte)
+            ->select('te.id', 'te.empleado_id', 'transporte_id')
+            ->first();
+    }
+
+    public function select_exist_transporte_operador($id_operador) {
+        return DB::table('transporte_empleados as te')
+            ->where('te.empleado_id', $id_operador)
+            ->first();
     }
 }

@@ -76,7 +76,7 @@
                   <li class="nav-item">
                       <a href="{{route('gestion_empleados.index')}}" class="nav-link">
                           <i class="fa fa-users nav-icon"></i>
-                          <p>Gestion Empleados</p>
+                          <p>Empleados</p>
                       </a>
                   </li>
                   <li class="nav-item has-treeview">

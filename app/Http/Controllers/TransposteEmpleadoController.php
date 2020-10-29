@@ -30,12 +30,12 @@ class TransposteEmpleadoController extends Controller {
     }
 
     public function create() {
-        $array                      = array();
-        $transporte_empleado        = new TransporteEmpleado;
-        $select_transporte_empleado = $transporte_empleado->select_transporte_empleado();
-        $data['response_code']      = 200;
-        $data['response_text']      = "Si hay datos";
-        $data['response_data']      = $select_transporte_empleado;
+        $array                       = array();
+        $transporte_empleado         = new TransporteEmpleado;
+        $select_transporte_empleados = $transporte_empleado->select_transporte_empleados();
+        $data['response_code']       = 200;
+        $data['response_text']       = "Si hay datos";
+        $data['response_data']       = $select_transporte_empleados;
         return response()->json($data);
     }
 
@@ -82,9 +82,7 @@ class TransposteEmpleadoController extends Controller {
 
     }
 
-    public function destroy($id) {
-
-    }
+    public function destroy($id) {}
 
     public function update(Request $request, $id) {}
 

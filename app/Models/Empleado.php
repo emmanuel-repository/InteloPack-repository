@@ -53,7 +53,7 @@ class Empleado extends Authenticatable {
 
     public function select_empleado_operador($id_socursal) {
         return DB::table('empleados as  e')
-            ->join('transporte_empleados as te', 'te.empleado_id', '=', 'e.id')
+            ->leftJoin('transporte_empleados as te', 'te.empleado_id', '=', 'e.id')
             ->select('e.id', 'e.no_empleado', 'e.nombre_empleado', 'e.apellido_1_empleado',
                 'e.apellido_2_empleado', 'te.transporte_id')
             ->where('e.estatus_empleado', 1)

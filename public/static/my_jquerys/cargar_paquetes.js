@@ -246,6 +246,7 @@ $(document).ready(function () {
             var fecha = moment(hoy).format('YYYY-MM-DD');
             var hora = moment(hoy).format('h:mm:ss a')
             var id_transporte = $('#transporte').val();
+            var id_operador = $('#operadores').val();
             if (longitud > 0) {
                 for (i = 0; i < datos_tabla.length; i++) {
                     var row = datos_tabla[i];
@@ -263,7 +264,11 @@ $(document).ready(function () {
                     url: '/empleado/cargar_paquetes',
                     type: 'POST',
                     dataType: 'json',
-                    data: { json_tabla: json_tabla, transporte: id_transporte },
+                    data: {
+                        json_tabla: json_tabla,
+                        transporte: id_transporte,
+                        operador: id_operador
+                    },
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -308,7 +313,9 @@ $(document).ready(function () {
         $("#socursal option[value='']").prop("selected", "selected");
         $('#socursal').select2({ disabled: false });
         $('#transporte').select2({ disabled: false });
+        $('#operadores').select2({ disabled: false });
         $('#transporte').empty();
+        $('#operadores').empty();
         $('#codigo_barra').val('');
     }
 

@@ -118,7 +118,6 @@ $(document).ready(function () {
                 if (data.response_code == 200) {
 
 
-
                 } else if (data.response_code == 500) {
                     infoAlert("Verifica", data.response_text);
                 } else {
@@ -244,7 +243,8 @@ $(document).ready(function () {
                 select_2.append('<option value="">Seleccione una matricula de Transporte</option>');
                 for (var i = 0; i < transporte.length; i++) {
                     select_2.append('<option value="' + transporte[i].id + '">'
-                        + transporte[i].matricula_transporte + " " + '</option>');
+                        + 'No. de transporte: ' + transporte[i].no_transporte + ' | ' 
+                        + 'Matricula: '  + transporte[i].matricula_transporte + '</option>');
                 }
             },
             error: function (xhr) {

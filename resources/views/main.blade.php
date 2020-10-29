@@ -39,6 +39,13 @@
             background-color: #001f3f !important;
         }
 
+        .password-icon {
+            float: right;
+            position: relative;
+            margin: -26px 10px 0 0;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -83,7 +90,7 @@
     <script src="{{url('static/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{url('static/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{url('static/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-     <!-- moment js -->
+    <!-- moment js -->
     <script src="{{url('static/plugins/moment/moment.min.js')}}"></script>
     <!-- Select2 -->
     <script src="{{url('static/plugins/select2/js/select2.full.min.js')}}"></script>
@@ -116,6 +123,7 @@
     <script>
         $('[data-toggle="tooltip"]').tooltip();
         $.widget.bridge('uibutton', $.ui.button)
+
     </script>
 </body>
 
