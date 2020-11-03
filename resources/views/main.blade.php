@@ -77,8 +77,8 @@
     <script src="{{url('static/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{url('static/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="{{url('static/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+    {{-- <!-- jQuery Knob Chart -->
+    <script src="{{url('static/plugins/jquery-knob/jquery.knob.min.js')}}"></script> --}}
     <!-- overlayScrollbars -->
     <script src="{{url('static/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
     <!-- AdminLTE App -->

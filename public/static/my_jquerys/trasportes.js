@@ -22,6 +22,9 @@ $(document).ready(function () {
             },
             no_economico_transporte: {
                 required: true
+            },
+            marca_transporte: {
+                required: true
             }
         },
         messages: {},
@@ -50,6 +53,9 @@ $(document).ready(function () {
                 required: true
             },
             tipo_transporte_editar: {
+                required: true
+            },
+            marca_transporte_editar: {
                 required: true
             }
         },
@@ -86,6 +92,7 @@ $(document).ready(function () {
         $('#id_transporte_editar').val(data.id);
         $('#matricula_transporte_editar').val(data.matricula_transporte);
         $('#no_economico_transporte_editar').val(data.no_economico_transporte);
+        $('#marca_transporte_editar').val(data.marca_transporte);
         $("#sucursal_editar option[value='" + data.socursal_id + "']").prop("selected", "selected");
         $("#tipo_transporte_editar option[value='" + data.tipo_transporte_id + "']").prop("selected", "selected");
         $('#sucursal_editar').select2({ theme: 'bootstrap4' });
@@ -336,6 +343,7 @@ $(document).ready(function () {
     function limpiar_inputs() {
         $('#matricula_transporte').val('');
         $('#no_economico_transporte').val('');
+        $('#marca_transporte').val('');
         $("#sucursal option[value='']").prop("selected", "selected");
         $("#tipo_transporte option[value='']").prop("selected", "selected");
         $('#sucursal').select2({ theme: 'bootstrap4' });

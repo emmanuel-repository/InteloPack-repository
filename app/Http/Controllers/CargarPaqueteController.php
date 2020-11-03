@@ -36,7 +36,29 @@ class CargarPaqueteController extends Controller {
         $id_empleado                = Auth::user()->id;
         $id_socuersal               = Auth::user()->socursal_id;
         $select_transporte_operador = $transporte_empleado->select_transporte_operador($id_transporte);
-        if ($select_transporte_operador->empleado_id == $id_operador) {
+        if (is_null($select_transporte_operador)) {
+            $select_exist_transporte_operador =
+            $transporte_empleado->select_exist_transporte_operador($id_operador);
+            $array_exist = array(
+                'id'                  => $select_exist_transporte_operador->id,
+                'empleado_id'         => $select_exist_transporte_operador->empleado_id,
+                'transporte_id'       => $select_exist_transporte_operador->transporte_id,
+                'id_transporte_input' => $id_transporte,
+            );
+            if ($transporte_empleado->update_operador_transporte_carga_paquete($array_exist)) {
+                if ($cross_over->insert_cross_over($json_tabla, $id_empleado, $id_socuersal,
+                    $id_transporte, $id_operador)) {
+                    $data['response_code'] = 200;
+                    $data['response_text'] = 'Se guardarón los datos con exito';
+                } else {
+                    $data['response_code'] = 500;
+                    $data['response_text'] = 'No se guardarón los datos';
+                }
+            } else {
+                $data['response_code'] = 500;
+                $data['response_text'] = '';
+            }
+        } else if ($id_operador == $select_transporte_operador->empleado_id) {
             if ($cross_over->insert_cross_over($json_tabla, $id_empleado, $id_socuersal,
                 $id_transporte, $id_operador)) {
                 $data['response_code'] = 200;
@@ -45,35 +67,28 @@ class CargarPaqueteController extends Controller {
                 $data['response_code'] = 500;
                 $data['response_text'] = 'No se guardarón los datos';
             }
-        } else {
-            $select_exist_transporte = $transporte_empleado->select_exist_transporte_operador($id_operador);
-            if (!is_null($select_exist_transporte)) {
-                $array = array(
-                    'id_tranporte_empleado'  => $select_exist_transporte->id,
-                    'id_empleado_cambio'     => $select_exist_transporte->empleado_id,
-                    'id_transporte_cambio'   => $select_exist_transporte->transporte_id,
-                    'id_transporte_anterior' => $id_transporte,
-                    'id_operador_anterior'   => $id_operador,
-                );
-                if ($cross_over->update_asignacion_transporte($array)) {
-                    if ($cross_over->insert_cross_over($json_tabla, $id_empleado, $id_socuersal,
-                        $id_transporte, $id_operador)) {
-                        $data['response_code'] = 200;
-                        $data['response_text'] = 'Se guardarón los datos con exito';
-                    } else {
-                        $data['response_code'] = 500;
-                        $data['response_text'] = 'No se guardarón los datos';
-                    }
+        } else if ($id_operador != $select_transporte_operador->empleado_id) {
+            $select_exist_transporte_operador =
+            $transporte_empleado->select_exist_transporte_operador($id_operador);
+            $array_exist = array(
+                'id_exist'            => $select_exist_transporte_operador->id,
+                'empleado_id_exist'   => $select_exist_transporte_operador->empleado_id,
+                'transporte_id_exist' => $select_exist_transporte_operador->transporte_id,
+                'id_transporte_input' => $id_transporte,
+                'id_operador_input'   => $id_operador,
+            );
+            if ($transporte_empleado->update_asignacion_transporte_paquete($array_exist)) {
+                if ($cross_over->insert_cross_over($json_tabla, $id_empleado, $id_socuersal,
+                    $id_transporte, $id_operador)) {
+                    $data['response_code'] = 200;
+                    $data['response_text'] = 'Se guardarón los datos con exito';
                 } else {
                     $data['response_code'] = 500;
                     $data['response_text'] = 'No se guardarón los datos';
                 }
             } else {
-                // solo hay que realizar el solo el cambio de estatus;
-                dd($transporte->update_nueva_asignacion_tranporte_empleado());
-                // if($transporte_empleado->){
-
-                // }
+                $data['response_code'] = 500;
+                $data['response_text'] = '';
             }
         }
         return response()->json($data);

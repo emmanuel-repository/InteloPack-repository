@@ -29,7 +29,6 @@ class TransporteEmpleado extends Model {
             DB::table('empleados')
                 ->where('id', $id_chofer)
                 ->update(['estatus_asignado_transporte' => 1]);
-
             DB::table('transportes')
                 ->where('id', $id_transporte)
                 ->update(['estatus_asignado_empleado' => 1]);
@@ -61,6 +60,40 @@ class TransporteEmpleado extends Model {
             ->get();
     }
 
+    public function select_transporte_operador($id_transporte) {
+        return DB::table('empleados as e')
+            ->join('transporte_empleados as te', 'e.id', "=", 'te.empleado_id')
+            ->where('te.transporte_id', $id_transporte)
+            ->select('te.id', 'te.empleado_id', 'transporte_id')
+            ->first();
+    }
+
+    public function select_exist_transporte_operador($id_operador) {
+        return DB::table('transporte_empleados as te')
+            ->where('te.empleado_id', $id_operador)
+            ->first();
+    }
+
+    public function update_operador_transporte_carga_paquete($array) {
+        DB::beginTransaction();
+        try {
+            DB::table('transporte_empleados')
+                ->where('id', $array['id'])
+                ->update(['transporte_id' => $array['id_transporte_input']]);
+            DB::table('transportes')
+                ->where('id', $array['transporte_id'])
+                ->update(['estatus_asignado_empleado' => 0]);
+            DB::table('transportes')
+                ->where('id', $array['id_transporte_input'])
+                ->update(['estatus_asignado_empleado' => 1]);
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e;
+        }
+    }
+
     public function update_desagsinar_transporte($id) {
         DB::beginTransaction();
         try {
@@ -78,24 +111,30 @@ class TransporteEmpleado extends Model {
         }
     }
 
-    public function update_nueva_asignacion_tranporte_empleado($id_transporte, 
-        $id_operador) {
-        return DB::table('transporte_empleados')
-        ->where('transporte_id', $id_transporte)
-        ->update(['empleado_id' => $id_operador]);
+    public function update_asignacion_transporte_paquete($array) {
+        DB::beginTransaction();
+        try {
+            $transporte = DB::table('transporte_empleados')
+                ->where('transporte_id', $array['id_transporte_input'])
+                ->select('id', 'empleado_id')->first();
+            DB::table('empleados')
+                ->where('id', $transporte->empleado_id)
+                ->update(['estatus_asignado_transporte' => 0]);
+            DB::table('transportes')
+                ->where('id', $array['transporte_id_exist'])
+                ->update(['estatus_asignado_empleado' => 0]);
+            DB::table('transporte_empleados')
+                ->where('id', '=', $array['id_exist'])
+                ->delete();
+            DB::table('transporte_empleados')
+                ->where('id', $transporte->id)
+                ->update(['empleado_id' => $array['id_operador_input']]);
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e;
+        }
     }
 
-    public function select_transporte_operador($id_transporte) {
-        return DB::table('empleados as e')
-            ->join('transporte_empleados as te', 'e.id', "=", 'te.empleado_id')
-            ->where('te.transporte_id', $id_transporte)
-            ->select('te.id', 'te.empleado_id', 'transporte_id')
-            ->first();
-    }
-
-    public function select_exist_transporte_operador($id_operador) {
-        return DB::table('transporte_empleados as te')
-            ->where('te.empleado_id', $id_operador)
-            ->first();
-    }
 }

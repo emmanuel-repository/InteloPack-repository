@@ -35,7 +35,7 @@
 
 <div class="modal fade" id="modal_agregar_transporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog " role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Agregar Transporte</h5>
@@ -56,6 +56,12 @@
                             <label for="recipient-name" class="col-form-label">Número economico*</label>
                             <input type="text" class="form-control" id="no_economico_transporte"
                                 name="no_economico_transporte" maxlength="20" onKeyUp="document.getElementById(this.id).value 
+                                    = document.getElementById(this.id).value.toUpperCase()">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="recipient-name" class="col-form-label">Marca*</label>
+                            <input type="text" class="form-control" id="marca_transporte"
+                                name="marca_transporte" maxlength="50" onKeyUp="document.getElementById(this.id).value 
                                     = document.getElementById(this.id).value.toUpperCase()">
                         </div>
                         <div class="form-group col-md-6">
@@ -115,6 +121,12 @@
                             <label for="recipient-name" class="col-form-label">Número economico*</label>
                             <input type="text" class="form-control" id="no_economico_transporte_editar"
                                 name="no_economico_transporte_editar" maxlength="50"
+                                onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="recipient-name" class="col-form-label">Marca*</label>
+                            <input type="text" class="form-control" id="marca_transporte_editar"
+                                name="marca_transporte_editar" maxlength="50"
                                 onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()">
                         </div>
                         <div class="form-group col-md-6">

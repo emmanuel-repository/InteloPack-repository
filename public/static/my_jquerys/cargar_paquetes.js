@@ -1,6 +1,8 @@
 $(document).ready(function () {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     var array_operador = "";
+    var image_base_64_logo = "";
+    var imagen_logo = 'http://127.0.0.1:8000/static/imagenes_intelo/intelo_logo_modificado.png'
     $('#tabla_paquetes').DataTable({
         'language': {
             "sProcessing": "Procesando...",
@@ -100,7 +102,14 @@ $(document).ready(function () {
         $('#operadores').select2({ disabled: true });
     });
 
+    $(document).on('click', '#btn_imprimir', function () {
+        // $('#operadores').select2({ disabled: true });
+        var cars = ["Saab", "Volvo", "BMW"];
+        generar_pdf_carga(cars);
+    });
+
     $(document).on('click', '#btn_cancelar_paquete', function () {
+        $('#checkbox_cliente_frecuente').bootstrapSwitch('state', false);
         $('#col_check').addClass('d-none');
         $('#col_check').removeClass('d-flex justify-content-end align-items-center');
         $("#socursal option[value='']").prop("selected", "selected");
@@ -138,6 +147,10 @@ $(document).ready(function () {
                 tabla.clear().draw(false);
             }
         });
+    });
+
+    toDataURL(imagen_logo, function (dataUrl) {
+        image_base_64_logo = dataUrl
     });
 
     function cargar_paquete() {
@@ -307,6 +320,201 @@ $(document).ready(function () {
         } else {
             return false;
         }
+    }
+
+    function generar_pdf_carga(cars) {
+        console.log(cars)
+        var docDefinition = {
+            pageSize: 'LETTER',
+            // pageOrientation: 'landscape',
+            pageMargins: [40, 60, 40, 60],
+            header: function (currentPage, pageCount, pageSize) {
+                return [{
+                    image: image_base_64_logo,
+                    width: 160,
+                    height: 54,
+                    margin: 10
+                },
+                {
+                    text: 'InteloPack, Sistema de gestión de Paqueteria',
+                    absolutePosition: { x: 155, y: 28 },
+                    fontSize: 18,
+                    margin: 70
+                }
+                ]
+            },
+            content: [
+                {
+                    alignment: 'center',
+                    text: 'Enbarque de Salida',
+                    style: 'header',
+                    fontSize: 18,
+                    bold: true,
+                    margin: [0, 15],
+                },
+                {
+                    margin: [0, 0, 0, 10],
+                    table: {
+                        widths: ['100%'],
+                        // heights: [20, 10],
+                        body: [
+                            [{ text: 'Nombre del operador: ', fontSize: 9, bold: true }],
+                            [{ text: 'Fecha de enbarque: ', fontSize: 9, bold: true }],
+                            [{ text: 'Cantidad folios: ', fontSize: 9, bold: true }],
+                        ],
+                    },
+                    layout: {
+                        fillColor: function (rowIndex, node, columnIndex) {
+                            return (rowIndex % 2 === 0) ? '#ebebeb' : '#f5f5f5';
+                        },
+                        hLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.body.length) ? 1 : 1;
+                        },
+                        vLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.widths.length) ? 1 : 1;
+                        },
+                        hLineColor: function (i, node) {
+                            return (i === 0 || i === node.table.body.length) ? '#dee2e6' : '#dee2e6';
+                        },
+                        vLineColor: function (i, node) {
+                            return (i === 0 || i === node.table.widths.length) ? '#dee2e6' : '#dee2e6';
+                        },
+                    },
+                },
+                {
+                    alignment: 'center',
+                    text: 'Detalle de enbarque',
+                    style: 'header',
+                    fontSize: 18,
+                    bold: true,
+                    margin: [0, 10],
+                },
+                {
+                    style: 'tableExample',
+                    table: {
+                        widths: ['20%', '20%', '60%'],
+                        headerRows: 1,
+                        body: [
+                            [
+                                { text: 'Folio', fontSize: 9, bold: true, alignment: 'center' },
+                                { text: 'Cantidad', fontSize: 9, bold: true, alignment: 'center' },
+                                { text: 'Destino', fontSize: 9, bold: true, alignment: 'center' }
+                            ],
+                            [
+                                { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
+                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+                            ],
+                            [
+                                { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
+                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+                            ],
+                            [
+                                { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
+                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+                            ],
+                            [
+                                { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
+                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+                            ],
+                        ]
+                    },
+                    layout: {
+                        fillColor: function (rowIndex, node, columnIndex) {
+                            return (rowIndex === 0) ? '#e9ecef' : null;
+                        },
+                        hLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.body.length) ? 1 : 1;
+                        },
+                        vLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.widths.length) ? 1 : 1;
+                        },
+                        hLineColor: function (i, node) {
+                            return (i === 0 || i === node.table.body.length) ? '#dee2e6' : '#dee2e6';
+                        },
+                        vLineColor: function (i, node) {
+                            return (i === 0 || i === node.table.widths.length) ? '#dee2e6' : '#dee2e6';
+                        },
+
+                    },
+
+                },
+                {
+                    alignment: 'center',
+                    text: 'Datos de unidad',
+                    style: 'header',
+                    fontSize: 18,
+                    bold: true,
+                    margin: [0, 10],
+                },
+                {
+                    margin: [0, 0, 0, 10],
+                    table: {
+                        widths: ['100%'],
+                        body: [
+                            [{ text: 'Nombre del operador: ', fontSize: 9, bold: true }],
+                            [{ text: 'Fecha de enbarque: ', fontSize: 9, bold: true }],
+                            [{ text: 'Cantidad folios: ', fontSize: 9, bold: true }],
+                        ],
+                    },
+                    layout: {
+                        fillColor: function (rowIndex, node, columnIndex) {
+                            return (rowIndex % 2 === 0) ? '#ebebeb' : '#f5f5f5';
+                        },
+                        hLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.body.length) ? 1 : 1;
+                        },
+                        vLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.widths.length) ? 1 : 1;
+                        },
+                        hLineColor: function (i, node) {
+                            return (i === 0 || i === node.table.body.length) ? '#dee2e6' : '#dee2e6';
+                        },
+                        vLineColor: function (i, node) {
+                            return (i === 0 || i === node.table.widths.length) ? '#dee2e6' : '#dee2e6';
+                        },
+                    },
+                },
+            ],
+            footer: function (page, currentPage, pageCount) {
+                return {
+                    style: 'footer',
+                    table: {
+                        widths: ['*', 100],
+                        body: [
+                            [{
+                                text: 'Fecha de creacion: ',
+                                alignment: 'center'
+                            },
+
+                            ]
+                        ]
+                    },
+                    layout: 'noBorders',
+                    // margin: [5, 0]
+                };
+
+            },
+
+        };
+        pdfMake.createPdf(docDefinition).open();
+    }
+
+    function toDataURL(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                callback(reader.result);
+            }
+            reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.send();
     }
 
     function limpiar_inputs() {

@@ -55,6 +55,7 @@ class TransporteController extends Controller {
                     $transporte->socursal_id             = $request->input('sucursal');
                     $transporte->tipo_transporte_id      = $request->input('tipo_transporte');
                     $transporte->no_economico_transporte = $request->input('no_economico_transporte');
+                    $transporte->marca_transporte        = $request->input('marca_transporte');
                     if ($transporte->save()) {
                         $id_trasnporte                    = $transporte->id;
                         $trasnporte_update                = Transporte::findOrFail($id_trasnporte);
@@ -118,6 +119,7 @@ class TransporteController extends Controller {
                     $transporte->socursal_id             = $request->input('sucursal_editar');
                     $transporte->tipo_transporte_id      = $request->input('tipo_transporte_editar');
                     $transporte->no_economico_transporte = $request->input('no_economico_transporte_editar');
+                    $transporte->marca_transporte        = $request->input('marca_transporte_editar');
                     if ($transporte->save()) {
                         $data['response_code'] = 200;
                         $data['response_text'] = "Se guardaron los cambios con exito de este regisro";

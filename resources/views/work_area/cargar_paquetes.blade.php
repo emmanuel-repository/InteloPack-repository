@@ -42,7 +42,7 @@
                     <a class="btn btn-light mr-1" id="btn_cancelar_paquete">
                         Cancelar
                     </a>
-                    {{-- <button class="btn btn-success" id="btn_agregar" type="submit">Agregar</button> --}}
+                    <a class="btn btn-success" id="btn_imprimir">Imprimir</a>
                 </div>
             </div>
         </form>
