@@ -102,11 +102,40 @@ $(document).ready(function () {
         $('#operadores').select2({ disabled: true });
     });
 
-    $(document).on('click', '#btn_imprimir', function () {
-        // $('#operadores').select2({ disabled: true });
-        var cars = ["Saab", "Volvo", "BMW"];
-        generar_pdf_carga(cars);
-    });
+    // $(document).on('click', '#btn_imprimir', function () {
+    //     // $('#operadores').select2({ disabled: true });
+    //     // var cars = ["Saab", "Volvo", "BMW"];
+    //     // generar_pdf_carga();
+    //     fila_prueba = [
+    //         [
+    //             { text: 'Folio', fontSize: 9, bold: true, alignment: 'center' },
+    //             { text: 'Cantidad', fontSize: 9, bold: true, alignment: 'center' },
+    //             { text: 'Destino', fontSize: 9, bold: true, alignment: 'center' }
+    //         ],
+    //         [
+    //             { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
+    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+    //         ],
+    //         [
+    //             { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
+    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+    //         ],
+    //         [
+    //             { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
+    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+    //         ],
+    //         [
+    //             { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
+    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
+    //         ],
+    //     ]
+
+    //     console.log(fila_prueba)
+    // });
 
     $(document).on('click', '#btn_cancelar_paquete', function () {
         $('#checkbox_cliente_frecuente').bootstrapSwitch('state', false);
@@ -287,6 +316,7 @@ $(document).ready(function () {
                     },
                     success: function (data) {
                         if (data.response_code == 200) {
+                            generar_pdf_carga(data.response_data, data.response_data_1);
                             successAlert(data.response_text);
                             tabla.clear().draw(false);
                             limpiar_inputs();
@@ -322,25 +352,57 @@ $(document).ready(function () {
         }
     }
 
-    function generar_pdf_carga(cars) {
-        console.log(cars)
+    function generar_pdf_carga(data_paquetes, data_transporte) {
+        var empleado = $('#operadores option:selected').text();
+        var texto_separado = empleado.split(' | ');
+        var empleado_split = texto_separado[1].split(': ')
+        var nombre_empleado = empleado_split[1];
+        var hoy = new Date();
+        var fecha_convertida = moment(hoy).format('YYYY-MM-DD h:mm:ss');
+        var array_content_pdf = [[
+            { text: 'Folio', fontSize: 9, bold: true, alignment: 'center' },
+            { text: 'Cantidad', fontSize: 9, bold: true, alignment: 'center' },
+            { text: 'Destino', fontSize: 9, bold: true, alignment: 'center' }
+        ]];
+        var fila = [];
+        var no_paquete = "";
+        var destino_paquete = "";
+        var cantida_paquetes = data_paquetes.length;
+        for (i = 0; i < data_paquetes.length; i++) {
+            no_paquete = data_paquetes[i].no_paquete;
+            destino_paquete = "Calle " + data_paquetes[i].calle_destino
+                + " No. exterior " + data_paquetes[i].no_exterior_destino
+                + " No. interio " + data_paquetes[i].no_interior_destino
+                + ", Colonia " + data_paquetes[i].colonia_destino
+                + ", CP. " + data_paquetes[i].codigo_postal_destino
+                + " " + data_paquetes[i].municipio_destino
+                + ", " + data_paquetes[i].estado_destino;
+            fila = [
+                { text: no_paquete, fontSize: 9, bold: true },
+                { text: 1, fontSize: 9, bold: true },
+                { text: destino_paquete, fontSize: 9, bold: true },
+            ];
+            array_content_pdf.push(fila);
+        }
         var docDefinition = {
             pageSize: 'LETTER',
-            // pageOrientation: 'landscape',
             pageMargins: [40, 60, 40, 60],
             header: function (currentPage, pageCount, pageSize) {
-                return [{
-                    image: image_base_64_logo,
-                    width: 160,
-                    height: 54,
-                    margin: 10
-                },
-                {
-                    text: 'InteloPack, Sistema de gestión de Paqueteria',
-                    absolutePosition: { x: 155, y: 28 },
-                    fontSize: 18,
-                    margin: 70
-                }
+                return [
+                    {
+                        text: 'InteloPack, Sistema de gestión de Paqueteria',
+                        absolutePosition: { x: 95, y: 28 },
+                        fontSize: 18,
+                        margin: 70
+                    },
+                    {
+                        image: image_base_64_logo, 
+                        width: 100, 
+                        height: 75, 
+                        margin: 70,
+                        absolutePosition: { x: 480, y: 5 },
+                    },
+                    
                 ]
             },
             content: [
@@ -356,12 +418,11 @@ $(document).ready(function () {
                     margin: [0, 0, 0, 10],
                     table: {
                         widths: ['100%'],
-                        // heights: [20, 10],
                         body: [
-                            [{ text: 'Nombre del operador: ', fontSize: 9, bold: true }],
-                            [{ text: 'Fecha de enbarque: ', fontSize: 9, bold: true }],
-                            [{ text: 'Cantidad folios: ', fontSize: 9, bold: true }],
-                        ],
+                            [{ text: 'Nombre del operador: ' + nombre_empleado, fontSize: 9, bold: true }],
+                            [{ text: 'Fecha de enbarque: ' + fecha_convertida, fontSize: 9, bold: true }],
+                            [{ text: 'Cantidad folios: ' + cantida_paquetes, fontSize: 9, bold: true }],
+                        ]
                     },
                     layout: {
                         fillColor: function (rowIndex, node, columnIndex) {
@@ -394,33 +455,7 @@ $(document).ready(function () {
                     table: {
                         widths: ['20%', '20%', '60%'],
                         headerRows: 1,
-                        body: [
-                            [
-                                { text: 'Folio', fontSize: 9, bold: true, alignment: 'center' },
-                                { text: 'Cantidad', fontSize: 9, bold: true, alignment: 'center' },
-                                { text: 'Destino', fontSize: 9, bold: true, alignment: 'center' }
-                            ],
-                            [
-                                { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
-                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-                            ],
-                            [
-                                { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
-                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-                            ],
-                            [
-                                { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
-                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-                            ],
-                            [
-                                { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
-                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-                                { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-                            ],
-                        ]
+                        body: array_content_pdf
                     },
                     layout: {
                         fillColor: function (rowIndex, node, columnIndex) {
@@ -438,9 +473,7 @@ $(document).ready(function () {
                         vLineColor: function (i, node) {
                             return (i === 0 || i === node.table.widths.length) ? '#dee2e6' : '#dee2e6';
                         },
-
                     },
-
                 },
                 {
                     alignment: 'center',
@@ -455,9 +488,22 @@ $(document).ready(function () {
                     table: {
                         widths: ['100%'],
                         body: [
-                            [{ text: 'Nombre del operador: ', fontSize: 9, bold: true }],
-                            [{ text: 'Fecha de enbarque: ', fontSize: 9, bold: true }],
-                            [{ text: 'Cantidad folios: ', fontSize: 9, bold: true }],
+                            [{
+                                text: 'Matricula: ' + data_transporte.matricula_transporte,
+                                fontSize: 9, bold: true
+                            }],
+                            [{
+                                text: 'Número economico: ' + data_transporte.no_economico_transporte,
+                                fontSize: 9, bold: true
+                            }],
+                            [{
+                                text: 'Tipo unidad: ' + data_transporte.descripcion_tipo_transporte,
+                                fontSize: 9, bold: true
+                            }],
+                            [{
+                                text: 'Marca: ' + data_transporte.marca_transporte,
+                                fontSize: 9, bold: true
+                            }],
                         ],
                     },
                     layout: {
@@ -478,27 +524,25 @@ $(document).ready(function () {
                         },
                     },
                 },
+                {
+                    alignment: 'center',
+                    text: 'Firma: __________________________________________',
+                    style: 'header',
+                    fontSize: 12,
+                    bold: true,
+                    margin: [0, 60],
+                },
             ],
             footer: function (page, currentPage, pageCount) {
                 return {
                     style: 'footer',
                     table: {
                         widths: ['*', 100],
-                        body: [
-                            [{
-                                text: 'Fecha de creacion: ',
-                                alignment: 'center'
-                            },
-
-                            ]
-                        ]
+                        body: [[{ text: 'Fecha de creacion: ', alignment: 'center' },]]
                     },
-                    layout: 'noBorders',
-                    // margin: [5, 0]
+                    layout: 'noBorders'
                 };
-
             },
-
         };
         pdfMake.createPdf(docDefinition).open();
     }

@@ -27,9 +27,12 @@ class CargarPaqueteController extends Controller {
     }
 
     public function store(Request $request) {
+
         $data                       = array();
         $cross_over                 = new CrossOver;
         $transporte_empleado        = new TransporteEmpleado;
+        $paquete                    = new Paquete;
+        $transporte                 = new Transporte;
         $json_tabla                 = json_decode($request->input('json_tabla'));
         $id_transporte              = $request->input('transporte');
         $id_operador                = $request->input('operador');
@@ -48,8 +51,12 @@ class CargarPaqueteController extends Controller {
             if ($transporte_empleado->update_operador_transporte_carga_paquete($array_exist)) {
                 if ($cross_over->insert_cross_over($json_tabla, $id_empleado, $id_socuersal,
                     $id_transporte, $id_operador)) {
-                    $data['response_code'] = 200;
-                    $data['response_text'] = 'Se guardarón los datos con exito';
+                    $array_detalle_paquete    = $paquete->select_paquete_carga($json_tabla);
+                    $array_detalla_transporte = $transporte->select_transporte_detalle($id_transporte);
+                    $data['response_code']    = 200;
+                    $data['response_data']    = $array_detalle_paquete;
+                    $data['response_data_1']  = $array_detalla_transporte;
+                    $data['response_text']    = 'Se guardarón los datos con exito';
                 } else {
                     $data['response_code'] = 500;
                     $data['response_text'] = 'No se guardarón los datos';
@@ -61,8 +68,12 @@ class CargarPaqueteController extends Controller {
         } else if ($id_operador == $select_transporte_operador->empleado_id) {
             if ($cross_over->insert_cross_over($json_tabla, $id_empleado, $id_socuersal,
                 $id_transporte, $id_operador)) {
-                $data['response_code'] = 200;
-                $data['response_text'] = 'Se guardarón los datos con exito';
+                $array_detalle_paquete    = $paquete->select_paquete_carga($json_tabla);
+                $array_detalla_transporte = $transporte->select_transporte_detalle($id_transporte);
+                $data['response_code']    = 200;
+                $data['response_data']    = $array_detalle_paquete;
+                $data['response_data_1']  = $array_detalla_transporte;
+                $data['response_text']    = 'Se guardarón los datos con exito';
             } else {
                 $data['response_code'] = 500;
                 $data['response_text'] = 'No se guardarón los datos';
@@ -80,8 +91,11 @@ class CargarPaqueteController extends Controller {
             if ($transporte_empleado->update_asignacion_transporte_paquete($array_exist)) {
                 if ($cross_over->insert_cross_over($json_tabla, $id_empleado, $id_socuersal,
                     $id_transporte, $id_operador)) {
-                    $data['response_code'] = 200;
-                    $data['response_text'] = 'Se guardarón los datos con exito';
+                    $array_detalla_transporte = $transporte->select_transporte_detalle($id_transporte);
+                    $data['response_code']    = 200;
+                    $data['response_data']    = $array_detalle_paquete;
+                    $data['response_data_1']  = $array_detalla_transporte;
+                    $data['response_text']    = 'Se guardarón los datos con exito';
                 } else {
                     $data['response_code'] = 500;
                     $data['response_text'] = 'No se guardarón los datos';

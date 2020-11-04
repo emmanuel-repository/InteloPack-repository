@@ -21,4 +21,14 @@ class Transporte extends Model {
             ->where('t.estatus_transporte', 1)
             ->where('t.socursal_id', $id_socursal)->get();
     }
+
+    public function select_transporte_detalle($id_transporte) {
+        return DB::table('transportes as t')
+            ->join('tipo_transportes as tp', 'tp.id', "=", 't.tipo_transporte_id')
+            ->select('t.matricula_transporte', 't.no_economico_transporte',
+                't.marca_transporte', 't.matricula_transporte',
+                'tp.descripcion_tipo_transporte')
+            ->where('t.id', $id_transporte)
+            ->first();
+    }
 }

@@ -358,4 +358,17 @@ class Paquete extends Model {
             ->where('estatus_paquete', '<>', '5')
             ->first();
     }
+
+    public function select_paquete_carga($json_tabla) {
+        $array_paquete = array();
+        for ($i = 0; $i < count($json_tabla); $i++) {
+            $array_paquete[$i] = DB::table('paquetes as p')
+                ->select('no_paquete', 'estado_destino', 'municipio_destino',
+                    'colonia_destino', 'calle_destino', 'no_exterior_destino',
+                    'no_interior_destino', 'codigo_postal_destino')
+                ->where('p.no_paquete', $json_tabla[$i]->no_paquete)
+                ->first();
+        }
+        return $array_paquete;
+    }
 }
