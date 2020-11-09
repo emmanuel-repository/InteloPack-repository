@@ -39,7 +39,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-md-6 d-flex justify-content-start align-items-center m-0">
-                <h5 class="text-secondary">Vista previa de Codigos de barras Generados</h5>
+                <h5 class="text-secondary">Vista previa de paquetes descargados</h5>
             </div>
             <div class="form-group col-md-6 d-flex justify-content-end m-0">
                 <a class="btn btn-light mr-1" id="btn_limpiar_tabla" data-toggle='tooltip' 

@@ -8,18 +8,21 @@ use Illuminate\Http\Request;
 
 class RastreoController extends Controller {
 
-    public function index() {
+    public function index () {
         $data              = array();
         $data['titulo']    = 'Rastreo de Paquete | InteloPack';
         $data['my_jquery'] = 'rastreo_paquete.js';
         return view('rastreo_paquete')->with($data);
     }
 
-    public function create() {}
-
-    public function store(Request $request) {}
-
     public function show($id) {
+        $data              = array();
+        $data['titulo']    = 'Rastreo de Paquete | InteloPack';
+        $data['my_jquery'] = 'rastreo_paquete.js';
+        return view('rastreo_paquete')->with($data);
+    }
+
+    public function edit($id) {
         $data         = array();
         $paquete      = new Paquete;
         $cross_over   = new CrossOver;
@@ -49,7 +52,9 @@ class RastreoController extends Controller {
         return response()->json($data);
     }
 
-    public function edit($id) {}
+    public function create() {}
+
+    public function store(Request $request) {}
 
     public function update(Request $request, $id) {}
 

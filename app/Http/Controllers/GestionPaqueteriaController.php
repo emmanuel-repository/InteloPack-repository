@@ -22,7 +22,7 @@ class GestionPaqueteriaController extends Controller {
     public function create() {
         $array                 = array();
         $paquete               = new Paquete;
-        $select_paquete        = $paquete::all()->where('estatus_paquete', '<>', '4');
+        $select_paquete        = $paquete::all()->where('estatus_paquete', '<>', '5');
         $data['response_code'] = 200;
         $data['response_text'] = "Si hay datos";
         $data['response_data'] = $select_paquete;

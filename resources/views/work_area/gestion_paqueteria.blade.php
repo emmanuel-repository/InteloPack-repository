@@ -6,8 +6,8 @@
             </div>
             <div class="col-md-6 d-flex justify-content-end">
                 <a type="button" class="btn btn-sm btn-success text-white" id="btn_open_modal_barcode"
-                    data-toggle='tooltip' data-placement='right' title='Imprimir codigo de barra'>
-                    <i class="fa fa-barcode"></i> Imprimir codigo de barra
+                    data-toggle='tooltip' data-placement='right' title='Imprimir código de barra'>
+                    <i class="fa fa-barcode"></i> Imprimir código de barra
                 </a>
             </div>
         </div>
@@ -71,11 +71,11 @@
                             <h5 class="text-secondary">Datos de salida del Paquete</h5>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Nombre de Socursal</label>
+                            <label for="recipient-name" class="col-form-label">Nombre de Sucursal</label>
                             <input type="text" class="form-control" id="nombre_socursal" readonly>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">No. de socursal</label>
+                            <label for="recipient-name" class="col-form-label">No. de Sucursal</label>
                             <input type="text" class="form-control" id="no_socursal" readonly>
                         </div>
                         <div class="form-group col-md-4">
@@ -87,7 +87,7 @@
                             <input type="email" class="form-control" id="municipio_socursal" readonly>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Codigo Postal</label>
+                            <label for="recipient-name" class="col-form-label">Cóodigo Postal</label>
                             <input type="numbre" class="form-control" id="codigo_postal_socursal" readonly>
                         </div>
                         <div class="form-group col-md-6">
@@ -118,7 +118,7 @@
                             <input type="email" class="form-control" id="municipio_destino" readonly>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Codigo Postal</label>
+                            <label for="recipient-name" class="col-form-label">Código Postal</label>
                             <input type="numbre" class="form-control" id="codigo_postal_destino" readonly>
                         </div>
                         <div class="form-group col-md-6">
@@ -155,7 +155,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Codigo de Barra</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Código de Barra</h5>
                 <button class="close btn_cancelar" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times</span>
                 </button>
@@ -165,7 +165,7 @@
                 <form id="form_validate_editar_socursal">
                     <div class="form-row">
                         <div class="form-group col-md-4 d-flex justify-content-end ">
-                            <label for="recipient-name" class="col-form-label">Numero de codigo de barra:</label>
+                            <label for="recipient-name" class="col-form-label">Número de código de barra:</label>
                         </div>
                         <div class="form-group col-md-4">
                             <input type="number" min="0" class="form-control" id="numero_bar_code"

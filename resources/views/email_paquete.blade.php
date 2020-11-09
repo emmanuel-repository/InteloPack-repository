@@ -184,7 +184,7 @@
                                         style="padding: 12px 24px; margin: 0; text-decoration: underline; border-collapse: collapse;
                                         border-spacing: 0; border-radius: 4px; -webkit-border-radius: 4px;
                                         -moz-border-radius: 4px; -khtml-border-radius: 4px;">
-                                        <a target="_blank" href="http://intelo.com.mx/" 
+                                        <a target="_blank" href="https://intelopack.intelo.com.mx/rastreo_paquete/{{$data['numero_codigo_barra']}}" 
                                             style="text-decoration: underline;color: #FFFFFF; font-family: sans-serif; 
                                             font-size: 17px; font-weight: 400; line-height: 120%;  text-decoration:none;">
                                             ¡Ir al sitio!

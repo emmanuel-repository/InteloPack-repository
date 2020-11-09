@@ -253,8 +253,7 @@ $(document).ready(function () {
                 if (data.response_code == 200) {
                     var value = data.response_data;
                     localStorage.setItem('correo', correo);
-                    localStorage.setItem('nombre_completo', nombre + ' '
-                        + apellido_1 + ' ' + apellido_2);
+                    localStorage.setItem('nombre_completo', nombre + ' ' + apellido_1 + ' ' + apellido_2);
                     var id_paquete = value.id_paquete;
                     var no_socursal = value.no_sucursal;
                     generar_codigo_barrar(id_paquete, no_socursal);

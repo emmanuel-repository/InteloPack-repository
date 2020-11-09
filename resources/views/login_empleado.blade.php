@@ -15,10 +15,10 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{url('static/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-   
+
     <!-- Theme style -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{url('static/dist/css/adminlte.css')}}">
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -31,9 +31,7 @@
     </div>
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{url('/')}}">
-                <h1 class="text-white">InteloPack</h1>
-            </a>
+            <a href="{{url('/')}}"><h1 class="text-white"> InteloPack</h1></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
@@ -53,8 +51,7 @@
                     @endif
                     <div class="input-group mb-3">
                         <input id="email" type="email" class="form-control 
-                            @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required
-                            autocomplete="email" autofocus placeholder="Correo">
+                            @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Correo">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -63,8 +60,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <input id="password" type="password" class="form-control 
-                            @error('password') is-invalid @enderror" name="password" required
-                            autocomplete="current-password" placeholder="Contraseña">
+                            @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Contraseña">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -75,8 +71,7 @@
                     <div class="form-group row">
                         <div class="col-md-6 ">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                    {{ old('remember') ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="remember">
                                     {{ __('Recuérdame') }}
                                 </label>

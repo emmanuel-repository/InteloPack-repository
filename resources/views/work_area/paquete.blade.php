@@ -42,7 +42,7 @@
                             = document.getElementById(this.id).value.toUpperCase()" maxlength="50">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="recipient-name" class="col-form-label">Razon Sociale*</label>
+                    <label for="recipient-name" class="col-form-label">Razon Social*</label>
                     <input type="text" class="form-control" id="razon_social" name="razon_social" 
                         onKeyUp="document.getElementById(this.id).value 
                             = document.getElementById(this.id).value.toUpperCase()" maxlength="100">
@@ -114,12 +114,12 @@
                     <h5 class="text-secondary">Datos de salida del Paquete</h5>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="recipient-name" class="col-form-label">Nombre de Socursal</label>
+                    <label for="recipient-name" class="col-form-label">Nombre de sucursal</label>
                     <input type="text" class="form-control" id="nombre_sucursal_salida" 
                         name="nombre_sucursal_salida" readonly value="{{$sucursal_salida->nombre_socursal}}">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="recipient-name" class="col-form-label">No. de socursal</label>
+                    <label for="recipient-name" class="col-form-label">No. de sucursal</label>
                     <input type="text" class="form-control" id="no_sucursal_salida" 
                         name="no_sucursal_salida" readonly value="{{$sucursal_salida->no_socursal}}">
                 </div>

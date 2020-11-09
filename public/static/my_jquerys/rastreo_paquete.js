@@ -1,6 +1,6 @@
 $(document).ready(function () {
+    cargar_time_line();
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
     var form_validate_agregar = $('#form_validate_bar_code').validate({
         rules: {
             bar_code: {
@@ -20,7 +20,8 @@ $(document).ready(function () {
             $(element).addClass("is-valid").removeClass("is-invalid");
         },
         submitHandler: function () {
-            rastrear();
+            var bar_code = $('#bar_code').val();
+            rastrear(bar_code);
         }
     });
 
@@ -40,14 +41,26 @@ $(document).ready(function () {
 
     $(document).on('click', '#btn_actualizar', function () {
         $('#timeline').empty();
-        rastrear();
+        var bar_code = $('#bar_code').val();
+        rastrear(bar_code);
     });
 
-    function rastrear() {
-        var bar_code = $('#bar_code').val();
+    function cargar_time_line() {
+        const url = window.location.href;
+        var url_separado = url.split('rastreo_paquete/');
+        if (url_separado.length == 2) {
+            if (url_separado[1] =! "") {
+                console.log(url_separado[1])
+                $('#bar_code').val(url_separado[1]);
+                rastrear(url_separado[1]);
+            }
+        }
+    }
+
+    function rastrear(bar_code) {
         alertLoader();
         $.ajax({
-            url: '/rastreo_paquete/' + bar_code,
+            url: '/rastreo_paquete/' + bar_code + '/edit',
             type: 'get',
             dataType: "json",
             headers: {

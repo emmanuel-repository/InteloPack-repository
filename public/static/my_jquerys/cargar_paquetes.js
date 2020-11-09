@@ -102,41 +102,6 @@ $(document).ready(function () {
         $('#operadores').select2({ disabled: true });
     });
 
-    // $(document).on('click', '#btn_imprimir', function () {
-    //     // $('#operadores').select2({ disabled: true });
-    //     // var cars = ["Saab", "Volvo", "BMW"];
-    //     // generar_pdf_carga();
-    //     fila_prueba = [
-    //         [
-    //             { text: 'Folio', fontSize: 9, bold: true, alignment: 'center' },
-    //             { text: 'Cantidad', fontSize: 9, bold: true, alignment: 'center' },
-    //             { text: 'Destino', fontSize: 9, bold: true, alignment: 'center' }
-    //         ],
-    //         [
-    //             { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
-    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-    //         ],
-    //         [
-    //             { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
-    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-    //         ],
-    //         [
-    //             { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
-    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-    //         ],
-    //         [
-    //             { text: 'Limite de Tolerância:', fontSize: 9, bold: true },
-    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-    //             { text: 'Meio de Propagação:', fontSize: 9, bold: true },
-    //         ],
-    //     ]
-
-    //     console.log(fila_prueba)
-    // });
-
     $(document).on('click', '#btn_cancelar_paquete', function () {
         $('#checkbox_cliente_frecuente').bootstrapSwitch('state', false);
         $('#col_check').addClass('d-none');
@@ -472,8 +437,8 @@ $(document).ready(function () {
                         },
                         vLineColor: function (i, node) {
                             return (i === 0 || i === node.table.widths.length) ? '#dee2e6' : '#dee2e6';
-                        },
-                    },
+                        }
+                    }
                 },
                 {
                     alignment: 'center',
@@ -521,8 +486,8 @@ $(document).ready(function () {
                         },
                         vLineColor: function (i, node) {
                             return (i === 0 || i === node.table.widths.length) ? '#dee2e6' : '#dee2e6';
-                        },
-                    },
+                        }
+                    }
                 },
                 {
                     alignment: 'center',
@@ -541,8 +506,8 @@ $(document).ready(function () {
                         body: [[{ text: 'Fecha de creacion: ', alignment: 'center' },]]
                     },
                     layout: 'noBorders'
-                };
-            },
+                }
+            }
         };
         pdfMake.createPdf(docDefinition).open();
     }

@@ -35,14 +35,13 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="recipient-name" class="col-form-label">Codigo de Barra</label>
+                    <label for="recipient-name" class="col-form-label">Código de Barra</label>
                     <input type="text" class="form-control" id="codigo_barra" name="codigo_barra" maxlength="50">
                 </div>
                 <div class="form-group col-md-12 d-flex justify-content-end">
                     <a class="btn btn-light mr-1" id="btn_cancelar_paquete">
                         Cancelar
                     </a>
-                    <a class="btn btn-success" id="btn_imprimir">Imprimir</a>
                 </div>
             </div>
         </form>
@@ -52,7 +51,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-md-6 d-flex justify-content-start align-items-center m-0">
-                <h5 class="text-secondary">Vista previa de Codigos de barras Generados</h5>
+                <h5 class="text-secondary">Vista previa de paquetes cargados</h5>
             </div>
             <div class="form-group col-md-6 d-flex justify-content-end m-0">
                 <a class="btn btn-light mr-1" id="btn_limpiar_tabla" data-toggle='tooltip' data-placement='right'
@@ -72,19 +71,12 @@
                 cellspacing="0">
                 <thead class="thead-light">
                     <tr>
-                        <th class="text-center">Codigo de Barra</th>
-                        {{-- <th class="text-center">Transporte</th> --}}
+                        <th class="text-center">Código de Barra</th>
                         <th class="text-center">Estatus de Paquete</th>
                         <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                    </tr> --}}
                 </tbody>
             </table>
         </div>
