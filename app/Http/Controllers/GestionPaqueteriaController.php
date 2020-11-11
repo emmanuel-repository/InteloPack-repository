@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paquete;
+use App\Models\Socursal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GestionPaqueteriaController extends Controller {
 
@@ -16,13 +18,15 @@ class GestionPaqueteriaController extends Controller {
         $data['titulo']    = 'Gestion de Paqueteria | InteloPack';
         $data['work_area'] = 'gestion_paqueteria';
         $data['my_jquery'] = 'gestion_paqueteria.js';
+        $data['sucursales']     = Socursal::all();
         return view('main')->with($data);
     }
 
     public function create() {
         $array                 = array();
         $paquete               = new Paquete;
-        $select_paquete        = $paquete::all()->where('estatus_paquete', '<>', '5');
+        $id_socursal           = Auth::user()->socursal_id;;
+        $select_paquete        = $paquete->select_paquete_historial($id_socursal);
         $data['response_code'] = 200;
         $data['response_text'] = "Si hay datos";
         $data['response_data'] = $select_paquete;
@@ -71,7 +75,16 @@ class GestionPaqueteriaController extends Controller {
         return response()->json($data);
     }
 
-    public function update(Request $request, $id) {}
+    public function update(Request $request, $id) {
+        $array                 = array();
+        $paquete               = new Paquete;
+        $id_socursal           = Auth::user()->socursal_id;
+        $select_paquete        = $paquete->select_paquete_historial($id_socursal);
+        $data['response_code'] = 200;
+        $data['response_text'] = "Si hay datos";
+        $data['response_data'] = $select_paquete;
+        return response()->json($data);
+    }
 
     public function edit($id) {}
 

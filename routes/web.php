@@ -19,6 +19,7 @@ Route::post('/login_empleados', 'Auth\LoginEmpleadoController@login')->name('log
 Route::post('/logout', 'Auth\LoginEmpleadoController@logout')->name('empleado.logout');
 Route::resource('rastreo_paquete', 'RastreoController');
 
+
 Route::prefix('empleado')->group(function () {
     Route::resource('bienvenida', 'BienvenidaController');
     Route::resource('gestion_empleados', 'EmpleadoController');
@@ -36,4 +37,5 @@ Route::prefix('empleado')->group(function () {
     Route::resource('paquete_repartidor', 'PaqueteRepartidorController');
     Route::post('paquete/create_eventual', 'PaqueteController@create_paquete_eventual')
         ->name('paquete.create_eventual');
+    Route::resource('soporte', 'SoporteController');
 });

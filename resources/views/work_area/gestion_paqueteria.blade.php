@@ -13,6 +13,41 @@
         </div>
     </div>
     <div class="card-body">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="recipient-name" class="col-form-label">Sucursales:</label>
+                <select class="form-control" id="sucursal" name="sucursal">
+                    <option value="">Seleccione una opción...</option>
+                    @foreach($sucursales as $item)
+                    <option value="{{$item->id}}">{{$item->nombre_socursal}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="recipient-name" class="col-form-label">Estatus paquete:</label>
+                <select class="form-control" id="estatus_paquete" name="estatus_paquete">
+                    <option value="">Seleccione una opción...</option>
+                    <option value="1">En sucursal</option>
+                    <option value="2">En ruta</option>
+                    <option value="3">En socursal intermedia</option>
+                    <option value="4">Entregado a su destinatario</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="recipient-name" class="col-form-label">Entre fecha</label>
+                <input type="date" class="form-control password1" id="fecha_inicio" name="fecha_inicio">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="recipient-name" class="col-form-label">Y fecha</label>
+                <input type="date" class="form-control password1" id="fecha_final" name="fecha_final">
+            </div>
+            <div class="form-group col-md-1">
+                <label for="recipient-name" class="col-form-label">&nbsp;</label>
+                <a class="btn btn-primary form-control" id="btn_buscar">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered table-striped rounded table-sm" id="data_table_paquetes" width="100%"
                 cellspacing="0">
@@ -160,7 +195,6 @@
                     <span aria-hidden="true">&times</span>
                 </button>
             </div>
-
             <div class="modal-body">
                 <form id="form_validate_editar_socursal">
                     <div class="form-row">

@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="{{url('static/dist/css/adminlte.min.css')}}">
     {{-- loader --}}
     <link rel="stylesheet" href="{{url('static/dist/css/loader_box.css')}}">
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{url('static/plugins/summernote/summernote-bs4.css')}}">
     {{-- stepper --}}
     @if(Auth::user()->tipo_empleado_id == 4)
     <link rel="stylesheet" href="{{url('static/plugins/wizard/bd-wizard.css')}}">
@@ -107,6 +109,8 @@
     {{-- pdf-make  --}}
     <script src="{{url('static/plugins/pdfmake/pdfmake.min.js')}}"></script>
     <script src="{{url('static/plugins/pdfmake/vfs_fonts.js')}}"></script>
+    <!-- Summernote -->
+    <script src="{{url('static/plugins/summernote/summernote-bs4.min.js')}}"></script>
     {{--timer bar --}}
     {{-- <script src="https://www.jqueryscript.net/demo/Easy-jQuery-Progress-Bar-Timer-Plugin-For-Bootstrap-3-progressTimer/js/jquery.progressTimer.js"></script> --}}
     {{-- stepper --}}

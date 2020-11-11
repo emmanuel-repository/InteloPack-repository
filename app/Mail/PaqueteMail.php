@@ -28,6 +28,11 @@ class PaqueteMail extends Mailable {
      * usuario : EmmanuelHernandez
      * contraseña : quesevayanalquioteconsusconntrasenastanpendejas
      * contraseña de correo intelopack@intelo.com.mx es 1nt3l0#2020*
+     * 
+     * php artisan cache:clear
+     * php artisan route:clear
+     * php artisan config:clear
+     * php artisan view:clear
       */
     public function build() {
         return $this->subject('Paquete en ruta')->view('email_paquete');

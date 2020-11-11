@@ -371,4 +371,14 @@ class Paquete extends Model {
         }
         return $array_paquete;
     }
+
+    public function select_paquete_historial($id_socursal) {
+        return DB::table('paquetes as p')
+            ->select('p.*')
+            ->where('socursal_id', '=', $id_socursal)
+            ->where('estatus_paquete', '<>', '5')
+            ->limit(100)
+            ->get();
+        return $array_paquete;
+    }
 }

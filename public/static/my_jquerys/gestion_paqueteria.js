@@ -6,8 +6,9 @@ $(document).ready(function () {
     cargar_tabla();
     toDataURL(imagen_logo, function (dataUrl) { image_base_64_logo = dataUrl });
 
+    $('#sucursal').select2({ theme: 'bootstrap4' });
+    $('#estatus_paquete').select2({ theme: 'bootstrap4' });
     $('#data_table_paquetes').DataTable();
-
     $('#form_validate_editar_socursal').validate({
         rules: {
             numero_bar_code: {
@@ -106,6 +107,10 @@ $(document).ready(function () {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
     });
 
+    $(document).on('click', '#btn_buscar', function () {
+        search();
+    });
+
     function cargar_tabla() {
         $.ajax({
             url: "/empleado/gestion_paqueteria/create",
@@ -126,10 +131,12 @@ $(document).ready(function () {
                             'render': function (data, type, row, meta) {
                                 var text = "";
                                 if (data.estatus_paquete == 1) {
-                                    text = "<div class='text-success'>En socursal</div>";
+                                    text = "<div class='text-success'>En sucursal</div>";
                                 } else if (data.estatus_paquete == 2) {
                                     text = "<div class='text-warning'>En ruta</div>";
                                 } else if (data.estatus_paquete == 3) {
+                                    text = "<div class='text-info'>En socursal intermedia</div>";
+                                } else if (data.estatus_paquete == 4) {
                                     text = "<div class='text-primary'>Entregado a su destinatario</div>";
                                 }
                                 return text;
@@ -264,6 +271,39 @@ $(document).ready(function () {
         $('#calle_destino').val(data.calle_destino);
         $('#no_exterior_destino').val(data.no_exterior_destino);
         $('#no_interior_destino').val(data.no_interior_destino);
+    }
+
+    function search() {
+        var id_socursarl = $('#sucursal').val();
+        var estatus_paquete = $('#estatus_paquete').val();
+        var fecha_inicio = $('#fecha_inicio').val();
+        var fecha_final = $('#fecha_final').val();
+        $.ajax({
+            url: '/empleado/gestion_paqueteria/buscar',
+            type: 'put',
+            dataType: 'json',
+            data: {
+                id_socursarl: id_socursarl,
+                estatus_paquete: estatus_paquete,
+                fecha_inicio: fecha_inicio,
+                fecha_final: fecha_final,
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                if (data.response_code == 200) {
+                  
+                } else if (data.response_code == 500) {
+                    infoAlert("Verifica", data.response_text);
+                } else {
+                    infoAlert("Verifica", data.response_text);
+                }
+            },
+            error: function (xhre) {
+                infoAlert("Verifica", data.response_text);
+            }
+        });
     }
 
     function toDataURL(url, callback) {
