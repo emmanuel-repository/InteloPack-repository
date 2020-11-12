@@ -14,18 +14,18 @@ class GestionPaqueteriaController extends Controller {
     }
 
     public function index() {
-        $data              = array();
-        $data['titulo']    = 'Gestion de Paqueteria | InteloPack';
-        $data['work_area'] = 'gestion_paqueteria';
-        $data['my_jquery'] = 'gestion_paqueteria.js';
-        $data['sucursales']     = Socursal::all();
+        $data               = array();
+        $data['titulo']     = 'Gestion de Paqueteria | InteloPack';
+        $data['work_area']  = 'gestion_paqueteria';
+        $data['my_jquery']  = 'gestion_paqueteria.js';
+        $data['sucursales'] = Socursal::all();
         return view('main')->with($data);
     }
 
     public function create() {
         $array                 = array();
         $paquete               = new Paquete;
-        $id_socursal           = Auth::user()->socursal_id;;
+        $id_socursal           = Auth::user()->socursal_id;
         $select_paquete        = $paquete->select_paquete_historial($id_socursal);
         $data['response_code'] = 200;
         $data['response_text'] = "Si hay datos";
@@ -76,10 +76,14 @@ class GestionPaqueteriaController extends Controller {
     }
 
     public function update(Request $request, $id) {
-        $array                 = array();
+        $array = array(
+            'id_socursal'     => $request->input('id_socursal'),
+            'estatus_paquete' => $request->input('estatus_paquete'),
+            'fecha_inicio'    => $request->input('fecha_inicio'),
+            'fecha_final'     => $request->input('fecha_final'),
+        );
         $paquete               = new Paquete;
-        $id_socursal           = Auth::user()->socursal_id;
-        $select_paquete        = $paquete->select_paquete_historial($id_socursal);
+        $select_paquete        = $paquete->select_paquete_filtros($array);
         $data['response_code'] = 200;
         $data['response_text'] = "Si hay datos";
         $data['response_data'] = $select_paquete;

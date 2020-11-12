@@ -381,4 +381,27 @@ class Paquete extends Model {
             ->get();
         return $array_paquete;
     }
+
+    public function select_paquete_filtros($array) {
+        $id_socursal     = $array['id_socursal'];
+        $estatus_paquete = $array['estatus_paquete'];
+        $fecha_inicio    = $array['fecha_inicio'];
+        $fecha_final     = $array['fecha_final'];
+        $query           = "select * from paquetes where estatus_paquete <> 5 ";
+        if (!empty($id_socursal)) {
+            $query .= "and socursal_id = " . $id_socursal . " ";
+        }
+        if (!empty($estatus_paquete)) {
+            $query .= "and estatus_paquete = '" . $estatus_paquete . "' ";
+        }
+        if(!empty($fecha_inicio) && empty($fecha_final)){
+            $query .= "and created_at like '%" . $fecha_inicio . "%' "; 
+        }
+        if (!empty($fecha_inicio) && !empty($fecha_final)) {
+            $query .= "and created_at  between '"  
+                . $fecha_inicio . "' and '" . $fecha_final . "' ";
+        }
+        return DB::select($query);
+    }
+
 }

@@ -274,7 +274,7 @@ $(document).ready(function () {
     }
 
     function search() {
-        var id_socursarl = $('#sucursal').val();
+        var id_socursal = $('#sucursal').val();
         var estatus_paquete = $('#estatus_paquete').val();
         var fecha_inicio = $('#fecha_inicio').val();
         var fecha_final = $('#fecha_final').val();
@@ -283,7 +283,7 @@ $(document).ready(function () {
             type: 'put',
             dataType: 'json',
             data: {
-                id_socursarl: id_socursarl,
+                id_socursal: id_socursal,
                 estatus_paquete: estatus_paquete,
                 fecha_inicio: fecha_inicio,
                 fecha_final: fecha_final,
@@ -293,7 +293,69 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.response_code == 200) {
-                  
+                    $('#data_table_paquetes').DataTable({
+                        "destroy": true,
+                        "pageLength": 10,
+                        "data": data.response_data,
+                        "columns": [{
+                            'data': "no_paquete"
+                        },
+                        {
+                            'data': null,
+                            'render': function (data, type, row, meta) {
+                                var text = "";
+                                if (data.estatus_paquete == 1) {
+                                    text = "<div class='text-success'>En sucursal</div>";
+                                } else if (data.estatus_paquete == 2) {
+                                    text = "<div class='text-warning'>En ruta</div>";
+                                } else if (data.estatus_paquete == 3) {
+                                    text = "<div class='text-info'>En socursal intermedia</div>";
+                                } else if (data.estatus_paquete == 4) {
+                                    text = "<div class='text-primary'>Entregado a su destinatario</div>";
+                                }
+                                return text;
+                            }
+                        },
+                        {
+                            'data': null,
+                            'render': function (data, type, row, meta) {
+                                return "<a id='btn_open_modal_detalle' " +
+                                    " class='btn btn-outline-success btn-sm' " +
+                                    "data-toggle='tooltip' data-placement='right' title='Ver detalle de Paquete'>" +
+                                    "<i class='fas fa-info-circle'></i></a>";
+                            }
+                        }
+                        ],
+                        'language': {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "loadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            },
+                        },
+                        "columnDefs": [{
+                            "className": "text-center",
+                            "targets": "_all"
+                        }],
+                    });
+                    $('[data-toggle="tooltip"]').tooltip();
                 } else if (data.response_code == 500) {
                     infoAlert("Verifica", data.response_text);
                 } else {
@@ -304,6 +366,7 @@ $(document).ready(function () {
                 infoAlert("Verifica", data.response_text);
             }
         });
+
     }
 
     function toDataURL(url, callback) {

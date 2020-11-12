@@ -373,7 +373,7 @@ $(document).ready(function () {
             content: [
                 {
                     alignment: 'center',
-                    text: 'Enbarque de Salida',
+                    text: 'Embarque de Salida',
                     style: 'header',
                     fontSize: 18,
                     bold: true,
@@ -409,7 +409,7 @@ $(document).ready(function () {
                 },
                 {
                     alignment: 'center',
-                    text: 'Detalle de enbarque',
+                    text: 'Detalle de embarque',
                     style: 'header',
                     fontSize: 18,
                     bold: true,
@@ -442,7 +442,7 @@ $(document).ready(function () {
                 },
                 {
                     alignment: 'center',
-                    text: 'Datos de unidad',
+                    text: 'Datos de la unidad',
                     style: 'header',
                     fontSize: 18,
                     bold: true,
@@ -503,7 +503,7 @@ $(document).ready(function () {
                     style: 'footer',
                     table: {
                         widths: ['*', 100],
-                        body: [[{ text: 'Fecha de creacion: ', alignment: 'center' },]]
+                        body: [[{ text: 'Fecha de creación: ', alignment: 'center' },]]
                     },
                     layout: 'noBorders'
                 }
