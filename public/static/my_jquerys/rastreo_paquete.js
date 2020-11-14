@@ -49,8 +49,9 @@ $(document).ready(function () {
         const url = window.location.href;
         var url_separado = url.split('rastreo_paquete/');
         if (url_separado.length == 2) {
-            if (url_separado[1] =! "") {
+            if (url_separado[1] == "") {
                 console.log(url_separado[1])
+            } else {
                 $('#bar_code').val(url_separado[1]);
                 rastrear(url_separado[1]);
             }

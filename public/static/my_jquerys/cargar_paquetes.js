@@ -562,23 +562,5 @@ $(document).ready(function () {
 
         });
     }
-
-    // function alertLoader() {
-    //     Swal.fire({
-    //         title: 'Espere un momento, cargando...',
-    //         allowOutsideClick: false,
-    //         showConfirmButton: false,
-    //         width: 600,
-    //         padding: '3em',
-    //         background: 'rgb(0 0 123 / 0%)',
-    //         backdrop: 'rgba(0,0,123,0.4) left top no-repeat',
-    //         html: '<div class="spinner-grow text-primary" role="status"></div>' +
-    //             '<div class="spinner-grow text-secondary" role="status"></div>' +
-    //             '<div class="spinner-grow text-success" role="status"></div>' +
-    //             '<div class="spinner-grow text-danger"" role="status"></div>' +
-    //             '<div class="spinner-grow text-warning" role="status"></div>' +
-    //             '<div class="spinner-grow text-light" role="status"></div>' +
-    //             '<div class="spinner-grow text-dark" role="status"></div>'
-    //     });
-    // }    
+       
 })

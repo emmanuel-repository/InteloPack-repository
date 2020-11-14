@@ -18,6 +18,7 @@ Route::get('/login_empleados', 'Auth\LoginEmpleadoController@index')->name('logi
 Route::post('/login_empleados', 'Auth\LoginEmpleadoController@login')->name('login_empleado.submit');
 Route::post('/logout', 'Auth\LoginEmpleadoController@logout')->name('empleado.logout');
 Route::resource('rastreo_paquete', 'RastreoController');
+Route::resource('politicas_privacidad', 'PoliticasPrivacidadController');
 
 
 Route::prefix('empleado')->group(function () {

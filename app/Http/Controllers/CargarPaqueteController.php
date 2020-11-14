@@ -27,7 +27,6 @@ class CargarPaqueteController extends Controller {
     }
 
     public function store(Request $request) {
-
         $data                       = array();
         $cross_over                 = new CrossOver;
         $transporte_empleado        = new TransporteEmpleado;
