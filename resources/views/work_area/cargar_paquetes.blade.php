@@ -43,6 +43,11 @@
                         Cancelar
                     </a>
                 </div>
+                <div class="form-group col-md-12 d-flex justify-content-end">
+                    <a class="btn btn-light mr-1" id="btn_prueba_pdf">
+                        pdf
+                    </a>
+                </div>
             </div>
         </form>
     </div>

@@ -109,6 +109,8 @@
     {{-- pdf-make  --}}
     <script src="{{url('static/plugins/pdfmake/pdfmake.min.js')}}"></script>
     <script src="{{url('static/plugins/pdfmake/vfs_fonts.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script>
+    {{-- <script src="{{url('static/plugins/pdfmake/browser.js')}}"></script> --}}
     <!-- Summernote -->
     <script src="{{url('static/plugins/summernote/summernote-bs4.min.js')}}"></script>
     {{--timer bar --}}

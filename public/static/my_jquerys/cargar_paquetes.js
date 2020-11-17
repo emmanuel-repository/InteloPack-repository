@@ -125,6 +125,10 @@ $(document).ready(function () {
         insert();
     });
 
+    $(document).on('click', '#btn_prueba_pdf', function () {
+        pruba_pdf_html();
+    });
+
     $(document).on('click', '#btn_limpiar_tabla', function () {
         Swal.fire({
             title: '¿Esta seguro?',
@@ -361,13 +365,13 @@ $(document).ready(function () {
                         margin: 70
                     },
                     {
-                        image: image_base_64_logo, 
-                        width: 100, 
-                        height: 75, 
+                        image: image_base_64_logo,
+                        width: 100,
+                        height: 75,
                         margin: 70,
                         absolutePosition: { x: 480, y: 5 },
                     },
-                    
+
                 ]
             },
             content: [
@@ -562,5 +566,55 @@ $(document).ready(function () {
 
         });
     }
-       
+
+    // function pruba_pdf_html() {
+    //     var html = htmlToPdfmake(` `,
+    //          { window: window, tableAutoSize: true });
+
+    //     //var html = htmlToPdfMake(``, {window:window, tableAutoSize:true});
+    //     //console.log(JSON.stringify(html))
+
+    //     var docDefinition = {
+    //         content: [
+    //             html
+    //         ],
+    //         pageBreakBefore: function (currentNode) {
+    //             // we add a page break before TABLE with the classname "pdf-pagebreak-before"
+    //             return currentNode.table && currentNode.style && currentNode.style.indexOf('pdf-pagebreak-before') > -1;
+    //         },
+    //         styles: {
+    //             red: {
+    //                 color: 'red'
+    //             },
+    //             blue: {
+    //                 color: 'blue'
+    //             },
+    //             bold: {
+    //                 bold: true
+    //             },
+    //             'html-h6': {
+    //                 color: 'purple'
+    //             },
+    //             'html-strong': {
+    //                 color: 'purple'
+    //             },
+    //             'a': {
+    //                 bold: true
+    //             },
+    //             'b': {
+    //                 italics: true
+    //             },
+    //             'c': {
+    //                 color: 'red',
+    //                 italics: false
+    //             },
+    //             'with-spaces': {
+    //                 preserveLeadingSpaces: true
+    //             }
+    //         }
+    //     };
+
+    //     pdfMake.createPdf(docDefinition).open();
+    // }
+
 })
