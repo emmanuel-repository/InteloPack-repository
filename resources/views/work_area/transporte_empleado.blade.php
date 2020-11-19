@@ -47,7 +47,7 @@
                         <div class="form-group col-md-12">
                             <label for="recipient-name" class="col-form-label">Socursal*</label>
                             <select class="form-control select2" id="sucursal" name="sucursal">
-                                <option value="">Seleccione una opción</option>
+                                <option value="">Seleccione una opción...</option>
                                 @foreach($sucursales as $item)
                                 <option value="{{$item->id}}">{{$item->nombre_socursal}}</option>
                                 @endforeach

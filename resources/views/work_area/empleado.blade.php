@@ -77,7 +77,7 @@
                         <div class="form-group col-md-6">
                             <label for="recipient-name" class="col-form-label">Tipo de Usuario*</label>
                             <select class="form-control select2" id="tipo_empleado" name="tipo_empleado">
-                                <option value="">SELECCIONE UNA OPCIÓN...</option>
+                                <option value="">Seleccione una opción...</option>
                                 @foreach($tipos_empleado as $item)
                                 <option value="{{$item->id}}">{{$item->descripcion_tipo_empleado}}</option>
                                 @endforeach
@@ -86,7 +86,7 @@
                         <div class="form-group col-md-6">
                             <label for="recipient-name" class="col-form-label">Socursal*</label>
                             <select class="form-control" id="sucursal" name="sucursal">
-                                <option value="">SELECCIONE UNA OPCIÓN...</option>
+                                <option value="">Seleccione una opción...</option>
                                 @foreach($sucursales as $item)
                                 <option value="{{$item->id}}">{{$item->nombre_socursal}}</option>
                                 @endforeach

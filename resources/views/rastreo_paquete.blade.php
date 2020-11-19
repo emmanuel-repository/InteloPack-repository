@@ -29,6 +29,7 @@
             width: 100%;
             height: 150px;
         }
+
     </style>
 </head>
 
@@ -36,7 +37,8 @@
     <header>
         <div class="header-banner d-flex justify-content-center">
             <a href="{{url('/')}}">
-                <img src="{{url('static/imagenes_intelo/intelo_logo_modificado.png')}}" width="250" height="150">
+                <img src="{{url('static/imagenes_intelo/intelo_logo_modificado.png')}}" 
+                    width="250" height="150">
             </a>
         </div>
     </header>
@@ -47,7 +49,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-12 d-flex justify-content-start align-items-center">
-                                <h5 class="text-secondary">Ingrese guia de rastreo</h5>
+                                <h5 class="text-secondary">Ingrese guía de rastreo</h5>
                             </div>
                         </div>
                     </div>
@@ -73,7 +75,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6 d-flex justify-content-start align-items-center">
-                                <h5 class="text-secondary">Sistema de Paqueteria InteloPack</h5>
+                                <h5 class="text-secondary">Sistema de Paquetería InteloPack</h5>
                             </div>
                             <div class="form-group col-md-6 d-flex justify-content-end m-0">
                                 <a class="btn btn-light mr-1 d-none" id="btn_limpiar_panel" data-toggle='tooltip'
@@ -103,7 +105,7 @@
                             </div>
                             <div class="form-group col-md-4 mb-0">
                                 <label for="recipient-name " class="col-form-label pb-0"
-                                    style="font-size:14px; font-weight: 500; ">No. de guia
+                                    style="font-size:14px; font-weight: 500; ">No. de guía
                                 </label>
                                 <h6 class="text-primary" id="text_no_guia"></h6>
                             </div>
@@ -150,6 +152,7 @@
     <script>
         $('[data-toggle="tooltip"]').tooltip();
         $.widget.bridge('uibutton', $.ui.button)
+
     </script>
 </body>
 

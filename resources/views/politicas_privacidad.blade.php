@@ -47,7 +47,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6 d-flex justify-content-start align-items-center">
-                                <h5 class="text-secondary">Politicas de privacidad</h5>
+                                <h5 class="text-secondary">Política de privacidad</h5>
                             </div>
                             <div class="form-group col-md-6 d-flex justify-content-end m-0">
                                 <a class="btn btn-light mr-1 d-none" id="btn_limpiar_panel" data-toggle='tooltip'
@@ -61,9 +61,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        
-                    </div>
+                    <div class="card-body"></div>
                 </div>
             </div>
         </div>

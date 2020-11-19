@@ -12,9 +12,9 @@
                     <input class="form-control" type="checkbox" name="my-checkbox" data-bootstrap-switch data-on-text="SI" data-off-text="NO" value="true" id="checkbox_cliente_frecuente">
                 </div>
                 <div class="form-group col-md-4 d-none" id="form_select_cliente">
-                    <label for="recipient-name" class="col-form-label">Razon social</label>
+                    <label for="recipient-name" class="col-form-label">Razón social</label>
                     <select class="form-control select2" id="razon_social_cliente" name="razon_social_cliente">
-                        <option value="">Seleccione una Opción...</option>
+                        <option value="">Seleccione una opción...</option>
                         @foreach($clientes as $item)
                         <option value="{{$item->id}}">{{$item->razon_social_cliente}}</option>
                         @endforeach
@@ -42,7 +42,7 @@
                             = document.getElementById(this.id).value.toUpperCase()" maxlength="50">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="recipient-name" class="col-form-label">Razon Social*</label>
+                    <label for="recipient-name" class="col-form-label">Razón Social*</label>
                     <input type="text" class="form-control" id="razon_social" name="razon_social" 
                         onKeyUp="document.getElementById(this.id).value 
                             = document.getElementById(this.id).value.toUpperCase()" maxlength="100">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="recipient-name" class="col-form-label">Codigo Postal*</label>
+                    <label for="recipient-name" class="col-form-label">Código Postal*</label>
                     <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()" maxlength="6">
                 </div>
                 <div class="form-group col-md-6">
@@ -85,11 +85,11 @@
                             = document.getElementById(this.id).value.toUpperCase()" maxlength="100">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="recipient-name" class="col-form-label">No Exterior*</label>
+                    <label for="recipient-name" class="col-form-label">No. Exterior*</label>
                     <input type="text" class="form-control" id="no_exterior_cliente" name="no_exterior_cliente" maxlength="12">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="recipient-name" class="col-form-label">No Interior</label>
+                    <label for="recipient-name" class="col-form-label">No. Interior</label>
                     <input type="text" class="form-control" id="no_interior_cliente" name="no_interior_cliente" 
                         onKeyUp="document.getElementById(this.id).value 
                             = document.getElementById(this.id).value.toUpperCase()" maxlength="12">
@@ -134,7 +134,7 @@
                         name="municipio_sucursal_salida" readonly value="{{$sucursal_salida->municipio_socursal}}">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="recipient-name" class="col-form-label">Codigo Postal</label>
+                    <label for="recipient-name" class="col-form-label">Código Postal</label>
                     <input type="numbre" class="form-control" id="codigo_postal_sucursal_salida" name="codigo_postal_sucursal_salida" readonly value="{{$sucursal_salida->codigo_postal_socursal}}">
                 </div>
                 <div class="form-group col-md-6">
@@ -171,7 +171,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="recipient-name" class="col-form-label">Codigo Postal*</label>
+                    <label for="recipient-name" class="col-form-label">Código Postal*</label>
                     <input type="numbre" class="form-control" id="codigo_postal_destino" name="codigo_postal_destino">
                 </div>
                 <div class="form-group col-md-6">
@@ -200,7 +200,7 @@
                         Cancelar
                     </a>
                     <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-barcode"></i> Guardar y generar codigo de barras
+                        <i class="fas fa-barcode"></i> Guardar y generar código de barras
                     </button>
                 </div>
             </div>
@@ -213,7 +213,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Codigo de Barra</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Código de Barra</h5>
             </div>
             <div class="modal-body">
                 <div id="add_bar_code" class="row d-flex justify-content-center">

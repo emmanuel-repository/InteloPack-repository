@@ -14,9 +14,8 @@
                 <form id="form_validate_escaner">
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Codigo de Barras escaneado</label>
-                            <input type="number" class="form-control" id="bar_code_escaner" 
-                                name="bar_code_escaner" >
+                            <label for="recipient-name" class="col-form-label">Codigo de barras escaneado</label>
+                            <input type="number" class="form-control" id="bar_code_escaner" name="bar_code_escaner">
                         </div>
                         <div class="form-group col-md-12 col-sm-6 col-lg-6">
                             <div id="interactive" class="viewport"></div>
@@ -44,13 +43,12 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="recipient-name" class="col-form-label">Cliente registrado: </label>
-                        <input class="form-control" type="checkbox" name="my-checkbox" data-bootstrap-switch
-                            data-on-text="SI" data-off-text="NO" value="true" id="checkbox_cliente_frecuente">
+                        <input class="form-control" type="checkbox" name="my-checkbox" data-bootstrap-switch data-on-text="SI" data-off-text="NO" value="true" id="checkbox_cliente_frecuente">
                     </div>
                     <div class="form-group col-md-4 d-none" id="form_select_cliente">
                         <label for="recipient-name" class="col-form-label">Razon social</label>
                         <select class="form-control select2" id="razon_social_cliente" name="razon_social_cliente">
-                            <option value="">Seleccione una Opción...</option>
+                            <option value="">Seleccione una opción...</option>
                             @foreach($clientes as $item)
                             <option value="{{$item->id}}">{{$item->razon_social_cliente}}</option>
                             @endforeach
@@ -72,7 +70,7 @@
                                     = document.getElementById(this.id).value.toUpperCase()" maxlength="50">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="recipient-name" class="col-form-label">Razon Sociale*</label>
+                        <label for="recipient-name" class="col-form-label">Razón Social*</label>
                         <input type="text" class="form-control" id="razon_social" name="razon_social" onKeyUp="document.getElementById(this.id).value 
                                     = document.getElementById(this.id).value.toUpperCase()" maxlength="100">
                     </div>
@@ -96,7 +94,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="recipient-name" class="col-form-label">Codigo Postal*</label>
+                        <label for="recipient-name" class="col-form-label">Código Postal*</label>
                         <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" onKeyUp="document.getElementById(this.id).value 
                                     = document.getElementById(this.id).value.toUpperCase()" maxlength="6">
                     </div>
@@ -113,31 +111,26 @@
                                     = document.getElementById(this.id).value.toUpperCase()" maxlength="100">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="recipient-name" class="col-form-label">No Exterior*</label>
-                        <input type="text" class="form-control" id="no_exterior_cliente" name="no_exterior_cliente"
-                            maxlength="12">
+                        <label for="recipient-name" class="col-form-label">No. Exterior*</label>
+                        <input type="text" class="form-control" id="no_exterior_cliente" name="no_exterior_cliente" maxlength="12">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="recipient-name" class="col-form-label">No Interior</label>
-                        <input type="text" class="form-control" id="no_interior_cliente" name="no_interior_cliente"
-                            onKeyUp="document.getElementById(this.id).value 
+                        <label for="recipient-name" class="col-form-label">No. Interior</label>
+                        <input type="text" class="form-control" id="no_interior_cliente" name="no_interior_cliente" onKeyUp="document.getElementById(this.id).value 
                                     = document.getElementById(this.id).value.toUpperCase()" maxlength="12">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="recipient-name" class="col-form-label">Correo*</label>
-                        <input type="email" class="form-control" id="correo_cliente" name="correo_cliente"
-                            maxlength="100">
+                        <input type="email" class="form-control" id="correo_cliente" name="correo_cliente" maxlength="100">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="recipient-name" class="col-form-label">Telefono 1*</label>
-                        <input type="text" class="form-control" id="telefono_1_cliente" name="telefono_1_cliente"
-                            onKeyUp="document.getElementById(this.id).value 
+                        <input type="text" class="form-control" id="telefono_1_cliente" name="telefono_1_cliente" onKeyUp="document.getElementById(this.id).value 
                                     = document.getElementById(this.id).value.toUpperCase()" maxlength="12">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="recipient-name" class="col-form-label">Telefono 2</label>
-                        <input type="text" class="form-control" id="telefono_2_cliente" name="telefono_2_cliente"
-                            onKeyUp="document.getElementById(this.id).value 
+                        <input type="text" class="form-control" id="telefono_2_cliente" name="telefono_2_cliente" onKeyUp="document.getElementById(this.id).value 
                                     = document.getElementById(this.id).value.toUpperCase()" maxlength="12">
                     </div>
                     <div class="form-group col-md-12 d-flex justify-content-end">
@@ -165,53 +158,40 @@
                 <form id="form_validate_salida">
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Nombre de Socursal</label>
-                            <input type="text" class="form-control" id="nombre_sucursal_salida"
-                                name="nombre_sucursal_salida" readonly value="{{$sucursal_salida->nombre_socursal}}">
+                            <label for="recipient-name" class="col-form-label">Nombre de sucursal</label>
+                            <input type="text" class="form-control" id="nombre_sucursal_salida" name="nombre_sucursal_salida" readonly value="{{$sucursal_salida->nombre_socursal}}">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">No. de socursal</label>
-                            <input type="text" class="form-control" id="no_sucursal_salida" name="no_sucursal_salida"
-                                readonly value="{{$sucursal_salida->no_socursal}}">
+                            <label for="recipient-name" class="col-form-label">No. de sucursal</label>
+                            <input type="text" class="form-control" id="no_sucursal_salida" name="no_sucursal_salida" readonly value="{{$sucursal_salida->no_socursal}}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="recipient-name" class="col-form-label">Estado</label>
-                            <input type="text" class="form-control" id="estado_sucursal_salida"
-                                name="estado_sucursal_salida" readonly value="{{$sucursal_salida->estado_socursal}}">
+                            <input type="text" class="form-control" id="estado_sucursal_salida" name="estado_sucursal_salida" readonly value="{{$sucursal_salida->estado_socursal}}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="recipient-name" class="col-form-label">Municipio</label>
-                            <input type="text" class="form-control" id="municipio_sucursal_salida"
-                                name="municipio_sucursal_salida" readonly
-                                value="{{$sucursal_salida->municipio_socursal}}">
+                            <input type="text" class="form-control" id="municipio_sucursal_salida" name="municipio_sucursal_salida" readonly value="{{$sucursal_salida->municipio_socursal}}">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Codigo Postal</label>
-                            <input type="numbre" class="form-control" id="codigo_postal_sucursal_salida"
-                                name="codigo_postal_sucursal_salida" readonly
-                                value="{{$sucursal_salida->codigo_postal_socursal}}">
+                            <label for="recipient-name" class="col-form-label">Código Postal</label>
+                            <input type="numbre" class="form-control" id="codigo_postal_sucursal_salida" name="codigo_postal_sucursal_salida" readonly value="{{$sucursal_salida->codigo_postal_socursal}}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="recipient-name" class="col-form-label">Colonia</label>
-                            <input type="text" class="form-control" id="colonia_sucursal_salida"
-                                name="colonia_sucursal_salida" readonly value="{{$sucursal_salida->colonia_socursal}}">
+                            <input type="text" class="form-control" id="colonia_sucursal_salida" name="colonia_sucursal_salida" readonly value="{{$sucursal_salida->colonia_socursal}}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="recipient-name" class="col-form-label">Calle</label>
-                            <input type="text" class="form-control" id="calle_sucursal_salida"
-                                name="calle_sucursal_salida" readonly value="{{$sucursal_salida->calle_socursal}}">
+                            <input type="text" class="form-control" id="calle_sucursal_salida" name="calle_sucursal_salida" readonly value="{{$sucursal_salida->calle_socursal}}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="recipient-name" class="col-form-label">No. Exterior</label>
-                            <input type="text" class="form-control" id="no_exterior_sucursal_salida"
-                                name="no_exterior_sucursal_salida" readonly
-                                value="{{$sucursal_salida->no_exterior_socursal}}">
+                            <input type="text" class="form-control" id="no_exterior_sucursal_salida" name="no_exterior_sucursal_salida" readonly value="{{$sucursal_salida->no_exterior_socursal}}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="recipient-name" class="col-form-label">No. Interior</label>
-                            <input type="text" class="form-control" id="no_interior_sucursal_salida"
-                                name="no_interior_sucursal_salida" readonly
-                                value="{{$sucursal_salida->no_interior_socursal}}">
+                            <input type="text" class="form-control" id="no_interior_sucursal_salida" name="no_interior_sucursal_salida" readonly value="{{$sucursal_salida->no_interior_socursal}}">
                         </div>
                         <div class="form-group col-md-12 d-flex justify-content-end">
                             <a class="btn btn-light btn_cancelar mr-1 btn_previo">
@@ -249,9 +229,8 @@
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Codigo Postal*</label>
-                            <input type="numbre" class="form-control" id="codigo_postal_destino"
-                                name="codigo_postal_destino">
+                            <label for="recipient-name" class="col-form-label">Código Postal*</label>
+                            <input type="numbre" class="form-control" id="codigo_postal_destino" name="codigo_postal_destino">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="recipient-name" class="col-form-label">Colonia*</label>
@@ -260,22 +239,15 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="recipient-name" class="col-form-label">Calle*</label>
-                            <input type="text" class="form-control" id="calle_destino" name="calle_destino"
-                                onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()"
-                                maxlength="100">
+                            <input type="text" class="form-control" id="calle_destino" name="calle_destino" onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()" maxlength="100">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="recipient-name" class="col-form-label">No. Exterior*</label>
-                            <input type="text" class="form-control" id="no_exterior_destino" name="no_exterior_destino"
-                                onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()"
-                                maxlength="14">
+                            <input type="text" class="form-control" id="no_exterior_destino" name="no_exterior_destino" onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()" maxlength="14">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="recipient-name" class="col-form-label">No. Interior</label>
-                            <input type="text" class="form-control" id="no_interior_destino"
-                                name="no_interior_destino"
-                                onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()"
-                                maxlength="14">
+                            <input type="text" class="form-control" id="no_interior_destino" name="no_interior_destino" onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()" maxlength="14">
                         </div>
                         <div class="form-group col-md-12 d-flex justify-content-end">
                             <a class="btn btn-light btn_cancelar mr-1 btn_previo">
@@ -286,6 +258,7 @@
                             </button>
                         </div>
                     </div>
+                </form>
             </div>
         </section>
     </div>

@@ -20,7 +20,7 @@
                     <tr>
                         <th class="text-center">No. transporte</th>
                         <th class="text-center">Matricula</th>
-                        <th class="text-center">Socursal</th>
+                        <th class="text-center">Sucursal</th>
                         <th class="text-center">Tipo transporte</th>
                         <th class="text-center">Estatus</th>
                         <th class="text-center">Acciones</th>
@@ -65,9 +65,9 @@
                                     = document.getElementById(this.id).value.toUpperCase()">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="recipient-name" class="col-form-label">Socuersal*</label>
+                            <label for="recipient-name" class="col-form-label">Sucuersal*</label>
                             <select class="form-control select2" id="sucursal" name="sucursal">
-                                <option value="">SELECCIONE UNA OPICIÓN...</option>
+                                <option value="">Seleccione una opción...</option>
                                 @foreach($sucursales as $item)
                                 <option value="{{$item->id}}">{{$item->nombre_socursal}}</option>
                                 @endforeach
@@ -76,7 +76,7 @@
                         <div class="form-group col-md-6">
                             <label for="recipient-name" class="col-form-label">Tipo de transporte*</label>
                             <select class="form-control" id="tipo_transporte" name="tipo_transporte">
-                                <option value="">SELECCIONE UNA OPICIÓN...</option>
+                                <option value="">Seleccione una opción...</option>
                                 @foreach($tipo_transportes as $item)
                                 <option value="{{$item->id}}">{{$item->descripcion_tipo_transporte}}</option>
                                 @endforeach

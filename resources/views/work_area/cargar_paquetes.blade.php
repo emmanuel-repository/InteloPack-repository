@@ -2,7 +2,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-md-6 d-flex justify-content-start align-items-center">
-                <h5 class="text-secondary">Llenar Datos de Carga de Paquetes</h5>
+                <h5 class="text-secondary">Llenar datos de carga de paquetes</h5>
             </div>
             <div class="col-md-6 d-none" id="col_check">
                 <input type="text" class="form-control d-none" id="id_socursal" value="{{Auth::user()->socursal_id}}">
@@ -53,10 +53,12 @@
                 <h5 class="text-secondary">Vista previa de paquetes cargados</h5>
             </div>
             <div class="form-group col-md-6 d-flex justify-content-end m-0">
-                <a class="btn btn-light mr-1" id="btn_limpiar_tabla" data-toggle='tooltip' data-placement='right' title='Limpiar tabla'>
+                <a class="btn btn-light mr-1" id="btn_limpiar_tabla" data-toggle='tooltip' 
+                    data-placement='right' title='Limpiar tabla'>
                     <i class="fas fa-calendar-times"></i>
                 </a>
-                <a class="btn btn-primary" data-toggle='tooltip' id="btn_guardar_cargamento" data-placement='right' title='Guardar paquetes en Transporte'>
+                <a class="btn btn-primary" data-toggle='tooltip' id="btn_guardar_cargamento" 
+                    data-placement='right' title='Guardar paquetes en Transporte'>
                     <i class="fas fa-save"></i>
                 </a>
             </div>
@@ -64,7 +66,8 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped rounded table-sm" id="tabla_paquetes" width="100%" cellspacing="0">
+            <table class="table table-bordered table-striped rounded table-sm" 
+                id="tabla_paquetes" width="100%" cellspacing="0">
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">Código de Barra</th>

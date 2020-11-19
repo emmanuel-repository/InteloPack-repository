@@ -62,9 +62,9 @@
             </section>
         </div>
         <footer class="main-footer">
-            <strong><a href="#">Politicas de Privacidad</a></strong>
+            <strong><a href="#">Políticas de Privacidad</a></strong>
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> Desarrollo
+                <b>Versión</b> Desarrollo
             </div>
         </footer>
         <!-- Control Sidebar -->

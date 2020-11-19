@@ -15,7 +15,7 @@
         <div class="error-page" style="margin: 17% auto 0;">
             <h2 class="headline text-danger">500</h2>
             <div class="error-content">
-                <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Something went wrong.</h3>
+                <h3><i class="fas fa-exclamation-triangle text-danger"></i>¡Ups! Algo salió mal.</h3>
                 <p>
                     Trabajaremos para solucionarlo de inmediato.
                     Mientras tanto, puede <a href="{{route('bienvenida.index')}}">volver al panel de control</a>.

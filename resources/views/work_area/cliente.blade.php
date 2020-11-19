@@ -19,7 +19,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">Nombre completo</th>
-                        <th class="text-center">Razon social</th>
+                        <th class="text-center">Razón social</th>
                         <th class="text-center">RFC</th>
                         <th class="text-center">Estatus</th>
                         <th class="text-center">Acciones</th>
@@ -83,7 +83,7 @@
                             <h5 class="text-secondary">Datos de Contacto:</h5>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Estados*</label>
+                            <label for="recipient-name" class="col-form-label">Estado*</label>
                             <select class="form-control select2" id="estado_cliente" name="estado_cliente">
                             </select>
                         </div>
@@ -93,7 +93,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Codigo Postal*</label>
+                            <label for="recipient-name" class="col-form-label">Código Postal*</label>
                             <input type="numbre" class="form-control" id="codigo_postal_cliente"
                                 name="codigo_postal_cliente" maxlength="6">
                         </div>

@@ -2,7 +2,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-md-6 d-flex justify-content-start align-items-center">
-                <h5 class="text-secondary">Historial de Paquetes</h5>
+                <h5 class="text-secondary">Historial de paquetes</h5>
             </div>
             <div class="col-md-6 d-flex justify-content-end">
                 <a type="button" class="btn btn-sm btn-success text-white" id="btn_open_modal_barcode"
@@ -14,7 +14,7 @@
     </div>
     <div class="card-body">
         <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label for="recipient-name" class="col-form-label">Sucursales:</label>
                 <select class="form-control" id="sucursal" name="sucursal">
                     <option value="">Seleccione una opción...</option>
@@ -23,22 +23,22 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
                 <label for="recipient-name" class="col-form-label">Estatus paquete:</label>
                 <select class="form-control" id="estatus_paquete" name="estatus_paquete">
                     <option value="">Seleccione una opción...</option>
                     <option value="1">En sucursal</option>
                     <option value="2">En ruta</option>
-                    <option value="3">En socursal intermedia</option>
+                    <option value="3">En sucursal intermedia</option>
                     <option value="4">Entregado a su destinatario</option>
                 </select>
             </div>
-            <div class="form-group col-md-3">
-                <label for="recipient-name" class="col-form-label">Entre fecha</label>
+            <div class="form-group col-md-2">
+                <label for="recipient-name" class="col-form-label">Entre fecha:</label>
                 <input type="date" class="form-control password1" id="fecha_inicio" name="fecha_inicio">
             </div>
-            <div class="form-group col-md-3">
-                <label for="recipient-name" class="col-form-label">Y fecha</label>
+            <div class="form-group col-md-2">
+                <label for="recipient-name" class="col-form-label">Y fecha:</label>
                 <input type="date" class="form-control password1" id="fecha_final" name="fecha_final">
             </div>
             <div class="form-group col-md-1">
@@ -53,7 +53,7 @@
                 cellspacing="0">
                 <thead class="thead-light">
                     <tr>
-                        <th class="text-center">No. de Guia</th>
+                        <th class="text-center">No. de guía</th>
                         <th class="text-center">Estatus</th>
                         <th class="text-center">Acciones</th>
                     </tr>
@@ -70,7 +70,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    Paquete No. de Guia: <b class="text-primary" id='text_no_paquete'></b>
+                    Paquete No. de guía: <b class="text-primary" id='text_no_paquete'></b>
                 </h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times</span>
@@ -95,7 +95,7 @@
                             <input type="text" class="form-control" id="segundo_apellido" readonly>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Razon Sociale</label>
+                            <label for="recipient-name" class="col-form-label">Razón Social</label>
                             <input type="text" class="form-control" id="razon_social" readonly>
                         </div>
                         <div class="form-group col-md-4">
@@ -122,7 +122,7 @@
                             <input type="email" class="form-control" id="municipio_socursal" readonly>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Cóodigo Postal</label>
+                            <label for="recipient-name" class="col-form-label">Código Postal</label>
                             <input type="numbre" class="form-control" id="codigo_postal_socursal" readonly>
                         </div>
                         <div class="form-group col-md-6">

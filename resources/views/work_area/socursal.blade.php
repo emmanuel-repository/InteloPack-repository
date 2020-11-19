@@ -61,7 +61,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Codigo Postal*</label>
+                            <label for="recipient-name" class="col-form-label">Código Postal*</label>
                             <input type="number" class="form-control" id="codigo_postal" name="codigo_postal"
                                 maxlength="6">
                         </div>
@@ -132,7 +132,7 @@
                                 name="municipio_socursal_editar"></select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Codigo Postal*</label>
+                            <label for="recipient-name" class="col-form-label">Código Postal*</label>
                             <input type="numbre" class="form-control" id="codigo_postal_editar"
                                 name="codigo_postal_editar" maxlength="6">
                         </div>

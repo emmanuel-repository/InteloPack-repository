@@ -137,7 +137,7 @@
                             padding-top: 5px;
                             color: #000000;
                             font-family: sans-serif;" class="subheader">
-                            Sistema de Paqueteria 
+                            Sistema de Paquetería 
                         </td>
                     </tr>
                     <tr>
@@ -160,7 +160,7 @@
                                 <p>Hola:</p>
                                 <p>{{$data['nombre_completo']}}</p>
                                 Su paquete ya se encuentra en ruta.
-                                <p>Numero de rastreo:</p>
+                                <p>Número de rastreo:</p>
                                 <p style="border-collapse: collapse; border-spacing: 0; margin: 0;
                                     padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 22px; 
                                     font-weight: 400; line-height: 160%;  padding-top: 0px; color: #000000;
@@ -212,7 +212,7 @@
                             padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 17px; 
                             font-weight: 400; line-height: 160%;  padding-top: 20px; padding-bottom: 25px;  
                             color: #000000; font-family: sans-serif;" class="paragraph">
-                            <p>Cualquier duda se puede contactar: </p>
+                            <p>Cualquier duda, puede contactarse mediante: </p>
                             <p> 
                                 Correo:
                                 <a target="_blank" style="color: #127DB3; font-family: sans-serif; font-size: 17px; 

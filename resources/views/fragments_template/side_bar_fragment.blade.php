@@ -23,12 +23,12 @@
           <nav class="mt-2">
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   @if(Auth::user()->tipo_empleado_id == "1")
-                  <li class="nav-header pt-2">ADMINISTRACIÓN DE PAQUETERIA</li>
+                  <li class="nav-header pt-2">ADMINISTRACIÓN DE PAQUETERÍA</li>
                   <li class="nav-item has-treeview">
                       <a href="#" class="nav-link">
                           <i class="fa fa-box nav-icon"></i>
                           <p>
-                              Paqueteria
+                              Paquetería
                               <i class="fas fa-angle-left right"></i>
                           </p>
                       </a>
@@ -42,7 +42,7 @@
                           <li class="nav-item">
                               <a href="{{route('gestion_paqueteria.index')}}" class="nav-link">
                                   <i class="fas fa-boxes nav-icon"></i>
-                                  <p>Gestión de Paqueteria</p>
+                                  <p>Gestión de Paquetería</p>
                               </a>
                           </li>
                           <li class="nav-item">
@@ -109,7 +109,7 @@
                       </a>
                   </li>
                   @elseif(Auth::user()->tipo_empleado_id == "2")
-                  <li class="nav-header pt-2">ADMINISTRACIÓN DE PAQUETERIA</li>
+                  <li class="nav-header pt-2">ADMINISTRACIÓN DE PAQUETERÍA</li>
                   {{-- <li class="nav-item has-treeview">
                       <a href="#" class="nav-link">
                           <i class="fa fa-box nav-icon"></i>
@@ -128,7 +128,7 @@
                   <li class="nav-item">
                       <a href="{{route('gestion_paqueteria.index')}}" class="nav-link">
                           <i class="fas fa-boxes nav-icon"></i>
-                          <p>Gestion de Paqueteria</p>
+                          <p>Gestión de Paquetería</p>
                       </a>
                   </li>
                   <li class="nav-item">
@@ -160,7 +160,7 @@
                       </a>
                   </li>
                   @elseif(Auth::user()->tipo_empleado_id == "3")
-                  <li class="nav-header pt-2">ADMINISTRACIÓN DE PAQUETERIA</li>
+                  <li class="nav-header pt-2">ADMINISTRACIÓN DE PAQUETERÍA</li>
                   <li class="nav-item">
                       <a href="{{route('paquete.index')}}" class="nav-link">
                           <i class="fas fa-box-open nav-icon"></i>
@@ -170,7 +170,7 @@
                   <li class="nav-item">
                       <a href="{{route('gestion_paqueteria.index')}}" class="nav-link">
                           <i class="fas fa-boxes nav-icon"></i>
-                          <p>Gestion de Paqueteria</p>
+                          <p>Gestión de PaqueterÍa</p>
                       </a>
                   </li>
                   <li class="nav-item">
@@ -192,7 +192,7 @@
                       </a>
                   </li>
                   @elseif(Auth::user()->tipo_empleado_id == "4")
-                  <li class="nav-header pt-2">ADMINISTRACIÓN DE PAQUETERIA</li>
+                  <li class="nav-header pt-2">ADMINISTRACIÓN DE PAQUETERÍA</li>
                   <li class="nav-item">
                       <a href="{{route('paquete_repartidor.index')}}" class="nav-link">
                           <i class="fas fa-box-open nav-icon"></i>
