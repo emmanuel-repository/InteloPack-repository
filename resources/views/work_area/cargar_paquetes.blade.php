@@ -7,8 +7,7 @@
             <div class="col-md-6 d-none" id="col_check">
                 <input type="text" class="form-control d-none" id="id_socursal" value="{{Auth::user()->socursal_id}}">
                 <label for="recipient-name" class="col-form-label mr-2">¿Desea cambiar operador a transporte? </label>
-                <input type="checkbox" name="my-checkbox" data-bootstrap-switch data-on-text="SI" data-off-text="NO"
-                    value="true" id="checkbox_cliente_frecuente">
+                <input type="checkbox" name="my-checkbox" data-bootstrap-switch data-on-text="SI" data-off-text="NO" value="true" id="checkbox_cliente_frecuente">
             </div>
         </div>
     </div>
@@ -43,11 +42,6 @@
                         Cancelar
                     </a>
                 </div>
-                <div class="form-group col-md-12 d-flex justify-content-end">
-                    <a class="btn btn-light mr-1" id="btn_prueba_pdf">
-                        pdf
-                    </a>
-                </div>
             </div>
         </form>
     </div>
@@ -59,12 +53,10 @@
                 <h5 class="text-secondary">Vista previa de paquetes cargados</h5>
             </div>
             <div class="form-group col-md-6 d-flex justify-content-end m-0">
-                <a class="btn btn-light mr-1" id="btn_limpiar_tabla" data-toggle='tooltip' data-placement='right'
-                    title='Limpiar tabla'>
+                <a class="btn btn-light mr-1" id="btn_limpiar_tabla" data-toggle='tooltip' data-placement='right' title='Limpiar tabla'>
                     <i class="fas fa-calendar-times"></i>
                 </a>
-                <a class="btn btn-primary" data-toggle='tooltip' id="btn_guardar_cargamento" data-placement='right'
-                    title='Guardar paquetes en Transporte'>
+                <a class="btn btn-primary" data-toggle='tooltip' id="btn_guardar_cargamento" data-placement='right' title='Guardar paquetes en Transporte'>
                     <i class="fas fa-save"></i>
                 </a>
             </div>
@@ -72,8 +64,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped rounded table-sm" id="tabla_paquetes" width="100%"
-                cellspacing="0">
+            <table class="table table-bordered table-striped rounded table-sm" id="tabla_paquetes" width="100%" cellspacing="0">
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">Código de Barra</th>

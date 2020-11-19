@@ -49,7 +49,7 @@ class CrossOver extends Model {
     }
 
     public function insert_cross_over_descarga($array_paquetes, $id_empleado,
-        $id_socursal, $id_transporte) {
+        $id_socursal, $id_transporte, $id_operador) {
         DB::beginTransaction();
         try {
             for ($i = 0; $i < count($array_paquetes); $i++) {
@@ -70,6 +70,16 @@ class CrossOver extends Model {
                 DB::table('paquetes')
                     ->where('id', $datos_paquete->id)
                     ->update(['estatus_paquete' => 3]);
+                DB::table('auditoria_cross_overs')->insert([
+                    'paquete_id'           => $datos_paquete->id,
+                    'socursal_id'          => $id_socursal,
+                    'empleado_operador_id' => $id_operador,
+                    'transporte_id'        => $id_transporte,
+                    'empleado_carga_id'    => $id_empleado,
+                    'tipo'                 => 'DESCARGA DE PAQUETE',
+                    'created_at'           => date("Y-m-d H:i:s"),
+                    'updated_at'           => date("Y-m-d H:i:s"),
+                ]);
             }
             DB::commit();
             return true;

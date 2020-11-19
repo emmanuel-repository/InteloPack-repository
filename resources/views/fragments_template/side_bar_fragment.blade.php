@@ -42,7 +42,7 @@
                           <li class="nav-item">
                               <a href="{{route('gestion_paqueteria.index')}}" class="nav-link">
                                   <i class="fas fa-boxes nav-icon"></i>
-                                  <p>Gestion de Paqueteria</p>
+                                  <p>Gestión de Paqueteria</p>
                               </a>
                           </li>
                           <li class="nav-item">

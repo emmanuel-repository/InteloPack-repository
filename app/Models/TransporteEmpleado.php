@@ -68,6 +68,16 @@ class TransporteEmpleado extends Model {
             ->first();
     }
 
+    public function select_transporte_operador_nombre($id_transporte) {
+        return DB::table('empleados as e')
+            ->join('transporte_empleados as te', 'e.id', "=", 'te.empleado_id')
+            ->where('te.transporte_id', $id_transporte)
+            ->select('te.id', 'te.empleado_id', 'transporte_id',
+                'e.nombre_empleado', 'e.apellido_1_empleado',
+                'e.apellido_2_empleado', 'no_empleado')
+            ->first();
+    }
+
     public function select_exist_transporte_operador($id_operador) {
         return DB::table('transporte_empleados as te')
             ->where('te.empleado_id', $id_operador)

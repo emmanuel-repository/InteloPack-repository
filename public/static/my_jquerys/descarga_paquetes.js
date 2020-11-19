@@ -25,7 +25,6 @@ $(document).ready(function () {
             }
         }
     });
-    $('#socursal').select2({ theme: 'bootstrap4' });
     $('#transporte').select2({ theme: 'bootstrap4' });
 
     var form_validate_agregar = $('#form_validate_agregar_paquete').validate({
@@ -34,6 +33,9 @@ $(document).ready(function () {
                 required: true,
             },
             codigo_barra: {
+                required: true
+            },
+            operador: {
                 required: true
             }
         },
@@ -55,13 +57,12 @@ $(document).ready(function () {
     });
 
     $(document).on('change', '#transporte', function () {
-        $('#transporte').select2({ disabled: true });
+        var id_transporte = $(this).val();
+        cargar_operador(id_transporte);
     });
 
     $(document).on('click', '#btn_cancelar_paquete', function () {
-        $("#transporte option[value='']").prop("selected", "selected");
-        $('#transporte').select2({ disabled: false });
-        $('#codigo_barra').val('');
+        limpiar_inputs();
     });
 
     $(document).on('click', '#btn_remover_paquete', function () {
@@ -146,8 +147,39 @@ $(document).ready(function () {
         });
     }
 
+    function cargar_operador(id_transporte) {
+        $.ajax({
+            url: '/empleado/descarga_paquetes/' + id_transporte,
+            type: 'get',
+            dataType: "json",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                if (data.response_code == 200) {
+                    var value = data.response_data;
+                    console.log(value.id);
+                    $('#transporte').select2({ disabled: true });
+                    $('#operador').attr("data-attr", value.id);
+                    $('#operador').val(value.nombre_empleado + " "
+                        + value.apellido_1_empleado + " "
+                        + value.apellido_2_empleado + " | "  
+                        + value.no_empleado);
+                } else if (value.response_code == 500) {
+                    infoAlert("Verifica", value.response_text);
+                } else {
+                    infoAlert("Verifica", value.response_text);
+                }
+            },
+            error: function (xhr) {
+                infoAlert("Verifica", value.response_text);
+            }
+        });
+    }
+
     function insert() {
         var id_transporte = $('#transporte').val();
+        var id_operador = $('#operador').attr("data-attr");
         var arreglo = [];
         var json_tabla;
         var hoy = new Date();
@@ -163,7 +195,7 @@ $(document).ready(function () {
                     no_paquete: row[0],
                     id_transporte: id_transporte,
                     fecha: fecha,
-                    hora: hora
+                    hora: hora,
                 };
                 arreglo.push(person);
             }
@@ -173,7 +205,7 @@ $(document).ready(function () {
                 url: '/empleado/descarga_paquetes',
                 type: 'POST',
                 dataType: 'json',
-                data: { json_tabla: json_tabla, transporte: id_transporte },
+                data: { json_tabla: json_tabla, transporte: id_transporte, id_operador: id_operador },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -199,8 +231,11 @@ $(document).ready(function () {
     }
 
     function limpiar_inputs() {
+        $("#transporte option[value='']").prop("selected", "selected");
         $('#transporte').select2({ disabled: false });
+        $('#operador').removeAttr('data-attr');
         $('#codigo_barra').val('');
+        $('#operador').val('');
     }
 
     function successAlert(text) {
@@ -214,7 +249,7 @@ $(document).ready(function () {
             mensaje, text, 'question'
         )
     }
-    
+
     function alertLoader() {
         Swal.fire({
             title: 'Espere un momento, cargando...',

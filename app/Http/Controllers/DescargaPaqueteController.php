@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CrossOver;
 use App\Models\Paquete;
 use App\Models\Transporte;
+use App\Models\TransporteEmpleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,10 +30,11 @@ class DescargaPaqueteController extends Controller {
         $cross_over    = new CrossOver;
         $json_tabla    = json_decode($request->input('json_tabla'));
         $id_transporte = $request->input('transporte');
+        $id_operador   = $request->input('id_operador');
         $id_empleado   = Auth::user()->id;
         $id_socuersal  = Auth::user()->socursal_id;
         if ($cross_over->insert_cross_over_descarga($json_tabla, $id_empleado, $id_socuersal,
-            $id_transporte)) {
+            $id_transporte, $id_operador)) {
             $data['response_code'] = 200;
             $data['response_text'] = 'Se guardarón los datos con exito';
         } else {
@@ -51,11 +53,20 @@ class DescargaPaqueteController extends Controller {
             $data['response_code'] = 200;
             $data['response_text'] = 'Existe el codigo de barras';
             $data['response_data'] = $estatus;
-
         } else {
             $data['response_code'] = 500;
             $data['response_text'] = 'No existe el codigo de barras';
         }
+        return response()->json($data);
+    }
+
+    public function show($id) {
+        $array                 = array();
+        $empleado              = new TransporteEmpleado;
+        $select_empleado       = $empleado->select_transporte_operador_nombre($id);
+        $data['response_code'] = 200;
+        $data['response_text'] = "Si hay datos";
+        $data['response_data'] = $select_empleado;
         return response()->json($data);
     }
 
@@ -64,6 +75,4 @@ class DescargaPaqueteController extends Controller {
     public function destroy($id) {}
 
     public function create() {}
-
-    public function show($id) {}
 }
