@@ -41,13 +41,13 @@ class RastreoController extends Controller {
             } else if (!is_null($eventual_id)) {
                 $select_cliente_eventual = $paquete->select_paquete_cliente_eventual($id);
                 $data['response_code']   = 200;
-                $data['response_text']   = "Si hay datos6";
+                $data['response_text']   = "Si hay datos";
                 $data['response_data']   = $select_cliente_eventual;
                 $data['response_data_1']     = $selec_detalle_cross_over;
             }
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "No existe ese Numero de Guia";
+            $data['response_text'] = "No existe ese número de guía";
         }
         return response()->json($data);
     }

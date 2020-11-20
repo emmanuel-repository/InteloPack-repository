@@ -14,7 +14,7 @@ class SocursalController extends Controller {
 
     public function index() {
         $data              = array();
-        $data['titulo']    = 'Gestion de Empleados | InteloPack';
+        $data['titulo']    = 'Gestión de Sucursales | InteloPack';
         $data['work_area'] = 'socursal';
         $data['my_jquery'] = 'socursal.js';
         return view('main')->with($data);
@@ -62,18 +62,18 @@ class SocursalController extends Controller {
                     $socursal_update->no_socursal = "SUC-" . $id_socursal;
                     $socursal_update->save();
                     $data['response_code'] = 200;
-                    $data['response_text'] = 'Se guardarón con exito los datos';
+                    $data['response_text'] = 'Se guardarón con éxito los datos';
                 } else {
                     $data['response_code'] = 500;
-                    $data['response_text'] = 'No se guardarón con exito los datos';
+                    $data['response_text'] = 'No se guardarón los datos';
                 }
             } else {
                 $data['response_code'] = 500;
-                $data['response_text'] = 'Ya se encustra registrada esa Sucursal con el mismo nombre';
+                $data['response_text'] = 'Ya se encuestra registrada esa Sucursal con el mismo nombre';
             }
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = 'Favor de revisa el Formulario';
+            $data['response_text'] = 'Favor de revisa el formulario';
         }
         return response()->json($data);
     }
@@ -84,10 +84,10 @@ class SocursalController extends Controller {
         $socursal->estatus_socursal = 1;
         if ($socursal->save()) {
             $data['response_code'] = 200;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "Se dio de baja con éxito este registro";
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "No dio de baja este registro";
         }
         return response()->json($data);
     }
@@ -98,10 +98,10 @@ class SocursalController extends Controller {
         $socursal->estatus_socursal = 0;
         if ($socursal->save()) {
             $data['response_code'] = 200;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "Se dio de baja con éxito este registro";
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "No dio de baja este registro";
         }
         return response()->json($data);
     }
@@ -118,7 +118,7 @@ class SocursalController extends Controller {
         ]);
         if (!$validator->fails()) {
             $existe_nombre_socursal = Validator::make($request->all(), [
-                'nombre_socursal_editar' => 'unique:socursals,nombre_socursal,' . $id,
+                'nombre_socursal_editar' => 'unique:socursals, nombre_socursal,' . $id,
             ]);
             if (!$existe_nombre_socursal->fails()) {
                 $data                             = array();
@@ -133,14 +133,14 @@ class SocursalController extends Controller {
                 $socursal->no_interior_socursal   = $request->input('no_interior_editar');
                 if ($socursal->save()) {
                     $data['response_code'] = 200;
-                    $data['response_text'] = "Se guardaron los cambios con exito de este regisro";
+                    $data['response_text'] = "Se guardarón los cambios con éxito de este registro";
                 } else {
                     $data['response_code'] = 500;
-                    $data['response_text'] = "No se guardaron los cambios con exito de este regisro";
+                    $data['response_text'] = "No se guardaron los cambios con exito de este registro";
                 }
             } else {
                 $data['response_code'] = 500;
-                $data['response_text'] = "Ya se encuentra registrado ese nombre con otra Socursal";
+                $data['response_text'] = "Ya se encuentra registrado ese nombre con otra Sucursal";
             }
         } else {
             $data['response_code'] = 500;

@@ -29,7 +29,7 @@ class EmpleadoController extends Controller {
         $empleado              = new Empleado;
         $select_empleado       = $empleado->select_empleados();
         $data['response_code'] = 200;
-        $data['response_text'] = "Si hay datos6";
+        $data['response_text'] = "Si hay datos";
         $data['response_data'] = $select_empleado;
         return response()->json($data);
     }
@@ -64,18 +64,18 @@ class EmpleadoController extends Controller {
                     $empleado_update->no_empleado = 'EMP-' . $id_empleado;
                     $empleado_update->save();
                     $data['response_code'] = 200;
-                    $data['response_text'] = 'Se guardarón con exito los datos';
+                    $data['response_text'] = 'Se guardarón con éxito los datos';
                 } else {
                     $data['response_code'] = 500;
-                    $data['response_text'] = 'No se guardarón con exito los datos';
+                    $data['response_text'] = 'No se guardarón los datos';
                 }
             } else {
                 $data['response_code'] = 500;
-                $data['response_text'] = 'Ya se encustra registrada esa correo en algún otro Empleado';
+                $data['response_text'] = 'Ya se encuestra registrada ese correo con algún otro Empleado';
             }
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = 'Favor de revisa el Formulario';
+            $data['response_text'] = 'Favor de revisar el formulario';
         }
         return response()->json($data);
     }
@@ -86,10 +86,10 @@ class EmpleadoController extends Controller {
         $empleado->estatus_empleado = 1;
         if ($empleado->save()) {
             $data['response_code'] = 200;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "Se dio de baja con éxito este registro";
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "No se dio de baja este registro";
         }
         return response()->json($data);
     }
@@ -126,21 +126,20 @@ class EmpleadoController extends Controller {
                 }
                 if ($empleado->save()) {
                     $data['response_code'] = 200;
-                    $data['response_text'] = "Se guardaron los cambios con exito de este regisro";
+                    $data['response_text'] = "Se guardarón los cambios con éxito de este registro";
                 } else {
                     $data['response_code'] = 500;
-                    $data['response_text'] = "No se guardaron los cambios con exito de este regisro";
+                    $data['response_text'] = "No se guardarón los cambios de este registro";
                 }
             } else {
                 $data['response_code'] = 500;
-                $data['response_text'] = 'Ya se encustra registrada esa correo en algún otro Empleado';
+                $data['response_text'] = 'Ya se encustra registrada ese correo con algún otro Empleado';
             }
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = 'Favor de revisa el Formulario';
+            $data['response_text'] = 'Favor de revisar el Formulario';
         }
         return response()->json($data);
-
     }
 
     public function destroy($id) {
@@ -149,10 +148,10 @@ class EmpleadoController extends Controller {
         $empleado->estatus_empleado = 0;
         if ($empleado->save()) {
             $data['response_code'] = 200;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "Se dio de baja con éxito este registro";
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "No dio de baja este registro";
         }
         return response()->json($data);
     }

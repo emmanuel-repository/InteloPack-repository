@@ -72,18 +72,18 @@ class ClienteController extends Controller {
                 $cliente->empleado_id           = Auth::user()->id;
                 if ($cliente->save()) {
                     $data['response_code'] = 200;
-                    $data['response_text'] = 'Se guardarón con exito los datos';
+                    $data['response_text'] = 'Se guardarón con éxito los datos';
                 } else {
                     $data['response_code'] = 200;
-                    $data['response_text'] = 'No se guardarón con exito los datos';
+                    $data['response_text'] = 'No se guardarón los datos';
                 }
             } else {
                 $data['response_code'] = 500;
-                $data['response_text'] = 'Ya se encuentra registrado un cliente con esa razon social';
+                $data['response_text'] = 'Ya se encuentra registrado un Cliente con esa razón social';
             }
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = 'Favor de revisa el Formulario';
+            $data['response_text'] = 'Favor de revisar el formulario';
         }
         return response()->json($data);
     }
@@ -94,10 +94,10 @@ class ClienteController extends Controller {
         $cliente->estatus_cliente = 1;
         if ($cliente->save()) {
             $data['response_code'] = 200;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "Se dio de baja con éxito este registro";
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "No dio de baja este registro";
         }
         return response()->json($data);
     }
@@ -143,18 +143,18 @@ class ClienteController extends Controller {
                 $cliente->empleado_id           = Auth::user()->id;
                 if ($cliente->save()) {
                     $data['response_code'] = 200;
-                    $data['response_text'] = "Se guardaron los cambios con exito de este regisro";
+                    $data['response_text'] = "Se guardarón los cambios con éxito";
                 } else {
                     $data['response_code'] = 500;
-                    $data['response_text'] = "No se guardaron los cambios con exito de este regisro";
+                    $data['response_text'] = "No se guardarón los cambios de este registro";
                 }
             } else {
                 $data['response_code'] = 500;
-                $data['response_text'] = 'Ya se encuentra registrado un cliente con esa razon social';
+                $data['response_text'] = 'Ya se encuentra registrado un cliente con esa razón social';
             }
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = 'Favor de revisa el Formulario';
+            $data['response_text'] = 'Favor de revisa el formulario';
         }
         return response()->json($data);
 
@@ -166,10 +166,10 @@ class ClienteController extends Controller {
         $cliente->estatus_cliente = 0;
         if ($cliente->save()) {
             $data['response_code'] = 200;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "Se dio de baja con éxito este registro";
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "No dio de baja este registro";
         }
         return response()->json($data);
     }

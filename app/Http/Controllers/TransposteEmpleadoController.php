@@ -22,7 +22,7 @@ class TransposteEmpleadoController extends Controller {
 
     public function index() {
         $data               = array();
-        $data['titulo']     = 'Asignacion de Transporte a Chofer | InteloPack';
+        $data['titulo']     = 'Asignación de Transporte a Chófer | InteloPack';
         $data['work_area']  = 'transporte_empleado';
         $data['my_jquery']  = 'transporte_empleado.js';
         $data['sucursales'] = Socursal::all()->where('estatus_socursal', 1);
@@ -51,14 +51,14 @@ class TransposteEmpleadoController extends Controller {
             $id_transporte       = $request->input('transporte');
             if ($transporte_empleado->insert_transporte_empleado($id_chofer, $id_transporte)) {
                 $data['response_code'] = 200;
-                $data['response_text'] = 'Los datos de gurdaron con Exito';
+                $data['response_text'] = 'Los datos de gurdaron con éxito';
             } else {
                 $data['response_code'] = 500;
-                $data['response_text'] = 'No se gurdaron los datos con Exito';
+                $data['response_text'] = 'No se gurdaron los datos';
             }
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = 'Favor de revisa el Formulario';
+            $data['response_text'] = 'Favor de revisa el formulario';
         }
         return response()->json($data);
     }
@@ -79,7 +79,6 @@ class TransposteEmpleadoController extends Controller {
         $data['response_text'] = 'Datos de Transporte';
         $data['response_data'] = $transporte->select_transportes($id);
         return response()->json($data);
-
     }
 
     public function destroy($id) {}

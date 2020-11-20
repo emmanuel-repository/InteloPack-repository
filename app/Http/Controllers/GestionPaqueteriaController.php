@@ -15,7 +15,7 @@ class GestionPaqueteriaController extends Controller {
 
     public function index() {
         $data               = array();
-        $data['titulo']     = 'Gestion de Paqueteria | InteloPack';
+        $data['titulo']     = 'Gestión de Paqueteria | InteloPack';
         $data['work_area']  = 'gestion_paqueteria';
         $data['my_jquery']  = 'gestion_paqueteria.js';
         $data['sucursales'] = Socursal::all();
@@ -47,7 +47,7 @@ class GestionPaqueteriaController extends Controller {
         } else {
             $select_paquete_eventual = $paquete->select_paquete_eventual($id_paquete);
             $data['response_code']   = 200;
-            $data['response_text']   = "Si hay datos de Privada";
+            $data['response_text']   = "No hay datos de Privada";
             $data['response_data']   = $select_paquete_eventual;
         }
         return response()->json($data);
@@ -64,13 +64,13 @@ class GestionPaqueteriaController extends Controller {
                 $data['response_data'] = $select_paquete->no_paquete;
             } else {
                 $data['response_code'] = 500;
-                $data['response_text'] = "Ese paquete ya no se le puede recuperar codigo de
+                $data['response_text'] = "Ese paquete ya no se le puede recuperar código de
                     barra ya que fue entregado a su destinatario";
             }
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "Ese numero del Codigo de barra no existe,
-                favor de ingresar un numero valido";
+            $data['response_text'] = "Ese número del código de barra no existe,
+                favor de ingresar un número valido";
         }
         return response()->json($data);
     }

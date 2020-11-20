@@ -36,7 +36,7 @@ class DescargaPaqueteController extends Controller {
         if ($cross_over->insert_cross_over_descarga($json_tabla, $id_empleado, $id_socuersal,
             $id_transporte, $id_operador)) {
             $data['response_code'] = 200;
-            $data['response_text'] = 'Se guardarón los datos con exito';
+            $data['response_text'] = 'Se guardarón los datos con éxito';
         } else {
             $data['response_code'] = 500;
             $data['response_text'] = 'No se guardarón los datos';
@@ -51,11 +51,11 @@ class DescargaPaqueteController extends Controller {
         $estatus = "Paquete llegando de ruta";
         if (isset($valor->id)) {
             $data['response_code'] = 200;
-            $data['response_text'] = 'Existe el codigo de barras';
+            $data['response_text'] = 'Existe el código de barras';
             $data['response_data'] = $estatus;
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = 'No existe el codigo de barras';
+            $data['response_text'] = 'No existe el código de barras';
         }
         return response()->json($data);
     }

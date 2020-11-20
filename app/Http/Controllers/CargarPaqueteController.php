@@ -55,7 +55,7 @@ class CargarPaqueteController extends Controller {
                     $data['response_code']    = 200;
                     $data['response_data']    = $array_detalle_paquete;
                     $data['response_data_1']  = $array_detalla_transporte;
-                    $data['response_text']    = 'Se guardarón los datos con exito';
+                    $data['response_text']    = 'Se guardarón los datos con éxito';
                 } else {
                     $data['response_code'] = 500;
                     $data['response_text'] = 'No se guardarón los datos';
@@ -72,7 +72,7 @@ class CargarPaqueteController extends Controller {
                 $data['response_code']    = 200;
                 $data['response_data']    = $array_detalle_paquete;
                 $data['response_data_1']  = $array_detalla_transporte;
-                $data['response_text']    = 'Se guardarón los datos con exito';
+                $data['response_text']    = 'Se guardarón los datos con éxito';
             } else {
                 $data['response_code'] = 500;
                 $data['response_text'] = 'No se guardarón los datos';
@@ -94,7 +94,7 @@ class CargarPaqueteController extends Controller {
                     $data['response_code']    = 200;
                     $data['response_data']    = $array_detalle_paquete;
                     $data['response_data_1']  = $array_detalla_transporte;
-                    $data['response_text']    = 'Se guardarón los datos con exito';
+                    $data['response_text']    = 'Se guardarón los datos con éxito';
                 } else {
                     $data['response_code'] = 500;
                     $data['response_text'] = 'No se guardarón los datos';
@@ -128,15 +128,15 @@ class CargarPaqueteController extends Controller {
             if ($estatus_paquete == 1) {
                 $estatus = "Paquete en espera de salir a ruta";
             } else if ($estatus_paquete == 3) {
-                $estatus = "Paquete en socursal intermedia a su antes de su entrega";
+                $estatus = "Paquete en sucursal intermedia a su antes de su entrega";
             }
             $data['response_code'] = 200;
-            $data['response_text'] = 'Existe el codigo de barras';
+            $data['response_text'] = 'Existe el código de barras';
             $data['response_data'] = $estatus;
 
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = 'No existe el codigo de barras';
+            $data['response_text'] = 'No existe el código de barras';
         }
         return response()->json($data);
     }

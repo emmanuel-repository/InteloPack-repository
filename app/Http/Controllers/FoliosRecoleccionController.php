@@ -40,15 +40,15 @@ class FoliosRecoleccionController extends Controller {
                 $fecha, $empleado_id, $no_socursal_substr[1]);
             if (count($array_data) > 0) {
                 $data['response_code'] = 200;
-                $data['response_text'] = 'Se generarón los codigos de Barras';
+                $data['response_text'] = 'Se generarón los codigos de barras';
                 $data['response_data'] = $array_data;
             } else {
                 $data['response_code'] = 500;
-                $data['response_text'] = 'No se generarón los codigos de Barras';
+                $data['response_text'] = 'No se generarón los codigos de barras';
             }
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = 'Favor de revisa el Formulario';
+            $data['response_text'] = 'Favor de revisa el formulario';
         }
         return response()->json($data);
     }

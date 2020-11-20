@@ -75,11 +75,11 @@ class PaqueteController extends Controller {
                 'no_sucursal' => $no_socursal_substr[1],
             );
             $data['response_code'] = 200;
-            $data['response_text'] = "Si se guardaran los datos del paquete de cliente registrado";
+            $data['response_text'] = "Si se guardarón los datos del paquete con éxito";
             $data['response_data'] = $array_data;
         } else {
             $data['response_code'] = 200;
-            $data['response_text'] = "No se guardaran los datos del paquete de cliente registrado";
+            $data['response_text'] = "No se guardarón los datos del paquete";
         }
         return response()->json($data);
     }
@@ -134,11 +134,11 @@ class PaqueteController extends Controller {
                 'no_sucursal' => $no_socursal_substr[1],
             );
             $data['response_code'] = 200;
-            $data['response_text'] = "Si se guardaran los datos del paquete de cliente registrado";
+            $data['response_text'] = "Si se guardarón los datos del paquete con éxito";
             $data['response_data'] = $array_data;
         } else {
             $data['response_code'] = 200;
-            $data['response_text'] = "No se guardaran los datos del paquete de cliente registrado";
+            $data['response_text'] = "No se guardarón los datos del paquete";
         }
         return response()->json($data);
     }
@@ -167,10 +167,10 @@ class PaqueteController extends Controller {
             );
             Mail::to($correo)->send(new PaqueteMail($array_email));
             $data['response_code'] = 200;
-            $data['response_text'] = "Se realizo la operacion";
+            $data['response_text'] = "Se realizó la operación";
         } else {
             $data['response_code'] = 550;
-            $data['response_text'] = "No se realizo la operacion";
+            $data['response_text'] = "No se realizó la operación";
         }
         return response()->json($data);
     }

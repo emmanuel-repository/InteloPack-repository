@@ -56,10 +56,10 @@ class PaqueteRepartidorController extends Controller {
             );
             Mail::to($correo)->send(new PaqueteMail($array_email));
             $data['response_code'] = 200;
-            $data['response_text'] = "Se realizo la operacion";
+            $data['response_text'] = "Se realizó la operación";
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "No se realizo la operacion";
+            $data['response_text'] = "No se realizó la operación";
         }
         return response()->json($data);
     }
@@ -107,10 +107,10 @@ class PaqueteRepartidorController extends Controller {
             );
             Mail::to($correo)->send(new PaqueteMail($array_email));
             $data['response_code'] = 200;
-            $data['response_text'] = "Se realizo la operacion";
+            $data['response_text'] = "Se realizó la operación";
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "No se realizo la operacion";
+            $data['response_text'] = "No se realizó la operación";
         }
         return response()->json($data);
     }

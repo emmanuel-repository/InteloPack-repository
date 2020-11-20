@@ -65,20 +65,20 @@ class TransporteController extends Controller {
                         $data['response_text'] = 'Se guardarón con exito los datos';
                     } else {
                         $data['response_code'] = 500;
-                        $data['response_text'] = 'No se guardarón con exito los datos';
+                        $data['response_text'] = 'No se guardarón los datos';
                     }
                 } else {
                     $data['response_code'] = 500;
                     $data['response_text'] = "Ya se encuentra registrado ese
-                        transporte con esa Número economico";
+                        transporte con esa número económico";
                 }
             } else {
                 $data['response_code'] = 500;
-                $data['response_text'] = "Ya se encuentra registrado ese transporte con esa Matricula";
+                $data['response_text'] = "Ya se encuentra registrado ese transporte con esa Matrícula";
             }
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = 'Favor de revisa el Formulario';
+            $data['response_text'] = 'Favor de revisa el formulario';
         }
         return response()->json($data);
     }
@@ -89,10 +89,10 @@ class TransporteController extends Controller {
         $transporte->estatus_transporte = 1;
         if ($transporte->save()) {
             $data['response_code'] = 200;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "Se dio de baja con exito este registro";
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "No dio de baja este registro";
         }
         return response()->json($data);
     }
@@ -122,10 +122,10 @@ class TransporteController extends Controller {
                     $transporte->marca_transporte        = $request->input('marca_transporte_editar');
                     if ($transporte->save()) {
                         $data['response_code'] = 200;
-                        $data['response_text'] = "Se guardaron los cambios con exito de este regisro";
+                        $data['response_text'] = "Se guardarón los cambios con éxito de este registro";
                     } else {
                         $data['response_code'] = 500;
-                        $data['response_text'] = "No se guardaron los cambios con exito de este regisro";
+                        $data['response_text'] = "No se guardaron los cambios de este registro";
                     }
                 } else {
                     $data['response_code'] = 500;
@@ -135,11 +135,11 @@ class TransporteController extends Controller {
 
             } else {
                 $data['response_code'] = 500;
-                $data['response_text'] = "Ya se encuentra registrado ese transporte con esa Matricula";
+                $data['response_text'] = "Ya se encuentra registrado ese transporte con esa Matrícula";
             }
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = 'Favor de revisa el Formulario';
+            $data['response_text'] = 'Favor de revisa el formulario';
         }
         return response()->json($data);
     }
@@ -150,10 +150,10 @@ class TransporteController extends Controller {
         $transporte->estatus_transporte = 0;
         if ($transporte->save()) {
             $data['response_code'] = 200;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "Se dio de baja con exito este registro";
         } else {
             $data['response_code'] = 500;
-            $data['response_text'] = "Se dio de baja con exito este regisro";
+            $data['response_text'] = "No dio de baja este registro";
         }
         return response()->json($data);
     }
