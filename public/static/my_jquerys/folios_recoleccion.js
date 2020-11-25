@@ -94,7 +94,7 @@ $(document).ready(function () {
 
             },
         };
-        pdfMake.createPdf(docDefinition).open();
+        pdfMake.createPdf(docDefinition).print();
         $('#add_bar_code').empty();
         $('#cantidad_folios').val('');
         $('#btn_generar_bar_codes').removeClass('d-none');

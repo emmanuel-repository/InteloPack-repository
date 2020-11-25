@@ -13,7 +13,6 @@ class TransposteEmpleadoController extends Controller {
      * Empleado estatus_asignado_transporte = 1 es que ya se encuentra asignado a un
      * transporte.
      * Transporte  estatus_asignado_empleado = 1 es que ya se encuentra un empleado asignado
-     * .
      */
 
     public function __construct() {

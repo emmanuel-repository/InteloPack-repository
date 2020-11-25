@@ -134,8 +134,7 @@ class Paquete extends Model {
                 $data_array[$i] = $no_socursal . '' . $id_paquete . '' . $fecha;
                 DB::table('paquetes')
                     ->where('id', $id_paquete)
-                    ->update(['no_paquete' => $no_socursal . '' . $id_paquete . '' . $fecha,
-                    ]);
+                    ->update(['no_paquete' => $no_socursal . '' . $id_paquete . '' . $fecha]);
             }
             DB::commit();
             return $data_array;
@@ -394,14 +393,52 @@ class Paquete extends Model {
         if (!empty($estatus_paquete)) {
             $query .= "and estatus_paquete = '" . $estatus_paquete . "' ";
         }
-        if(!empty($fecha_inicio) && empty($fecha_final)){
-            $query .= "and created_at like '%" . $fecha_inicio . "%' "; 
+        if (!empty($fecha_inicio) && empty($fecha_final)) {
+            $query .= "and created_at like '%" . $fecha_inicio . "%' ";
         }
         if (!empty($fecha_inicio) && !empty($fecha_final)) {
-            $query .= "and created_at  between '"  
+            $query .= "and created_at  between '"
                 . $fecha_inicio . "' and '" . $fecha_final . "' ";
         }
         return DB::select($query);
     }
 
+    // 12020112453447999999
+
+    public function prueba_query($array) {
+        DB::beginTransaction();
+        try {
+            $data_array = array();
+            $data_error = array();
+            for ($i = 0; $i < 999; $i++) {
+                $con = DB::table('paquetes')
+                    ->select(DB::raw('count(id) + 1 as folio_consecutivo'))
+                    ->where('created_at', 'like', '%2020-11-24%')
+                    ->get();
+
+                 $no_paquete = $array['socuersal_id'] . '-'  .$array['fecha'] .'-' 
+                    . $con[0]->folio_consecutivo;
+                
+                
+                DB::table('paquetes')->insert([
+                    'consecutivo_paquete'   => $con[0]->folio_consecutivo,
+                    'no_paquete'            => $no_paquete,
+                    'estado_destino'        => 'Nombre' . $i,
+                    'municipio_destino'     => 'apellido' . $i,
+                    'codigo_postal_destino' => '123456',
+                    'colonia_destino'       => '212343',
+                    'calle_destino'         => '223',
+                    'no_exterior_destino'   => '23',
+                    'no_interior_destino'   => '23',
+                    'created_at'            => date("Y-m-d H:i:s"),
+                    'updated_at'            => date("Y-m-d H:i:s"),
+                ]);
+            }
+            DB::commit();
+            return  true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e;
+        }
+    }
 }

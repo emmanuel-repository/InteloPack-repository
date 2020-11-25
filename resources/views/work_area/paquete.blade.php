@@ -1,6 +1,6 @@
 <div class="card card-outline card-danger">
     <div class="card-header">
-        <h5 class="text-secondary">Generar Envio</h5>
+        <h5 class="text-secondary">Generar Envío</h5>
     </div>
     <!-- /.card-header -->
     <div class="card-body">

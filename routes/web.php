@@ -20,7 +20,6 @@ Route::post('/logout', 'Auth\LoginEmpleadoController@logout')->name('empleado.lo
 Route::resource('rastreo_paquete', 'RastreoController');
 Route::resource('politicas_privacidad', 'PoliticasPrivacidadController');
 
-
 Route::prefix('empleado')->group(function () {
     Route::resource('bienvenida', 'BienvenidaController');
     Route::resource('gestion_empleados', 'EmpleadoController');
@@ -33,10 +32,10 @@ Route::prefix('empleado')->group(function () {
     Route::resource('transporte_empleado', 'TransposteEmpleadoController');
     Route::resource('cargar_paquetes', 'CargarPaqueteController');
     Route::resource('descarga_paquetes', 'DescargaPaqueteController');
-    Route::resource('email_prueba', 'EmailController');
     Route::resource('entrega_paquete', 'EntregaPaqueteController');
     Route::resource('paquete_repartidor', 'PaqueteRepartidorController');
     Route::post('paquete/create_eventual', 'PaqueteController@create_paquete_eventual')
         ->name('paquete.create_eventual');
     Route::resource('soporte', 'SoporteController');
+    Route::resource('prueba', 'PruebaController');
 });
