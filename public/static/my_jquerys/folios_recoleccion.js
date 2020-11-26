@@ -116,8 +116,9 @@ $(document).ready(function () {
                 var cantidad_imprimir = $('#cantidad_folios').val();
                 var hoy = new Date();
                 var fecha_convertida = moment(hoy).format('YYYYMMDD');
+                var fecha_hoy = moment(hoy).format('YYYY-MM-DD');
                 if (cantidad_imprimir <= 20) {
-                    insert(cantidad_imprimir, fecha_convertida);
+                    insert(cantidad_imprimir, fecha_convertida, fecha_hoy);
                 } else {
                     var mensaje = "¡Verifica!";
                     var text = "Solo se pueden imprimir una cantidad maxima de 20 Codigos de barras";
@@ -127,7 +128,7 @@ $(document).ready(function () {
         })
     }
 
-    function insert(cantidad_bar_code, fecha) {
+    function insert(cantidad_bar_code, fecha, fecha_hoy) {
         $.ajax({
             url: "/empleado/folios_recoleccion",
             method: "post",
@@ -135,6 +136,7 @@ $(document).ready(function () {
             data: {
                 _token: CSRF_TOKEN,
                 cantidad_bar_code: cantidad_bar_code,
+                fecha_hoy: fecha_hoy,
                 fecha: fecha
             },
             success: function (data) {

@@ -7,10 +7,31 @@ use Illuminate\Support\Facades\DB;
 
 class Paquete extends Model {
 
-    public function insert($array_paquete, $array_cross_over) {
+    public function insert($array_paquete, $array_cross_over, $array_consecutivo) {
         DB::beginTransaction();
         try {
-            $id = DB::table('paquetes')->insertGetId($array_paquete);
+            $consecutivo = DB::table('paquetes')
+                ->select(DB::raw('LPAD(count(id) + 1, 3, 0) as folio_consecutivo'))
+                ->where('created_at', 'like', '%' . $array_consecutivo['fecha_hoy'] . '%')
+                ->get();
+            $no_paquete = $array_consecutivo['socursal_id'] . $array_consecutivo['fecha']
+            . $array_consecutivo['empleado_id'] . $consecutivo[0]->folio_consecutivo;
+            $id = DB::table('paquetes')->insertGetId([
+                'consecutivo_paquete'   => $consecutivo[0]->folio_consecutivo,
+                'no_paquete'            => $no_paquete,
+                'estado_destino'        => $array_paquete['estado_destino'],
+                'municipio_destino'     => $array_paquete['municipio_destino'],
+                'codigo_postal_destino' => $array_paquete['codigo_postal_destino'],
+                'colonia_destino'       => $array_paquete['colonia_destino'],
+                'calle_destino'         => $array_paquete['colonia_destino'],
+                'no_exterior_destino'   => $array_paquete['no_exterior_destino'],
+                'no_interior_destino'   => $array_paquete['no_interior_destino'],
+                'cliente_id'            => $array_paquete['cliente_id'],
+                'socursal_id'           => $array_paquete['socursal_id'],
+                'empleado_id'           => $array_paquete['empleado_id'],
+                'created_at'            => date("Y-m-d H:i:s"),
+                'updated_at'            => date("Y-m-d H:i:s"),
+            ]);
             DB::table('cross_overs')->insert([
                 'hora_cross_over'  => $array_cross_over['hora_cross_over'],
                 'fecha_cross_over' => $array_cross_over['fecha_cross_over'],
@@ -21,16 +42,23 @@ class Paquete extends Model {
                 'updated_at'       => date("Y-m-d H:i:s"),
             ]);
             DB::commit();
-            return $id;
+            return $no_paquete;
         } catch (\Exception $e) {
             DB::rollback();
-            return 0;
+            return '';
         }
     }
 
-    function insert_paquete_eventual($array_paquete, $array_eventual, $array_cross_over) {
+    function insert_paquete_eventual($array_paquete, $array_eventual, 
+        $array_cross_over, $array_consecutivo) {
         DB::beginTransaction();
         try {
+            $consecutivo = DB::table('paquetes')
+                ->select(DB::raw('LPAD(count(id) + 1, 3, 0) as folio_consecutivo'))
+                ->where('created_at', 'like', '%' . $array_consecutivo['fecha_hoy'] . '%')
+                ->get();
+            $no_paquete = $array_consecutivo['socursal_id'] . $array_consecutivo['fecha']
+            . $array_consecutivo['empleado_id'] . $consecutivo[0]->folio_consecutivo;
             $id_enventual = DB::table('eventuals')->insertGetId([
                 'nombre_eventual'        => $array_eventual['nombre_eventual'],
                 'apellido_1_eventual'    => $array_eventual['apellido_1_eventual'],
@@ -51,6 +79,8 @@ class Paquete extends Model {
                 'updated_at'             => date("Y-m-d H:i:s"),
             ]);
             $id_paquete = DB::table('paquetes')->insertGetId([
+                'consecutivo_paquete'   => $consecutivo[0]->folio_consecutivo,
+                'no_paquete'            => $no_paquete,
                 'estado_destino'        => $array_paquete['estado_destino'],
                 'municipio_destino'     => $array_paquete['municipio_destino'],
                 'codigo_postal_destino' => $array_paquete['codigo_postal_destino'],
@@ -74,10 +104,10 @@ class Paquete extends Model {
                 'updated_at'       => date("Y-m-d H:i:s"),
             ]);
             DB::commit();
-            return $id_paquete;
+            return $no_paquete;
         } catch (\Exception $e) {
             DB::rollback();
-            return 0;
+            return '';
         }
     }
 
@@ -118,23 +148,28 @@ class Paquete extends Model {
         return DB::table('paquetes')->where('no_paquete', $numero_bar_code)->first();
     }
 
-    public function insert_bar_codes_recoleccion($cantidad_bar_code, $fecha,
-        $id_empleado, $no_socursal) {
+    public function insert_bar_codes_recoleccion($array) {
         DB::beginTransaction();
         try {
             $data_array = array();
             $data_error = array();
-            for ($i = 0; $i < $cantidad_bar_code; $i++) {
-                $id_paquete = DB::table('paquetes')->insertGetId([
-                    'estatus_paquete' => 5,
-                    'empleado_id'     => $id_empleado,
-                    'created_at'      => date("Y-m-d H:i:s"),
-                    'updated_at'      => date("Y-m-d H:i:s"),
+            for ($i = 0; $i < $array['cantidad_bar_code']; $i++) {
+                $consecutivo = DB::table('paquetes')
+                    ->select(DB::raw('LPAD(count(id) + 1, 3, 0) as folio_consecutivo'))
+                    ->where('created_at', 'like', '%' . $array['fecha_hoy'] . '%')
+                    ->get();
+                $no_paquete = $array['socursal_id'] .
+                $array['fecha'] . $array['empleado_id'] .
+                $consecutivo[0]->folio_consecutivo;
+                DB::table('paquetes')->insert([
+                    'consecutivo_paquete' => $consecutivo[0]->folio_consecutivo,
+                    'no_paquete'          => $no_paquete,
+                    'estatus_paquete'     => 5,
+                    'empleado_id'         => $array['empleado_id'],
+                    'created_at'          => date("Y-m-d H:i:s"),
+                    'updated_at'          => date("Y-m-d H:i:s"),
                 ]);
-                $data_array[$i] = $no_socursal . '' . $id_paquete . '' . $fecha;
-                DB::table('paquetes')
-                    ->where('id', $id_paquete)
-                    ->update(['no_paquete' => $no_socursal . '' . $id_paquete . '' . $fecha]);
+                $data_array[$i] = $no_paquete;
             }
             DB::commit();
             return $data_array;
@@ -323,14 +358,11 @@ class Paquete extends Model {
             $paquete = DB::table('paquetes')->select('id')
                 ->where('no_paquete', $array['bar_code'])
                 ->first();
-
             $transporte_empleado = DB::table('transporte_empleados')->select('transporte_id')
                 ->where('empleado_id', $array['empleado_id'])
                 ->first();
-
             DB::table('paquetes')->where('no_paquete', $array['bar_code'])
                 ->update(['estatus_paquete' => 4]);
-
             DB::table('cross_overs')->insert([
                 'paquete_id'         => $paquete->id,
                 'hora_cross_over'    => $array['hora'],
@@ -403,23 +435,24 @@ class Paquete extends Model {
         return DB::select($query);
     }
 
-    // 12020112453447999999
-
     public function prueba_query($array) {
         DB::beginTransaction();
         try {
-            $data_array = array();
-            $data_error = array();
-            for ($i = 0; $i < 999; $i++) {
+            $data_array       = array();
+            $data_error       = array();
+            $socuesal_formato = str_pad($array['socuersal_id'], 3, '0', STR_PAD_LEFT);
+            $empleado_formato = str_pad($array['empleado_id'], 3, '0', STR_PAD_LEFT);
+            $fecha            = $array['fecha_hoy'];
+            for ($i = 0; $i < 20; $i++) {
                 $con = DB::table('paquetes')
-                    ->select(DB::raw('count(id) + 1 as folio_consecutivo'))
-                    ->where('created_at', 'like', '%2020-11-24%')
+                    ->select(DB::raw('LPAD(count(id) + 1, 3, 0) as folio_consecutivo'))
+                    ->where('created_at', 'like', '%' . $fecha . '%')
                     ->get();
 
-                 $no_paquete = $array['socuersal_id'] . '-'  .$array['fecha'] .'-' 
-                    . $con[0]->folio_consecutivo;
-                
-                
+                $no_paquete = $socuesal_formato . '-' .
+                $array['fecha'] . '-' . $empleado_formato . '-' .
+                $con[0]->folio_consecutivo;
+
                 DB::table('paquetes')->insert([
                     'consecutivo_paquete'   => $con[0]->folio_consecutivo,
                     'no_paquete'            => $no_paquete,
@@ -435,7 +468,7 @@ class Paquete extends Model {
                 ]);
             }
             DB::commit();
-            return  true;
+            return true;
         } catch (\Exception $e) {
             DB::rollback();
             return $e;

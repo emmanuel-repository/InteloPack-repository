@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Intelo Pack| 404 Página no encontrada</title>
+    <title>Intelo Pack| 500 Error interno</title>
     <link rel="shortcut icon" href="{{url('static/imagenes_intelo/intelo_ico.ico')}}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{url('static/plugins/fontawesome-free/css/all.min.css')}}">

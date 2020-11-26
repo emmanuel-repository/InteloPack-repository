@@ -21,10 +21,12 @@ class PruebaController extends Controller {
         $paquete = new Paquete;
         $array   = array(
             'fecha'        => $request->input('fecha'),
+            'fecha_hoy'    => "" . $request->input('fecha_hoy'),
             'socuersal_id' => Auth::user()->socursal_id,
             'empleado_id'  => Auth::user()->id,
         );
-        
+        // print_r($request->input('fecha_hoy'));
+        // die();
         if ($paquete->prueba_query($array)) {
             $data['response_code'] = 200;
             $data['response_text'] = "Se guardarón";

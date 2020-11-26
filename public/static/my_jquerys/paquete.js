@@ -236,7 +236,8 @@ $(document).ready(function () {
         var formElement = document.getElementById("form_validate_paquete_agregar");
         var form = new FormData(formElement);
         var hoy = new Date();
-        form.append("fecha", moment(hoy).format('YYYY-MM-DD'));
+        form.append("fecha", moment(hoy).format('YYYYMMDD'));
+        form.append("fecha_hoy", moment(hoy).format('YYYY-MM-DD'));
         form.append("hora", moment(hoy).format('h:mm:ss a'));
         $.ajax({
             url: '/empleado/paquete',
@@ -246,17 +247,13 @@ $(document).ready(function () {
             contentType: false,
             cache: false,
             processData: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             success: function (data) {
                 if (data.response_code == 200) {
-                    var value = data.response_data;
                     localStorage.setItem('correo', correo);
-                    localStorage.setItem('nombre_completo', nombre + ' ' + apellido_1 + ' ' + apellido_2);
-                    var id_paquete = value.id_paquete;
-                    var no_socursal = value.no_sucursal;
-                    generar_codigo_barrar(id_paquete, no_socursal);
+                    localStorage.setItem('nombre_completo', nombre + ' '
+                        + apellido_1 + ' ' + apellido_2);
+                    generar_codigo_barrar(data.response_data);
                     limpiar_input_destino();
                 } else if (data.response_code == 500) {
                     infoAlert("Verifica", data.response_text);
@@ -278,7 +275,8 @@ $(document).ready(function () {
         var formElement = document.getElementById("form_validate_paquete_agregar");
         var form = new FormData(formElement);
         var hoy = new Date();
-        form.append("fecha", moment(hoy).format('YYYY-MM-DD'));
+        form.append("fecha", moment(hoy).format('YYYYMMDD'));
+        form.append("fecha_hoy", moment(hoy).format('YYYY-MM-DD'));
         form.append("hora", moment(hoy).format('h:mm:ss a'));
         $.ajax({
             url: '/empleado/paquete/create_eventual',
@@ -293,13 +291,10 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.response_code == 200) {
-                    var value = data.response_data;
                     localStorage.setItem('correo', correo);
                     localStorage.setItem('nombre_completo', nombre + ' '
                         + apellido_1 + ' ' + apellido_2);
-                    var id_paquete = value.id_paquete;
-                    var no_socursal = value.no_sucursal;
-                    generar_codigo_barrar(id_paquete, no_socursal);
+                    generar_codigo_barrar(data.response_data);
                     limpiar_input();
                     limpiar_input_destino();
                 } else if (data.response_code == 500) {
@@ -352,40 +347,9 @@ $(document).ready(function () {
         });
     }
 
-    function editar(id_paquete, numero_codigo_barra) {
-        var nombre_completo = localStorage.getItem('nombre_completo');
-        var correo = localStorage.getItem('correo');
-        $.ajax({
-            url: '/empleado/paquete/' + id_paquete,
-            type: 'put',
-            dataType: "json",
-            data: {
-                _token: CSRF_TOKEN,
-                correo: correo,
-                numero_codigo_barra: numero_codigo_barra,
-                nombre_completo: nombre_completo
-            },
-            success: function (data) {
-                if (data.response_code == 200) {
-                    console.log("se realizo el insert de numero de paquete");
-                } else if (data.response_code == 500) {
-                    infoAlert("Verifica", data.response_text);
-                } else {
-                    infoAlert("Verifica", data.response_text);
-                }
-            },
-            error: function (xhre) {
-                infoAlert("Verifica", data.response_text);
-            }
-        });
-    }
-
-    function generar_codigo_barrar(id_paquete, no_socursal) {
-        var hoy = new Date();
-        var fecha_convertida = moment(hoy).format('YYYYMMDD');
-        var numero_codigo_barra = no_socursal + id_paquete + fecha_convertida;
+    function generar_codigo_barrar(no_paquete) {
         var options = {
-            text: '' + numero_codigo_barra,
+            text: '' + no_paquete,
             bcid: 'code128', // Barcode type
             scale: 4, // 3x scaling factor
             height: 8, // Bar height, in millimeters
@@ -398,7 +362,35 @@ $(document).ready(function () {
         image_code_bar_base_64 = dataURL;
         $('#modal_bar_code').modal({ backdrop: 'static', keyboard: false });
         $("#modal_bar_code").modal("show");
-        editar(id_paquete, numero_codigo_barra);
+        editar(no_paquete);
+    }
+
+    function editar(numero_codigo_barra) {
+        var nombre_completo = localStorage.getItem('nombre_completo');
+        var correo = localStorage.getItem('correo');
+        $.ajax({
+            url: '/empleado/paquete/' + numero_codigo_barra,
+            type: 'put',
+            dataType: "json",
+            data: {
+                _token: CSRF_TOKEN,
+                correo: correo,
+                numero_codigo_barra: numero_codigo_barra,
+                nombre_completo: nombre_completo
+            },
+            success: function (data) {
+                if (data.response_code == 200) {
+                    console.log(data.response_text)
+                } else if (data.response_code == 500) {
+                    infoAlert("Verifica", data.response_text);
+                } else {
+                    infoAlert("Verifica", data.response_text);
+                }
+            },
+            error: function (xhre) {
+                infoAlert("Verifica", data.response_text);
+            }
+        });
     }
 
     function toDataURL(url, callback) {

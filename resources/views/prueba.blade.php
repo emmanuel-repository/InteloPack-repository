@@ -24,14 +24,17 @@
         $(document).ready(function () {
             $(document).on('click', '#btn_prueba', function () {
                 var hoy = new Date();
-                var fecha_convertida = moment(hoy).format('YYYYMMDDhmmss');
+                var fecha_convertida = moment(hoy).format('YYYYMMDD');
+                var fecha_hoy = moment(hoy).format('YYYY-MM-DD');
+                {{-- alert(fecha_hoy) --}}
                 alertLoader()
                 $.ajax({
                     url: '/empleado/prueba',
                     type: 'POST',
                     dataType: 'json',
                     data: {
-                        fecha: fecha_convertida
+                        fecha: fecha_convertida,
+                        fecha_hoy: fecha_hoy
                     },
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

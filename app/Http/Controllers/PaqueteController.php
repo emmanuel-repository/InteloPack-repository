@@ -9,10 +9,8 @@ use App\Models\Socursal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-
 /*
- *Estatus de los Paquetes
- *
+ *Estatus de los Paquetes:
  * 1 -> Paquete creado o en espera de salida
  * 2 -> paquete en ruta a Almacen o para entregar a destinatario
  * 3 -> en socursal intermedia
@@ -20,7 +18,7 @@ use Illuminate\Support\Facades\Mail;
  * 5 -> Codigo de no de paquete que no se utilizado este se usa para
  * los codigos que se le generan a los repartiddores y se llevan en el caso de que
  * se quisiera recojer un paquete que un cliente quiera que se envie
- * 
+ *
  * ALTER TABLE paquetes AUTO_INCREMENT =1000000;
  * */
 
@@ -44,6 +42,7 @@ class PaqueteController extends Controller {
     public function store(Request $request) {
         $data               = array();
         $paquete            = new Paquete;
+        $id_empleado        = Auth::user()->id;
         $id_socursal        = Auth::user()->socursal_id;
         $socursal           = Socursal::findOrFail($id_socursal);
         $no_socursal        = $socursal->no_socursal;
@@ -57,26 +56,27 @@ class PaqueteController extends Controller {
             'no_exterior_destino'   => $request->input('no_exterior_destino'),
             'no_interior_destino'   => $request->input('no_interior_destino'),
             'cliente_id'            => $request->input('razon_social_cliente'),
-            'socursal_id'           => Auth::user()->socursal_id,
-            'empleado_id'           => Auth::user()->id,
-            'created_at'            => date("Y-m-d H:i:s"),
-            'updated_at'            => date("Y-m-d H:i:s"),
+            'socursal_id'           => $id_socursal,
+            'empleado_id'           => $id_empleado,
         );
         $array_cross_over = array(
             'hora_cross_over'  => $request->input('hora'),
-            'fecha_cross_over' => $request->input('fecha'),
-            'empleado_id'      => Auth::user()->id,
-            'socursal_id'      => Auth::user()->socursal_id,
+            'fecha_cross_over' => $request->input('fecha_hoy'),
+            'empleado_id'      => $id_empleado,
+            'socursal_id'      => $id_socursal,
         );
-        $insert = $paquete->insert($array_paquete, $array_cross_over);
-        if ($insert > 0) {
-            $array_data = array(
-                'id_paquete'  => $insert,
-                'no_sucursal' => $no_socursal_substr[1],
-            );
+        $array_consecutivo = array(
+            'empleado_id' => str_pad($id_empleado, 3, '0', STR_PAD_LEFT),
+            'socursal_id' => str_pad($no_socursal_substr[1], 3, '0', STR_PAD_LEFT),
+            'fecha'       => $request->input('fecha'),
+            'fecha_hoy'   => $request->input('fecha_hoy'),
+        );
+        $insert = $paquete->insert($array_paquete, $array_cross_over, $array_consecutivo);
+        if ($insert != '') {
             $data['response_code'] = 200;
             $data['response_text'] = "Si se guardarón los datos del paquete con éxito";
-            $data['response_data'] = $array_data;
+            $data['response_data'] = $insert;
+
         } else {
             $data['response_code'] = 200;
             $data['response_text'] = "No se guardarón los datos del paquete";
@@ -87,6 +87,7 @@ class PaqueteController extends Controller {
     public function create_paquete_eventual(Request $request) {
         $data               = array();
         $paquete            = new Paquete;
+        $id_empleado        = Auth::user()->id;
         $id_socursal        = Auth::user()->socursal_id;
         $socursal           = Socursal::findOrFail($id_socursal);
         $no_socursal        = $socursal->no_socursal;
@@ -100,8 +101,8 @@ class PaqueteController extends Controller {
             'no_exterior_destino'   => $request->input('no_exterior_destino'),
             'no_interior_destino'   => $request->input('no_interior_destino'),
             'cliente_id'            => $request->input('razon_social_cliente'),
-            'socursal_id'           => Auth::user()->socursal_id,
-            'empleado_id'           => Auth::user()->id,
+            'socursal_id'           => $id_socursal,
+            'empleado_id'           => $id_empleado,
         );
         $array_cross_over = array(
             'hora_cross_over'  => $request->input('hora'),
@@ -126,16 +127,18 @@ class PaqueteController extends Controller {
             'telefono_1_evnetual'    => $request->input('telefono_1_cliente'),
             'telefono_2_eventual'    => $request->input('telefono_2_cliente'),
         );
-        $insert = $paquete->insert_paquete_eventual($array_paquete, $array_eventual, 
-            $array_cross_over);
-        if ($insert > 0) {
-            $array_data = array(
-                'id_paquete'  => $insert,
-                'no_sucursal' => $no_socursal_substr[1],
-            );
+        $array_consecutivo = array(
+            'empleado_id' => str_pad($id_empleado, 3, '0', STR_PAD_LEFT),
+            'socursal_id' => str_pad($no_socursal_substr[1], 3, '0', STR_PAD_LEFT),
+            'fecha'       => $request->input('fecha'),
+            'fecha_hoy'   => $request->input('fecha_hoy'),
+        );
+        $insert = $paquete->insert_paquete_eventual($array_paquete, $array_eventual,
+            $array_cross_over, $array_consecutivo);
+        if ($insert != '') {
             $data['response_code'] = 200;
             $data['response_text'] = "Si se guardarón los datos del paquete con éxito";
-            $data['response_data'] = $array_data;
+            $data['response_data'] = $insert;
         } else {
             $data['response_code'] = 200;
             $data['response_text'] = "No se guardarón los datos del paquete";
@@ -154,24 +157,16 @@ class PaqueteController extends Controller {
 
     public function update(Request $request, $id) {
         $data                = array();
-        $id_socursal         = Auth::user()->socursal_id;
-        $paquete             = Paquete::findOrFail($id);
-        $paquete->no_paquete = $request->input('numero_codigo_barra');
         $nombre_completo     = $request->input('nombre_completo');
         $correo              = $request->input('correo');
         $no_rastreo          = $request->input('numero_codigo_barra');
-        if ($paquete->save()) {
-            $array_email = array(
-                'nombre_completo'     => $nombre_completo,
-                'numero_codigo_barra' => $no_rastreo,
-            );
-            Mail::to($correo)->send(new PaqueteMail($array_email));
-            $data['response_code'] = 200;
-            $data['response_text'] = "Se realizó la operación";
-        } else {
-            $data['response_code'] = 550;
-            $data['response_text'] = "No se realizó la operación";
-        }
+        $array_email         = array(
+            'nombre_completo'     => $nombre_completo,
+            'numero_codigo_barra' => $no_rastreo,
+        );
+        Mail::to($correo)->send(new PaqueteMail($array_email));
+        $data['response_code'] = 200;
+        $data['response_text'] = "Si se envio el correo a cliente";
         return response()->json($data);
     }
 

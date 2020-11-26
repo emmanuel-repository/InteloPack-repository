@@ -28,16 +28,21 @@ class FoliosRecoleccionController extends Controller {
             'cantidad_bar_code' => 'required|nullable',
         ]);
         if (!$validator->fails()) {
-            $paquete            = new Paquete;
-            $id_socursal        = Auth::user()->socursal_id;
-            $socursal           = Socursal::findOrFail($id_socursal);
-            $no_socursal        = $socursal->no_socursal;
-            $no_socursal_substr = explode('-', $no_socursal);
-            $cantidad_bar_code  = $request->input('cantidad_bar_code');
-            $fecha              = $request->input('fecha');
-            $empleado_id        = Auth::user()->id;
-            $array_data         = $paquete->insert_bar_codes_recoleccion($cantidad_bar_code,
-                $fecha, $empleado_id, $no_socursal_substr[1]);
+            $paquete             = new Paquete;
+            $id_socursal         = Auth::user()->socursal_id;
+            $socursal            = Socursal::findOrFail($id_socursal);
+            $no_socursal         = $socursal->no_socursal;
+            $no_socursal_substr  = explode('-', $no_socursal);
+            $empleado_id         = str_pad(Auth::user()->id, 3, '0', STR_PAD_LEFT);
+            $socursal_formateada = str_pad($no_socursal_substr[1], 3, '0', STR_PAD_LEFT);
+            $array = array(
+                'cantidad_bar_code' => $request->input('cantidad_bar_code'),
+                'fecha_hoy'         => $request->input('fecha_hoy'),
+                'fecha'             => $request->input('fecha'),
+                'socursal_id'       => $socursal_formateada,
+                'empleado_id'       => $empleado_id,
+            );
+            $array_data = $paquete->insert_bar_codes_recoleccion($array);
             if (count($array_data) > 0) {
                 $data['response_code'] = 200;
                 $data['response_text'] = 'Se generarón los códigos de barras';
