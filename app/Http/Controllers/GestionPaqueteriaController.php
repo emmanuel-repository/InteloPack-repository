@@ -81,6 +81,7 @@ class GestionPaqueteriaController extends Controller {
             'estatus_paquete' => $request->input('estatus_paquete'),
             'fecha_inicio'    => $request->input('fecha_inicio'),
             'fecha_final'     => $request->input('fecha_final'),
+            'no_guia'         => $request->input('no_guia'),
         );
         $paquete               = new Paquete;
         $select_paquete        = $paquete->select_paquete_filtros($array);

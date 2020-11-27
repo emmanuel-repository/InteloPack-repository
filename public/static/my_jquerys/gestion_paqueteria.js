@@ -278,6 +278,7 @@ $(document).ready(function () {
         var estatus_paquete = $('#estatus_paquete').val();
         var fecha_inicio = $('#fecha_inicio').val();
         var fecha_final = $('#fecha_final').val();
+        var no_guia = $('#no_guia').val();
         $.ajax({
             url: '/empleado/gestion_paqueteria/buscar',
             type: 'put',
@@ -287,6 +288,7 @@ $(document).ready(function () {
                 estatus_paquete: estatus_paquete,
                 fecha_inicio: fecha_inicio,
                 fecha_final: fecha_final,
+                no_guia: no_guia
             },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -14,6 +14,7 @@ class CreatePaquetesTable extends Migration
     public function up() {
         Schema::create('paquetes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('consecutivo_paquete', 10);
             $table->string('no_paquete', 25);
             $table->string('estado_destino', 50);
             $table->string('municipio_destino', 50);

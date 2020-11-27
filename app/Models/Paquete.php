@@ -49,7 +49,7 @@ class Paquete extends Model {
         }
     }
 
-    function insert_paquete_eventual($array_paquete, $array_eventual, 
+    function insert_paquete_eventual($array_paquete, $array_eventual,
         $array_cross_over, $array_consecutivo) {
         DB::beginTransaction();
         try {
@@ -418,7 +418,11 @@ class Paquete extends Model {
         $estatus_paquete = $array['estatus_paquete'];
         $fecha_inicio    = $array['fecha_inicio'];
         $fecha_final     = $array['fecha_final'];
+        $no_guia         = $array['no_guia'];
         $query           = "select * from paquetes where estatus_paquete <> 5 ";
+        if (!empty($no_guia)) {
+            $query .= "and no_paquete like binary'" . $no_guia . "' ";
+        }
         if (!empty($id_socursal)) {
             $query .= "and socursal_id = " . $id_socursal . " ";
         }

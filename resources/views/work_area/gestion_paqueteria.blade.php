@@ -5,8 +5,7 @@
                 <h5 class="text-secondary">Historial de paquetes</h5>
             </div>
             <div class="col-md-6 d-flex justify-content-end">
-                <a type="button" class="btn btn-sm btn-success text-white" id="btn_open_modal_barcode"
-                    data-toggle='tooltip' data-placement='right' title='Imprimir código de barra'>
+                <a type="button" class="btn btn-sm btn-success text-white" id="btn_open_modal_barcode" data-toggle='tooltip' data-placement='right' title='Imprimir código de barra'>
                     <i class="fa fa-barcode"></i> Imprimir código de barra
                 </a>
             </div>
@@ -14,7 +13,11 @@
     </div>
     <div class="card-body">
         <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-2">
+                <label for="recipient-name" class="col-form-label">No de guía:</label>
+                <input type="text" class="form-control password1" id="no_guia" name="no_guia">
+            </div>
+            <div class="form-group col-md-3">
                 <label for="recipient-name" class="col-form-label">Sucursales:</label>
                 <select class="form-control" id="sucursal" name="sucursal">
                     <option value="">Seleccione una opción...</option>
@@ -23,7 +26,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="recipient-name" class="col-form-label">Estatus paquete:</label>
                 <select class="form-control" id="estatus_paquete" name="estatus_paquete">
                     <option value="">Seleccione una opción...</option>
@@ -49,8 +52,7 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-bordered table-striped rounded table-sm" id="data_table_paquetes" width="100%"
-                cellspacing="0">
+            <table class="table table-bordered table-striped rounded table-sm" id="data_table_paquetes" width="100%" cellspacing="0">
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">No. de guía</th>
@@ -64,8 +66,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_detalle_paquete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modal_detalle_paquete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -175,8 +176,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-light btn_cancelar" id="btn_cancelar_privada_editar" data-dismiss="modal"
-                        aria-label="Close">
+                    <a class="btn btn-light btn_cancelar" id="btn_cancelar_privada_editar" data-dismiss="modal" aria-label="Close">
                         Cerrar
                     </a>
                 </div>
@@ -185,8 +185,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_bar_code" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modal_bar_code" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -202,8 +201,7 @@
                             <label for="recipient-name" class="col-form-label">Número de código de barra:</label>
                         </div>
                         <div class="form-group col-md-4">
-                            <input type="number" min="0" class="form-control" id="numero_bar_code"
-                                name="numero_bar_code">
+                            <input type="number" min="0" class="form-control" id="numero_bar_code" name="numero_bar_code">
                         </div>
                         <div class="form-group col-md-4">
                             <button class="btn btn-outline-warning" type="submit">
@@ -212,15 +210,13 @@
                         </div>
                         <div class="form-group col-md-12 d-flex justify-content-cente">
                             <div class='col-sm-12 d-flex justify-content-center'>
-                                <canvas id='canvas_bar_code' class='barcodeTarget pb-5' width='150'
-                                    height='150'></canvas>
+                                <canvas id='canvas_bar_code' class='barcodeTarget pb-5' width='150' height='150'></canvas>
                             </div>
                         </div>
                     </div>
                 </form>
                 <div class="modal-footer">
-                    <a class="btn btn-light btn_cancelar" id="btn_cancelar_privada_editar" data-dismiss="modal"
-                        aria-label="Close">
+                    <a class="btn btn-light btn_cancelar" id="btn_cancelar_privada_editar" data-dismiss="modal" aria-label="Close">
                         Cerrar
                     </a>
                     <a class="btn btn-primary" id="btn_imprimir_bar_code">
