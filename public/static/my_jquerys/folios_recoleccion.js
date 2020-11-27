@@ -40,6 +40,7 @@ $(document).ready(function () {
                 var image = {
                     image: array_bar[i],
                     width: 600,
+                    height: 250,
                     absolutePosition: { x: 100, y: 200 },
                     pageOrientation: 'landscape',
                 }
@@ -47,6 +48,7 @@ $(document).ready(function () {
                 var image = {
                     image: array_bar[i],
                     width: 600,
+                    height: 250,
                     pageBreak: 'after',
                     absolutePosition: { x: 100, y: 200 },
                     pageOrientation: 'landscape',
@@ -57,41 +59,43 @@ $(document).ready(function () {
         var docDefinition = {
             pageSize: 'LETTER',
             pageOrientation: 'landscape',
-            pageMargins: [40, 60, 40, 60],
+            pageMargins: [0, 100, 0, 90],
             content: [arreglo],
             header: function (currentPage, pageCount, pageSize) {
-                return [{
-                    image: image_base_64_logo,
-                    width: 190,
-                    height: 85,
-                    margin: 10
-                },
-                {
-                    text: 'InteloPack, Sistema de gestión de Paqueteria',
-                    absolutePosition: { x: 190, y: 28 },
-                    fontSize: 26,
-                    margin: 20
-                },
+                return [
+                    {
+                        margin: [ 0, 10, 0, 0 ],
+                        text: 'InteloPack',
+                        alignment: 'center',
+                        fontSize: 40,
+                    },
+                    {
+                        text: 'Sistema de gestión de Paqueteria',
+                        alignment: 'center',
+                        fontSize: 26,
+                    },
+                    {
+                        absolutePosition: { x: 590, y: 2},
+                        image: image_base_64_logo,
+                        width: 220,
+                        height: 120,
+                        margin: 10
+                    },
                 ]
             },
             footer: function (page, currentPage, pageCount) {
-                return {
-                    style: 'footer',
-                    table: {
-                        widths: ['*', 100],
-                        body: [
-                            [{
-                                text: 'Fecha de creacion: ' + fecha_convertida,
-                                alignment: 'center'
-                            },
-
-                            ]
-                        ]
+                return [
+                    {
+                        text: 'Fecha de creacion: ' + fecha_convertida,
+                        alignment: 'center',
+                        fontSize: 26,
                     },
-                    layout: 'noBorders',
-                    margin: [5, 0]
-                };
-
+                    {
+                        text: 'https://intelopack.intelo.com.mx',
+                        alignment: 'center',
+                        fontSize: 26,
+                    }
+                ];
             },
         };
         pdfMake.createPdf(docDefinition).print();

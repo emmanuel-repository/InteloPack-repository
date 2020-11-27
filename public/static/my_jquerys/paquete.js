@@ -187,41 +187,50 @@ $(document).ready(function () {
         var image = {
             image: image_code_bar_base_64,
             width: 600,
+            height: 250,
             absolutePosition: { x: 100, y: 200 },
             pageOrientation: 'landscape',
         }
         var docDefinition = {
             pageSize: 'LETTER',
             pageOrientation: 'landscape',
-            pageMargins: [40, 60, 40, 60],
+            pageMargins: [0, 100, 0, 90],
             content: [image],
             header: function (currentPage, pageCount, pageSize) {
                 return [
-                    { image: image_base_64_logo, width: 190, height: 85, margin: 10 },
                     {
-                        text: 'InteloPack, Sistema de gestión de Paqueteria',
-                        absolutePosition: { x: 190, y: 28 },
+                        margin: [ 0, 10, 0, 0 ],
+                        text: 'InteloPack',
+                        alignment: 'center',
+                        fontSize: 40,
+                    },
+                    {
+                        text: 'Sistema de gestión de Paqueteria',
+                        alignment: 'center',
                         fontSize: 26,
-                        margin: 20
+                    },
+                    {
+                        absolutePosition: { x: 590, y: 2},
+                        image: image_base_64_logo,
+                        width: 220,
+                        height: 120,
+                        margin: 10
                     },
                 ]
             },
             footer: function (page, currentPage, pageCount) {
-                return {
-                    style: 'footer',
-                    table: {
-                        widths: ['*', 100],
-                        body: [
-                            [{
-                                text: 'Fecha de creacion: ' + fecha_convertida,
-                                alignment: 'center'
-                            }]
-                        ]
+                return [
+                    {
+                        text: 'Fecha de creacion: ' + fecha_convertida,
+                        alignment: 'center',
+                        fontSize: 26,
                     },
-                    layout: 'noBorders',
-                    margin: [5, 0]
-                };
-
+                    {
+                        text: 'https://intelopack.intelo.com.mx',
+                        alignment: 'center',
+                        fontSize: 26,
+                    }
+                ];
             },
         };
         $("#modal_bar_code").modal("hide");

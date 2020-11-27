@@ -452,11 +452,9 @@ class Paquete extends Model {
                     ->select(DB::raw('LPAD(count(id) + 1, 3, 0) as folio_consecutivo'))
                     ->where('created_at', 'like', '%' . $fecha . '%')
                     ->get();
-
                 $no_paquete = $socuesal_formato . '-' .
-                $array['fecha'] . '-' . $empleado_formato . '-' .
-                $con[0]->folio_consecutivo;
-
+                    $array['fecha'] . '-' . $empleado_formato . '-' .
+                    $con[0]->folio_consecutivo;
                 DB::table('paquetes')->insert([
                     'consecutivo_paquete'   => $con[0]->folio_consecutivo,
                     'no_paquete'            => $no_paquete,
