@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $('#tabla_paquetes').DataTable({
         'language': {
             "sProcessing": "Procesando...",
@@ -26,7 +27,7 @@ $(document).ready(function () {
         }
     });
     $('#transporte').select2({ theme: 'bootstrap4' });
-
+    $('#socursal').select2({ theme: 'bootstrap4' });
     var form_validate_agregar = $('#form_validate_agregar_paquete').validate({
         rules: {
             transporte: {
@@ -54,6 +55,11 @@ $(document).ready(function () {
         submitHandler: function () {
             agregar_paquete_tabla()
         }
+    });
+
+    $(document).on('change', '#socursal', function () {
+        var id_socursal = $(this).val();
+        cargar_transportes(id_socursal);
     });
 
     $(document).on('change', '#transporte', function () {
@@ -147,6 +153,38 @@ $(document).ready(function () {
         });
     }
 
+    function cargar_transportes(id_socursal) {
+        $.ajax({
+            url: '/empleado/descarga_paquetes/' + id_socursal,
+            type: "delete",
+            dataType: "json",
+            data: { _token: CSRF_TOKEN },
+            success: function (data) {
+                if (data.response_code == 200) {
+                    var transporte = data.response_data;
+                    var select_transporte = $('#transporte');
+                    select_transporte.append('<option value="">Seleccione una opción</option>');
+                    for (var i = 0; i < transporte.length; i++) {
+                        select_transporte.append('<option value="' + transporte[i].id + '">'
+                            + "</br> <b>No de transporte:</b> "
+                            + transporte[i].no_transporte + ". </br> <b> | Matricula:</b> "
+                            + transporte[i].matricula_transporte +
+                            '</option>');
+                    }
+                    $('#socursal').select2({ disabled: true });
+                    $('#transporte').select2({ theme: 'bootstrap4' });
+                } else if (value.response_code == 500) {
+                    infoAlert("Verifica", value.response_text);
+                } else {
+                    infoAlert("Verifica", value.response_text);
+                }
+            },
+            error: function (xhr) {
+                infoAlert("Verifica", value.response_text);
+            }
+        });
+    }
+
     function cargar_operador(id_transporte) {
         $.ajax({
             url: '/empleado/descarga_paquetes/' + id_transporte,
@@ -158,12 +196,11 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.response_code == 200) {
                     var value = data.response_data;
-                    console.log(value.id);
                     $('#transporte').select2({ disabled: true });
                     $('#operador').attr("data-attr", value.id);
                     $('#operador').val(value.nombre_empleado + " "
                         + value.apellido_1_empleado + " "
-                        + value.apellido_2_empleado + " | "  
+                        + value.apellido_2_empleado + " | "
                         + value.no_empleado);
                 } else if (value.response_code == 500) {
                     infoAlert("Verifica", value.response_text);
@@ -231,8 +268,10 @@ $(document).ready(function () {
     }
 
     function limpiar_inputs() {
-        $("#transporte option[value='']").prop("selected", "selected");
+        $("#socursal option[value='']").prop("selected", "selected");
+        $('#socursal').select2({ disabled: false });
         $('#transporte').select2({ disabled: false });
+        $('#transporte').empty();
         $('#operador').removeAttr('data-attr');
         $('#codigo_barra').val('');
         $('#operador').val('');

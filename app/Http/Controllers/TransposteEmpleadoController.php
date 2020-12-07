@@ -80,7 +80,9 @@ class TransposteEmpleadoController extends Controller {
         return response()->json($data);
     }
 
-    public function destroy($id) {}
+    public function destroy($id) {
+        
+    }
 
     public function update(Request $request, $id) {}
 

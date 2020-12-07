@@ -125,10 +125,6 @@ $(document).ready(function () {
         insert();
     });
 
-    $(document).on('click', '#btn_prueba_pdf', function () {
-        pruba_pdf_html();
-    });
-
     $(document).on('click', '#btn_limpiar_tabla', function () {
         Swal.fire({
             title: '¿Esta seguro?',
@@ -503,15 +499,19 @@ $(document).ready(function () {
                 },
             ],
             footer: function (page, currentPage, pageCount) {
-                return {
-                    style: 'footer',
-                    table: {
-                        widths: ['*', 100],
-                        body: [[{ text: 'Fecha de creación: ', alignment: 'center' },]]
+                return [
+                    {
+                        text: 'Fecha de creacion: ' + fecha_convertida,
+                        alignment: 'center',
+                        fontSize: 12,
                     },
-                    layout: 'noBorders'
-                }
-            }
+                    {
+                        text: 'https://intelopack.intelo.com.mx',
+                        alignment: 'center',
+                        fontSize: 12,
+                    }
+                ];
+            },
         };
         pdfMake.createPdf(docDefinition).open();
     }
@@ -566,6 +566,12 @@ $(document).ready(function () {
 
         });
     }
+
+
+    // $(document).on('click', '#btn_prueba_pdf', function () {
+    //     pruba_pdf_html();
+    // });
+
 
     // function pruba_pdf_html() {
     //     var html = htmlToPdfmake(` `,

@@ -9,23 +9,31 @@
     <div class="card-body">
         <form id="form_validate_agregar_paquete">
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
+                    <label for="recipient-name" class="col-form-label">Sucursales</label>
+                    <select class="form-control select2" id="socursal" name="socursal">
+                        <option value="">Seleccione una opción</option>
+                        @foreach($sucursales as $item)
+                        <option value="{{$item->id}}">{{$item->nombre_socursal}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
                     <label for="recipient-name" class="col-form-label">Transporte</label>
                     <select class="form-control select2" id="transporte" name="transporte">
-                        <option value="">Seleccione una opción...</option>
-                        @foreach($transportes as $item)
+                        {{-- @foreach($transportes as $item)
                         <option value="{{$item->id}}">
                             No. de Transporte: {{$item->no_transporte}} |
                             Matricula: {{$item->matricula_transporte}}
                         </option>
-                        @endforeach
+                        @endforeach --}}
                     </select>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="recipient-name" class="col-form-label">Operador</label>
                     <input type="text" class="form-control" id="operador" name="operador" readonly>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="recipient-name" class="col-form-label">Código de Barra</label>
                     <input type="text" class="form-control" id="codigo_barra" name="codigo_barra" maxlength="50">
                 </div>

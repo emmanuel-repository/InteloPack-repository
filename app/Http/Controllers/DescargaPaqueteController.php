@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CrossOver;
 use App\Models\Paquete;
+use App\Models\Socursal;
 use App\Models\Transporte;
 use App\Models\TransporteEmpleado;
 use Illuminate\Http\Request;
@@ -16,12 +17,13 @@ class DescargaPaqueteController extends Controller {
     }
 
     public function index() {
-        $data                = array();
-        $data['titulo']      = 'Descarga de Paquetes | InteloPack';
-        $data['work_area']   = 'descarga_paquetes';
-        $data['my_jquery']   = 'descarga_paquetes.js';
-        $data['transportes'] = Transporte::all()->where('estatus_transporte', 1)
-            ->where('estatus_asignado_empleado', 1);
+        $data               = array();
+        $data['titulo']     = 'Descarga de Paquetes | InteloPack';
+        $data['work_area']  = 'descarga_paquetes';
+        $data['my_jquery']  = 'descarga_paquetes.js';
+        $data['sucursales'] = Socursal::all()->where('estatus_socursal', 1);
+        // $data['transportes'] = Transporte::all()->where('estatus_transporte', 1)
+        //     ->where('estatus_asignado_empleado', 1);
         return view('main')->with($data);
     }
 
@@ -63,7 +65,7 @@ class DescargaPaqueteController extends Controller {
     public function show($id) {
         $array                 = array();
         $empleado              = new TransporteEmpleado;
-        $select_empleado       = $empleado->select_transporte_operador_nombre($id);
+        $select_empleado      = $empleado->select_transporte_operador_nombre($id);
         $data['response_code'] = 200;
         $data['response_text'] = "Si hay datos";
         $data['response_data'] = $select_empleado;
@@ -72,7 +74,15 @@ class DescargaPaqueteController extends Controller {
 
     public function update(Request $request, $id) {}
 
-    public function destroy($id) {}
+    public function destroy($id) {
+        $array                 = array();
+        $transporte            = new Transporte;
+        $select_transporte      = $transporte->select_transporte_socuersal_descarga($id);
+        $data['response_code'] = 200;
+        $data['response_text'] = "Si hay datos";
+        $data['response_data'] = $select_transporte;
+        return response()->json($data);
+    }
 
     public function create() {}
 }
