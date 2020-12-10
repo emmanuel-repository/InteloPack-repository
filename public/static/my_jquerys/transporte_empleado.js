@@ -58,7 +58,7 @@ $(document).ready(function () {
         var tabla = $("#data_table_transporte_empleado").DataTable();
         var row = tabla.row($(this).parent().parent());
         var data = row.data();
-        var id_empleado = data.id;
+        var id_asignacion = data.id;
         Swal.fire({
             title: '¿Esta seguro?',
             text: "¡Activar esta Sucursal!",
@@ -70,7 +70,26 @@ $(document).ready(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
-                quitar_asinacion(id_empleado)
+                $.ajax({
+                    url: "/empleado/transporte_empleado/" + id_asignacion,
+                    type: "delete",
+                    dataType: "json",
+                    data: { _token: CSRF_TOKEN },
+                    success: function (data) {
+                        if (data.response_code == 200) {
+                            successAlert(data.response_text);
+                            tabla.row(row).remove().draw(false);
+                        } else if (data.response_code == 500) {
+                            infoAlert("Verifica", data.response_text);
+                        } else {
+                            infoAlert("Verifica", data.response_text);
+                        }
+                    },
+                    error: function (xhr) {
+                        infoAlert("Verifica", data.response_text);
+                    }
+                });
+                
             }
         });
     });
@@ -103,28 +122,6 @@ $(document).ready(function () {
                 }
             },
             error: function (xhre) {
-                infoAlert("Verifica", data.response_text);
-            }
-        });
-    }
-
-    function quitar_asinacion(id) {
-        $.ajax({
-            url: "/empleado/transporte_empleado/" + id,
-            type: "delete",
-            dataType: "json",
-            data: { _token: CSRF_TOKEN },
-            success: function (data) {
-                if (data.response_code == 200) {
-
-
-                } else if (data.response_code == 500) {
-                    infoAlert("Verifica", data.response_text);
-                } else {
-                    infoAlert("Verifica", data.response_text);
-                }
-            },
-            error: function (xhr) {
                 infoAlert("Verifica", data.response_text);
             }
         });

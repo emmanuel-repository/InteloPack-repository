@@ -147,4 +147,16 @@ class TransporteEmpleado extends Model {
         }
     }
 
+    public function delete_asignacion_transporte_operador($id) {
+        DB::beginTransaction();
+        try {
+            DB::table('transporte_empleados')
+                ->where('id', '=', $id)->delete();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e;
+        }
+
+    }
 }
