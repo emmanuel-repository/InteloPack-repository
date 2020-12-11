@@ -59,6 +59,8 @@ $(document).ready(function () {
         var row = tabla.row($(this).parent().parent());
         var data = row.data();
         var id_asignacion = data.id;
+        var transporte_id = data.transporte_id;
+        var operador_id = data.empleado_id;
         Swal.fire({
             title: '¿Esta seguro?',
             text: "¡Activar esta Sucursal!",
@@ -72,9 +74,15 @@ $(document).ready(function () {
             if (result.value) {
                 $.ajax({
                     url: "/empleado/transporte_empleado/" + id_asignacion,
-                    type: "delete",
-                    dataType: "json",
-                    data: { _token: CSRF_TOKEN },
+                    type: 'put',
+                    dataType: 'json',
+                    data: {
+                        transporte_id: transporte_id,
+                        operador_id: operador_id
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     success: function (data) {
                         if (data.response_code == 200) {
                             successAlert(data.response_text);
@@ -89,7 +97,7 @@ $(document).ready(function () {
                         infoAlert("Verifica", data.response_text);
                     }
                 });
-                
+
             }
         });
     });
@@ -192,7 +200,7 @@ $(document).ready(function () {
                         }],
                     });
                     $('[data-toggle="tooltip"]').tooltip();
-                } else if (data.response_code == "500") {}
+                } else if (data.response_code == "500") { }
             },
             error: function (xhr) {
                 infoAlert('Error Fatal', 'Se produjo un error desconocido');
@@ -214,7 +222,7 @@ $(document).ready(function () {
                 select_2.append('<option value="">Seleccione una opción</option>');
                 for (var i = 0; i < empleado.length; i++) {
                     select_2.append('<option value="' + empleado[i].id + '">'
-                     + "<b>No. de Empleado:</b> " + empleado[i].no_empleado + " | "
+                        + "<b>No. de Empleado:</b> " + empleado[i].no_empleado + " | "
                         + empleado[i].nombre_empleado + " "
                         + empleado[i].apellido_1_empleado + " "
                         + empleado[i].apellido_2_empleado + '</option>');
@@ -240,8 +248,8 @@ $(document).ready(function () {
                 select_2.append('<option value="">Seleccione una matricula de Transporte</option>');
                 for (var i = 0; i < transporte.length; i++) {
                     select_2.append('<option value="' + transporte[i].id + '">'
-                        + 'No. de transporte: ' + transporte[i].no_transporte + ' | ' 
-                        + 'Matricula: '  + transporte[i].matricula_transporte + '</option>');
+                        + 'No. de transporte: ' + transporte[i].no_transporte + ' | '
+                        + 'Matricula: ' + transporte[i].matricula_transporte + '</option>');
                 }
             },
             error: function (xhr) {

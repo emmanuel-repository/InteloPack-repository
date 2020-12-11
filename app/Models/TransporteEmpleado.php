@@ -13,7 +13,8 @@ class TransporteEmpleado extends Model {
             ->join('transportes as t', 't.id', "=", 'te.transporte_id')
             ->join('socursals as s', 's.id', '=', 'e.socursal_id')
             ->select('te.id', 't.no_transporte', 't.matricula_transporte', 'e.nombre_empleado',
-                'e.apellido_1_empleado', 'e.apellido_2_empleado', 's.nombre_socursal')
+                'e.apellido_1_empleado', 'e.apellido_2_empleado', 's.nombre_socursal',
+                'te.empleado_id', 'te.transporte_id')
             ->get();
     }
 
@@ -147,11 +148,18 @@ class TransporteEmpleado extends Model {
         }
     }
 
-    public function delete_asignacion_transporte_operador($id) {
+    public function desasignacion_transporte_operador($array) {
         DB::beginTransaction();
         try {
             DB::table('transporte_empleados')
-                ->where('id', '=', $id)->delete();
+                ->where('id', '=', $array['id'])->delete();
+            DB::table('empleados')
+                ->where('id', $array['operador_id'])
+                ->update(['estatus_asignado_transporte' => 0]);
+            DB::table('transportes')
+                ->where('id', $array['transporte_id'])
+                ->update(['estatus_asignado_empleado' => 0]);
+            DB::commit();
             return true;
         } catch (\Exception $e) {
             DB::rollback();

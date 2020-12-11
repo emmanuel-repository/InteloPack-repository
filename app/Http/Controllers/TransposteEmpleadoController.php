@@ -80,11 +80,17 @@ class TransposteEmpleadoController extends Controller {
         return response()->json($data);
     }
 
-    public function destroy($id) {
-        $data                     = array();
-        $transporte_operador      = new TransporteEmpleado;
-        $delete = $transporte_operador->delete_asignacion_transporte_operador($id);
-        if ($delete == 1) {
+    public function destroy($id) {}
+
+    public function update(Request $request, $id) {
+        $data                = array();
+        $transporte_operador = new TransporteEmpleado;
+        $array               = array(
+            'id'            => $id,
+            'operador_id'   => $request->input('operador_id'),
+            'transporte_id' => $request->input('transporte_id'),
+        );
+        if ($transporte_operador->desasignacion_transporte_operador($array)) {
             $data['response_code'] = 200;
             $data['response_text'] = "Se dio de baja con éxito este registro";
         } else {
@@ -93,7 +99,5 @@ class TransposteEmpleadoController extends Controller {
         }
         return response()->json($data);
     }
-
-    public function update(Request $request, $id) {}
 
 }
