@@ -117,8 +117,8 @@ class SocursalController extends Controller {
             'no_exterior_editar'        => 'required|nullable',
         ]);
         if (!$validator->fails()) {
-            $existe_nombre_socursal = Validator::make($request->all(), [
-                'nombre_socursal_editar' => 'unique:socursals, nombre_socursal,' . $id,
+            $existe_nombre_socursal =  Validator::make($request->all(), [
+                'nombre_socursal_editar' => 'unique:socursals,nombre_socursal, ' . $id,
             ]);
             if (!$existe_nombre_socursal->fails()) {
                 $data                             = array();
