@@ -414,12 +414,13 @@ class Paquete extends Model {
     }
 
     public function select_paquete_filtros($array) {
-        $id_socursal     = $array['id_socursal'];
-        $estatus_paquete = $array['estatus_paquete'];
-        $fecha_inicio    = $array['fecha_inicio'];
-        $fecha_final     = $array['fecha_final'];
-        $no_guia         = $array['no_guia'];
-        $query           = "select * from paquetes where estatus_paquete <> 5 ";
+        $id_socursal      = $array['id_socursal'];
+        $estatus_paquete  = $array['estatus_paquete'];
+        $fecha_inicio     = $array['fecha_inicio'];
+        $fecha_final      = $array['fecha_final'];
+        $no_guia          = $array['no_guia'];
+        $id_auth_socursal = $array['socursal_id_auth'];
+        $query            = "select * from paquetes where estatus_paquete <> 5 ";
         if (!empty($no_guia)) {
             $query .= "and no_paquete like binary'" . $no_guia . "' ";
         }
@@ -435,6 +436,10 @@ class Paquete extends Model {
         if (!empty($fecha_inicio) && !empty($fecha_final)) {
             $query .= "and created_at  between '"
                 . $fecha_inicio . "' and '" . $fecha_final . "' ";
+        }
+        if (empty($estatus_paquete) && empty($fecha_inicio)
+            && empty($fecha_final) && empty($no_guia) && empty($id_socursal)) {
+            $query .= "and socursal_id = " . $id_auth_socursal;
         }
         return DB::select($query);
     }
@@ -453,8 +458,8 @@ class Paquete extends Model {
                     ->where('created_at', 'like', '%' . $fecha . '%')
                     ->get();
                 $no_paquete = $socuesal_formato . '-' .
-                    $array['fecha'] . '-' . $empleado_formato . '-' .
-                    $con[0]->folio_consecutivo;
+                $array['fecha'] . '-' . $empleado_formato . '-' .
+                $con[0]->folio_consecutivo;
                 DB::table('paquetes')->insert([
                     'consecutivo_paquete'   => $con[0]->folio_consecutivo,
                     'no_paquete'            => $no_paquete,

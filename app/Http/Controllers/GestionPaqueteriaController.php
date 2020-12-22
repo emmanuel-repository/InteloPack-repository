@@ -77,11 +77,12 @@ class GestionPaqueteriaController extends Controller {
 
     public function update(Request $request, $id) {
         $array = array(
-            'id_socursal'     => $request->input('id_socursal'),
-            'estatus_paquete' => $request->input('estatus_paquete'),
-            'fecha_inicio'    => $request->input('fecha_inicio'),
-            'fecha_final'     => $request->input('fecha_final'),
-            'no_guia'         => $request->input('no_guia'),
+            'id_socursal'      => $request->input('id_socursal'),
+            'estatus_paquete'  => $request->input('estatus_paquete'),
+            'fecha_inicio'     => $request->input('fecha_inicio'),
+            'fecha_final'      => $request->input('fecha_final'),
+            'no_guia'          => $request->input('no_guia'),
+            'socursal_id_auth' => Auth::user()->socursal_id,
         );
         $paquete               = new Paquete;
         $select_paquete        = $paquete->select_paquete_filtros($array);
