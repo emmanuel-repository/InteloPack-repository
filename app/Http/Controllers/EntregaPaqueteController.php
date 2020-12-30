@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paquete;
+use App\Models\Visita;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,14 +42,14 @@ class EntregaPaqueteController extends Controller {
     }
 
     public function update(Request $request, $id) {
-        $data  = array();
+        $data    = array();
         $paquete = new Paquete;
-        $array = array(
+        $array   = array(
             'bar_code'    => $id,
             'fecha'       => $request->input('fecha'),
             'hora'        => $request->input('hora'),
             'socursal_id' => Auth::user()->socursal_id,
-            'empleado_id' => Auth::user()->id
+            'empleado_id' => Auth::user()->id,
         );
         if ($paquete->update_estatus_entrega($array)) {
             $data['response_code'] = 200;
@@ -60,11 +61,39 @@ class EntregaPaqueteController extends Controller {
         return response()->json($data);
     }
 
+    public function store(Request $request) {
+        $data        = array();
+        $vista       = new Visita;
+        $descripcion = '';
+        switch ($request->input('opcion_descricpion')) {
+        case 'opcion_1':
+            $descripcion = "No se encontro el domicilio";
+            break;
+        case 'opcion_2':
+            $descripcion = "No se encuetra el destinatario para recibir el paquete";
+            break;
+        case 'opcion_3':
+            $descripcion = "El domicilio es incorrecto";
+            break;
+        }
+        $array = array(
+            'descripcion_visita' => $descripcion,
+            'fecha'              => $request->input('fecha'),
+            'no_paquete'         => $request->input('no_paquete'),
+        );
+        if($vista->insert_visita($array)){
+            $data['response_code'] = 200;
+            $data['response_text'] = 'Se guardo con exito';
+        } else {
+            $data['response_code'] = 500;
+            $data['response_text'] = 'No se guardaron los datos';
+        }
+        return response()->json($data);
+    }
+
     public function edit($id) {}
 
     public function create() {}
-
-    public function store(Request $request) {}
 
     public function destroy($id) {}
 }

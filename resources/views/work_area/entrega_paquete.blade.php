@@ -62,6 +62,7 @@
                     <a class="btn btn-light btn_cancelar" data-dismiss="modal" aria-label="Close">
                         Cancelar
                     </a>
+                    <a class="btn btn-warning" id="btn_visita_paquete">Visita</a>
                     <a class="btn btn-primary" id="btn_entregar_paquete">Entregar</a>
                 </div>
             </form>

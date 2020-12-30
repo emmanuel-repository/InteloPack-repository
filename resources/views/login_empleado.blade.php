@@ -48,8 +48,7 @@
                     </div>
                     @endif
                     <div class="input-group mb-3">
-                        <input id="email" type="email" class="form-control 
-                            @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required
+                        <input id="email" type="email" class="form-control" name="email" value="" required
                             autocomplete="email" autofocus placeholder="Correo">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -58,8 +57,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="password" type="password" class="form-control 
-                            @error('password') is-invalid @enderror" name="password" required
+                        <input id="password" type="password" class="form-control" name="password" required
                             autocomplete="current-password" placeholder="Contraseña">
                         <div class="input-group-append">
                             <div class="input-group-text">

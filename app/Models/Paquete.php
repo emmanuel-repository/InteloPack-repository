@@ -351,7 +351,7 @@ class Paquete extends Model {
             return false;
         }
     }
-
+    
     public function update_estatus_entrega($array) {
         DB::beginTransaction();
         try {

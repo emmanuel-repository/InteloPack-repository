@@ -40,14 +40,15 @@
         .navbar-navy {
             background-color: #001f3f !important;
         }
-
         .password-icon {
             float: right;
             position: relative;
             margin: -26px 10px 0 0;
             cursor: pointer;
         }
-
+        .swal2-radio {
+            display: grid !important;
+        }
     </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -97,7 +98,7 @@
     <!-- Select2 -->
     <script src="{{url('static/plugins/select2/js/select2.full.min.js')}}"></script>
     {{-- sweetalert 2 script --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{url('static/plugins/sweetalert2/sweetalert2.all.min.js')}}"></script>
     <!-- Bootstrap Switch -->
     <script src="{{url('static/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
     {{-- Jquery Bar Code--}}

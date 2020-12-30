@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');  
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     var resultCollector = Quagga.ResultCollector.create({
         capture: true,
         capacity: 20,
@@ -89,9 +89,9 @@ $(document).ready(function () {
             frequency: 10,
             decoder: {
                 readers: [
-                    "code_128_reader", 
-                    'ean_8_reader', 
-                    'ean_reader', 
+                    "code_128_reader",
+                    'ean_8_reader',
+                    'ean_reader',
                     'code_39_reader',
                     'code_39_vin_reader',
                     'codabar_reader',
@@ -134,7 +134,55 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#btn_entregar_paquete', function () {
-        updata(); 
+        Swal.fire({
+            title: '¿Esta seguro?',
+            text: "¡Marcar como entregado este paquete!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Si!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                updata();
+            }
+        })
+    });
+
+    $(document).on('click', '#btn_visita_paquete', function () {  
+        Swal.fire({
+            title: '¿Esta seguro?',
+            text: "¡Marcar como entregado este paquete!",
+            icon: 'warning',
+            inputPlaceholder: 'Decripcion de visita',
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Si!',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            input: 'radio',
+            inputOptions: {
+                'opcion_1': 'No se encuentro el domicilio',
+                'opcion_2': 'No se encuetra el destinatario para recibir el paquete',
+                'opcion_3': 'El domicilio es incorrecto',
+            },
+            inputValidator: (value) => {
+                if (!value) {
+                  return '¡Tienes que elegir una opcion!!'
+                } else {
+                    var hoy = new Date();
+                    const array = {
+                        opcion_descricpion: value,
+                        fecha:  moment(hoy).format('YYYY-MM-DD hh:mm:ss a'),
+                        no_paquete: $('#no_paquete').val()
+                    }
+                    insert(array)
+                }
+              }
+        })
     });
 
     $(document).on('click', '.btn_cancelar', function () {
@@ -146,7 +194,6 @@ $(document).ready(function () {
     Quagga.onProcessed(function (result) {
         var drawingCtx = Quagga.canvas.ctx.overlay,
             drawingCanvas = Quagga.canvas.dom.overlay;
-
         if (result) {
             if (result.boxes) {
                 drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")),
@@ -158,12 +205,10 @@ $(document).ready(function () {
                         drawingCtx, { color: "green", lineWidth: 2 });
                 });
             }
-
             if (result.box) {
                 Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 },
                     drawingCtx, { color: "#00F", lineWidth: 2 });
             }
-
             if (result.codeResult && result.codeResult.code) {
                 Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' },
                     drawingCtx, { color: 'red', lineWidth: 3 });
@@ -192,6 +237,7 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.response_code == 200) {
                     var value = data.response_data;
+                    $.fn.modal.Constructor.prototype._enforceFocus = function () { }
                     $('#modal_datos_cliente').modal({
                         backdrop: 'static', keyboard: false
                     });
@@ -224,7 +270,7 @@ $(document).ready(function () {
             dataType: 'json',
             data: {
                 fecha: fecha,
-                hora:hora
+                hora: hora
             },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -247,13 +293,34 @@ $(document).ready(function () {
         });
     }
 
+    function insert(array) {
+        alertLoader()
+        $.ajax({
+            url: '/empleado/entrega_paquete',
+            type: 'post',
+            dataType: 'json',
+            data: array,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                limpiar_inputs();
+                $('#bar_code_escaner').val('');
+                $("#modal_datos_cliente").modal("hide");
+                successAlert(data.response_text);
+            },
+            error: function (xhre) {
+                infoAlert("Verifica", data.response_text);
+            }
+        });
+    }
+
     function limpiar_inputs() {
         $('#no_paquete').val('');
         $('#nombre').val('');
         $('#apellido_1').val('');
         $('#apellido_2').val('');
     }
-
 
     function infoAlert(mensaje, text) {
         Swal.fire(
