@@ -69,49 +69,68 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.response_code == 200) {
-                    var value = data.response_data;
-                    var values = data.response_data_1
+                    var array = [];
+                    var array_order = [];
                     var contenido = '';
-                    $('#texto_fecha').text(value.created_at);
-                    $('#texto_nombre').text(value.nombre + ' ' + value.apellido_1
-                        + ' ' + value.apellido_2);
-                    $('#text_no_guia').text(value.no_paquete);
+                    var cliente = data.response_data_cliente;
+                    var rastreo = data.response_data_rastreo;
+                    var visitas = data.response_data_visitas;
+                    $('#texto_fecha').text(cliente.created_at);
+                    $('#texto_nombre').text(cliente.nombre + ' ' + cliente.apellido_1
+                        + ' ' + cliente.apellido_2);
+                    $('#text_no_guia').text(cliente.no_paquete);
                     $('.timeline').removeClass('d-none');
                     $('#imagen_portada').addClass('d-none');
-                    for (var i = 0; i < values.length; i++) {
+                    if (visitas != undefined) {
+                        array = rastreo.concat(visitas)
+                        array_order = array.sort((a, b) => (a.estatus_cross_over 
+                            > b.estatus_cross_over) ? 1 : -1);
+                        console.log(array_order);
+                    } else {
+                        array_order = rastreo;
+                    }
+                    for (var i = 0; i < array_order.length; i++) {
                         if (i == 0) {
                             contenido += '<div class="time-label">'
-                                + '<span class="bg-red">' + values[i].fecha_cross_over + '</span>'
+                                + '<span class="bg-red">' + array_order[i].fecha_cross_over + '</span>'
                                 + '</div><div><i class="fas fa-warehouse bg-info"></i>'
                                 + '<div class="timeline-item">'
                                 + '<span class="time"><i class="fas fa-calendar-alt"></i> '
-                                + values[i].fecha_cross_over + ' </span>'
+                                + array_order[i].fecha_cross_over + ' </span>'
                                 + '<h3 class="timeline-header">Paquete creado en espera de salida '
-                                + '(Sucursal: ' + values[i].nombre_socursal + ', '
-                                + values[i].estado_socursal + ') </h3></div></div>'
+                                + '(Sucursal: ' + array_order[i].nombre_socursal + ', '
+                                + array_order[i].estado_socursal + ') </h3></div></div>'
                         } else {
-                            if (values[i].estatus_cross_over == 2) {
+                            if (array_order[i].estatus_cross_over == 2) {
                                 contenido += '<div>' + '<i class="fas fa-truck bg-success"></i>'
                                     + '<div class="timeline-item"><span class="time">'
                                     + '<i class="fas fa-calendar-alt"></i> '
-                                    + values[i].fecha_cross_over + '</span>'
+                                    + array_order[i].fecha_cross_over + '</span>'
                                     + '<h3 class="timeline-header no-border">Paquete en ruta'
                                     + '</h3></div></div>'
-                            } else if (values[i].estatus_cross_over == 3) {
+                            } else if (array_order[i].estatus_cross_over == 3) {
                                 contenido += '<div>' + '<i class="fas fa-warehouse bg-warning"></i>'
                                     + '<div class="timeline-item"><span class="time">'
                                     + '<i class="fas fa-calendar-alt"></i> '
-                                    + values[i].fecha_cross_over + '</span>'
+                                    + array_order[i].fecha_cross_over + '</span>'
                                     + '<h3 class="timeline-header no-border">'
                                     + 'En sucursal intermedia ' + '(Socursal: '
-                                    + values[i].nombre_socursal + ', '
-                                    + values[i].estado_socursal + ') </h3></div></div>'
-                            } else if (values[i].estatus_cross_over == 4) {
+                                    + array_order[i].nombre_socursal + ', '
+                                    + array_order[i].estado_socursal + ') </h3></div></div>'
+                            } else if (array_order[i].estatus_cross_over == 4) {
                                 contenido += '<div>' + '<i class="fas fa-clipboard-check bg-primary">'
                                     + '</i><div class="timeline-item">'
                                     + '<span class="time"><i class="fas fa-calendar-alt"></i> '
-                                    + values[i].fecha_cross_over + '</span>'
-                                    + '<h3 class="timeline-header no-border">Entregado</h3></div></div>'
+                                    + array_order[i].fecha_cross_over + '</span>'
+                                    + '<h3 class="timeline-header no-border">Envío entregado</h3></div></div>'
+                            } else if (array_order[i].estatus_cross_over == 3.5) {
+                                contenido += '<div>' + '<i class="fas fa-dolly"'
+                                    + 'style="color: #fff!important; background-color: #fd7e14!important;"> '
+                                    + '</i><div class="timeline-item">'
+                                    + '<span class="time"><i class="fas fa-calendar-alt"></i> '
+                                    + array_order[i].fecha_cross_over + '</span>'
+                                    + '<h3 class="timeline-header no-border"> Visitado en domicilio. '
+                                    + array_order[i].descripcion_visita + '</h3></div></div>'
                             }
                         }
                     }

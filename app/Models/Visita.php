@@ -15,7 +15,7 @@ class Visita extends Model {
                 ->first();
             DB::table('visitas')->insert([
                 'descripcion_visita' => $array['descripcion_visita'],
-                'fecha_visita'        => $array['fecha'],
+                'fecha_visita'       => $array['fecha'],
                 'paquete_id'         => $paquete->id,
                 'created_at'         => date("Y-m-d H:i:s"),
                 'updated_at'         => date("Y-m-d H:i:s"),
@@ -25,6 +25,22 @@ class Visita extends Model {
         } catch (\Exception $e) {
             DB::rollback();
             return $e;
+        }
+    }
+
+    public function select_visitas($no_paquete) {
+        DB::beginTransaction();
+        try {
+            $paquete = DB::table('paquetes as p')->select('p.id')
+                ->where('p.no_paquete', $no_paquete)->first();
+            $vistas = DB::table('visitas')
+                ->select('descripcion_visita', 'fecha_visita as fecha_cross_over',
+                    DB::raw('"3.5" as estatus_cross_over'))
+                ->where('paquete_id', $paquete->id)->orderBy('fecha_cross_over', 'desc')->get();
+            DB::commit();
+            return $vistas;
+        } catch (\Throwable $th) {
+            return $vistas = $th;
         }
     }
 }
