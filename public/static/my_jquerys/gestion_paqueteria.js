@@ -145,7 +145,7 @@ $(document).ready(function () {
                                 } else if (data.estatus_paquete == 2) {
                                     text = "<div class='text-warning'>En ruta</div>";
                                 } else if (data.estatus_paquete == 3) {
-                                    text = "<div class='text-info'>En socursal intermedia</div>";
+                                    text = "<div class='text-info'>En sucursal intermedia</div>";
                                 } else if (data.estatus_paquete == 4) {
                                     text = "<div class='text-primary'>Entregado a su destinatario</div>";
                                 }
