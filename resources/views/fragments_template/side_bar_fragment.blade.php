@@ -60,7 +60,7 @@
                           <li class="nav-item">
                               <a href="{{route('folios_recoleccion.index')}}" class="nav-link">
                                   <i class="fas fa-barcode nav-icon"></i>
-                                  <p>Folios de Repartidor</p>
+                                  <p>Folios de Recolección</p>
                               </a>
                           </li>
                       </ul>
@@ -146,7 +146,7 @@
                   <li class="nav-item">
                       <a href="{{route('folios_recoleccion.index')}}" class="nav-link">
                           <i class="fas fa-barcode nav-icon"></i>
-                          <p>Folios de Repartidor</p>
+                          <p>Folios de Recolección</p>
                       </a>
                   </li>
                   {{-- </ul>
@@ -188,7 +188,7 @@
                   <li class="nav-item">
                       <a href="{{route('folios_recoleccion.index')}}" class="nav-link">
                           <i class="fas fa-barcode nav-icon"></i>
-                          <p>Folios de Repartidor</p>
+                          <p>Folios de Recolección</p>
                       </a>
                   </li>
                   @elseif(Auth::user()->tipo_empleado_id == "4")

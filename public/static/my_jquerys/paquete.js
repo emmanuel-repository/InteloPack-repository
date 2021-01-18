@@ -140,13 +140,13 @@ $(document).ready(function () {
 
     $('#checkbox_cliente_frecuente').on('switchChange.bootstrapSwitch', function (event, state) {
         if (state) {
-            add_input_direccion()
+            add_input_direccion();
             add_disabled();
-            limpiar_input()
+            limpiar_input();
         } else {
-            add_select_direccion()
+            add_select_direccion();
             remove_disabled();
-            limpiar_input()
+            limpiar_input();
         }
     });
 

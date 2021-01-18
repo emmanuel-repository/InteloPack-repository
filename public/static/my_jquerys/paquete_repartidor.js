@@ -105,7 +105,6 @@ $(document).ready(function () {
         lastResult: null
     };
 
-
     cargar_estados_sepomex();
     cargar_estados_sepomex_cliente();
 

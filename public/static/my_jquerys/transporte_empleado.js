@@ -63,12 +63,12 @@ $(document).ready(function () {
         var operador_id = data.empleado_id;
         Swal.fire({
             title: '¿Esta seguro?',
-            text: "¡Activar esta Sucursal!",
+            text: "¡Desasignar este transporte a operador!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, activar Sucursal!',
+            confirmButtonText: '¡Si!',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {

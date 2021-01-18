@@ -171,12 +171,12 @@ $(document).ready(function () {
         var id_cliente = data.id;
         Swal.fire({
             title: '¿Esta seguro?',
-            text: "¡Desactivar esta Sucursal!",
+            text: "¡Desactivar este Cliente!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, desactivar Sucursal!',
+            confirmButtonText: 'Si, desactivar!',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
@@ -210,12 +210,12 @@ $(document).ready(function () {
         var id_cliente = data.id;
         Swal.fire({
             title: '¿Esta seguro?',
-            text: "¡Activar esta Sucursal!",
+            text: "¡Activar esta Cliente!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, activar Sucursal!',
+            confirmButtonText: 'Si, activar!',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {

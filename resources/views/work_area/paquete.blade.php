@@ -9,7 +9,9 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="recipient-name" class="col-form-label">Cliente registrado: </label>
-                    <input class="form-control" type="checkbox" name="my-checkbox" data-bootstrap-switch data-on-text="SI" data-off-text="NO" value="true" id="checkbox_cliente_frecuente">
+                    <input class="form-control" type="checkbox" name="my-checkbox" 
+                        data-bootstrap-switch data-on-text="SI" data-off-text="NO" 
+                        value="true" id="checkbox_cliente_frecuente">
                 </div>
                 <div class="form-group col-md-4 d-none" id="form_select_cliente">
                     <label for="recipient-name" class="col-form-label">Razón social</label>
@@ -109,6 +111,14 @@
                     <input type="text" class="form-control" id="telefono_2_cliente" name="telefono_2_cliente" 
                         onKeyUp="document.getElementById(this.id).value 
                             = document.getElementById(this.id).value.toUpperCase()" maxlength="12">
+                </div>
+                <div class="form-group col-md-3 mt-5 ml-5 d-none" id='container_check'>
+                    <div class="icheck-primary d-inline" id="check_guardar_eventual">
+                        <input type="checkbox" id="checkboxPrimary1">
+                        <label for="checkboxPrimary1">
+                        Marque en caso de que quierá guardar este Cliente
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group col-md-12">
                     <h5 class="text-secondary">Datos de salida del Paquete</h5>

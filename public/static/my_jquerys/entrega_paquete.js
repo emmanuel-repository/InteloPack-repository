@@ -155,7 +155,7 @@ $(document).ready(function () {
             title: '¿Esta seguro?',
             text: "¡Marcar como entregado este paquete!",
             icon: 'warning',
-            inputPlaceholder: 'Decripcion de visita',
+            inputPlaceholder: 'Descripción de visita',
             input: 'text',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

@@ -108,7 +108,7 @@ $(document).ready(function () {
     function confirmar_generar_bar_codes() {
         Swal.fire({
             title: '¿Esta seguro?',
-            text: "¡Generar Codigos de Barras!",
+            text: "¡Generar código de barras!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

@@ -188,7 +188,7 @@
                                 maxlength="50">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="recipient-name" class="col-form-label">Razon Social*</label>
+                            <label for="recipient-name" class="col-form-label">Razón Social*</label>
                             <input type="text" class="form-control" id="razon_social_cliente_editar"
                                 name="razon_social_cliente_editar"
                                 onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()"
@@ -252,12 +252,12 @@
                                 name="email_cliente_editar" maxlength="70">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Telefono 1*</label>
+                            <label for="recipient-name" class="col-form-label">Teléfono 1*</label>
                             <input type="text" class="form-control" id="telefono1_cliente_editar"
                                 name="telefono1_cliente_editar" maxlength="10">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="recipient-name" class="col-form-label">Telefono 2</label>
+                            <label for="recipient-name" class="col-form-label">Teléfono 2</label>
                             <input type="text" class="form-control" id="telefono2_cliente_editar"
                                 name="telefono2_cliente_editar" maxlength="10">
                         </div>
