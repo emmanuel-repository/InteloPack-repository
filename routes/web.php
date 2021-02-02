@@ -38,4 +38,10 @@ Route::prefix('empleado')->group(function () {
         ->name('paquete.create_eventual');
     Route::resource('soporte', 'SoporteController');
     Route::resource('prueba', 'PruebaController');
+
+    Route::get('/spa/{any}', 'SpaController@index')->where('any', '.*');
 });
+
+
+
+    
