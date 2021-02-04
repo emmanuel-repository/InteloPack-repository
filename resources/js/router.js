@@ -13,7 +13,13 @@ const routes = [
         path: '/empleado/spa/paquete_repartidor',
         name: 'RepartidorPaquete',
         component: () => import('./components/PaqueteRepartidor.vue'),
-        meta: { title: 'Bienvenidos | InteloPack' }
+        meta: { title: 'Paquete Repartidor | InteloPack' }
+    },
+    {
+        path: '/empleado/spa/entrega_paquete',
+        name: 'EntregaPaquete',
+        component: () => import('./components/EntregaPaquete.vue'),
+        meta: { title: 'Entrega de Paquete | InteloPack' }
     },
 ]
 

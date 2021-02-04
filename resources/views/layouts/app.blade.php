@@ -8,7 +8,8 @@
     <title>{{ config('app.name', 'AdminLTE') }}</title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{url('static/plugins/wizard/bd-wizard.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <style>
         .navbar-navy {
             background-color: #001f3f !important;
@@ -34,6 +35,7 @@
     </div>
 
     <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="https://rawgit.com/PygmySlowLoris/vue-stepper/master/dist/build.js"></script> --}}
 </script>
 </body>
 
